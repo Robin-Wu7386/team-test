@@ -1,0 +1,402 @@
+2025-12-21 21:40:53 [scrapy.utils.log] INFO: Scrapy 2.13.4 started (bot: scrapybot)
+2025-12-21 21:40:53 [scrapy.utils.log] INFO: Versions:
+{'lxml': '6.0.2',
+ 'libxml2': '2.11.9',
+ 'cssselect': '1.3.0',
+ 'parsel': '1.10.0',
+ 'w3lib': '2.3.1',
+ 'Twisted': '25.5.0',
+ 'Python': '3.11.9 | packaged by Anaconda, Inc. | (main, Apr 19 2024, '
+           '16:40:41) [MSC v.1916 64 bit (AMD64)]',
+ 'pyOpenSSL': '24.0.0 (OpenSSL 3.0.16 11 Feb 2025)',
+ 'cryptography': '42.0.5',
+ 'Platform': 'Windows-10-10.0.22621-SP0'}
+2025-12-21 21:40:53 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-12-21 21:40:53 [scrapy.extensions.telnet] INFO: Telnet Password: ad1d7bf8ea029dbb
+2025-12-21 21:40:53 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats',
+ 'scrapy.extensions.throttle.AutoThrottle']
+2025-12-21 21:40:53 [scrapy.crawler] INFO: Overridden settings:
+{'AUTOTHROTTLE_ENABLED': True,
+ 'AUTOTHROTTLE_MAX_DELAY': 5,
+ 'AUTOTHROTTLE_START_DELAY': 0.2,
+ 'AUTOTHROTTLE_TARGET_CONCURRENCY': 10.0,
+ 'CONCURRENT_REQUESTS': 32,
+ 'CONCURRENT_REQUESTS_PER_DOMAIN': 16,
+ 'DOWNLOAD_DELAY': 0.2,
+ 'FEED_EXPORT_ENCODING': 'utf-8-sig',
+ 'LOG_FILE': 'crawl.log',
+ 'LOG_LEVEL': 'INFO',
+ 'RETRY_TIMES': 3,
+ 'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+               '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+2025-12-21 21:40:53 [py.warnings] WARNING: E:\Anaconda\ANACONDA\Lib\site-packages\scrapy\downloadermiddlewares\httpcompression.py:40: UserWarning: You have brotli installed. But 'br' encoding support now requires brotli version >= 1.2.0. Please upgrade brotli version to make Scrapy decode 'br' encoded responses.
+  warnings.warn(
+
+2025-12-21 21:40:53 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-12-21 21:40:53 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.start.StartSpiderMiddleware',
+ 'scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-12-21 21:40:53 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2025-12-21 21:40:53 [scrapy.core.engine] INFO: Spider opened
+2025-12-21 21:40:53 [py.warnings] WARNING: E:\Anaconda\ANACONDA\Lib\site-packages\scrapy\core\spidermw.py:433: ScrapyDeprecationWarning: __main__.ZhongyaocaiSpider defines the deprecated start_requests() method. start_requests() has been deprecated in favor of a new method, start(), to support asynchronous code execution. start_requests() will stop being called in a future version of Scrapy. If you use Scrapy 2.13 or higher only, replace start_requests() with start(); note that start() is a coroutine (async def). If you need to maintain compatibility with lower Scrapy versions, when overriding start_requests() in a spider class, override start() as well; you can use super() to reuse the inherited start() implementation without copy-pasting. See the release notes of Scrapy 2.13 for details: https://docs.scrapy.org/en/2.13/news.html
+  warn(
+
+2025-12-21 21:40:53 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:40:53 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2025-12-21 21:40:53 [zhongyaocai] INFO: 🚀 开始爬取，最大数量: 20000
+2025-12-21 21:41:29 [zhongyaocai] INFO: 💾 已保存临时文件（100条）
+2025-12-21 21:41:53 [scrapy.extensions.logstats] INFO: Crawled 224 pages (at 224 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:41:55 [zhongyaocai] INFO: 💾 已保存临时文件（200条）
+2025-12-21 21:42:23 [zhongyaocai] INFO: 💾 已保存临时文件（300条）
+2025-12-21 21:42:46 [zhongyaocai] INFO: 💾 已保存临时文件（400条）
+2025-12-21 21:42:53 [scrapy.extensions.logstats] INFO: Crawled 458 pages (at 234 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:43:12 [zhongyaocai] INFO: 💾 已保存临时文件（500条）
+2025-12-21 21:43:37 [zhongyaocai] INFO: 💾 已保存临时文件（600条）
+2025-12-21 21:43:53 [scrapy.extensions.logstats] INFO: Crawled 693 pages (at 235 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:44:03 [zhongyaocai] INFO: 💾 已保存临时文件（700条）
+2025-12-21 21:44:27 [zhongyaocai] INFO: 💾 已保存临时文件（800条）
+2025-12-21 21:44:53 [zhongyaocai] INFO: 💾 已保存临时文件（900条）
+2025-12-21 21:44:53 [scrapy.extensions.logstats] INFO: Crawled 931 pages (at 238 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:45:35 [zhongyaocai] INFO: 💾 已保存临时文件（1000条）
+2025-12-21 21:45:53 [scrapy.extensions.logstats] INFO: Crawled 1043 pages (at 112 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:46:53 [scrapy.extensions.logstats] INFO: Crawled 1107 pages (at 64 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:47:18 [zhongyaocai] INFO: 💾 已保存临时文件（1100条）
+2025-12-21 21:47:53 [scrapy.extensions.logstats] INFO: Crawled 1171 pages (at 64 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:48:53 [scrapy.extensions.logstats] INFO: Crawled 1213 pages (at 42 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:49:02 [zhongyaocai] INFO: 💾 已保存临时文件（1200条）
+2025-12-21 21:49:53 [scrapy.extensions.logstats] INFO: Crawled 1290 pages (at 77 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:50:53 [scrapy.extensions.logstats] INFO: Crawled 1306 pages (at 16 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:51:32 [zhongyaocai] INFO: 💾 已保存临时文件（1300条）
+2025-12-21 21:51:53 [scrapy.extensions.logstats] INFO: Crawled 1373 pages (at 67 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:52:43 [zhongyaocai] INFO: 💾 已保存临时文件（1400条）
+2025-12-21 21:52:53 [scrapy.extensions.logstats] INFO: Crawled 1451 pages (at 78 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:53:43 [zhongyaocai] INFO: 💾 已保存临时文件（1500条）
+2025-12-21 21:53:53 [scrapy.extensions.logstats] INFO: Crawled 1543 pages (at 92 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:54:38 [zhongyaocai] INFO: 💾 已保存临时文件（1600条）
+2025-12-21 21:55:00 [scrapy.extensions.logstats] INFO: Crawled 1635 pages (at 92 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:56:01 [scrapy.extensions.logstats] INFO: Crawled 1699 pages (at 64 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:56:42 [zhongyaocai] INFO: 💾 已保存临时文件（1700条）
+2025-12-21 21:56:53 [scrapy.extensions.logstats] INFO: Crawled 1749 pages (at 50 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:57:53 [scrapy.extensions.logstats] INFO: Crawled 1804 pages (at 55 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:58:15 [zhongyaocai] INFO: 💾 已保存临时文件（1800条）
+2025-12-21 21:59:18 [scrapy.extensions.logstats] INFO: Crawled 1908 pages (at 104 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 21:59:46 [zhongyaocai] INFO: 💾 已保存临时文件（1900条）
+2025-12-21 21:59:53 [scrapy.extensions.logstats] INFO: Crawled 1935 pages (at 27 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:00:58 [scrapy.extensions.logstats] INFO: Crawled 1995 pages (at 60 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:01:59 [scrapy.extensions.logstats] INFO: Crawled 2015 pages (at 20 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:02:53 [scrapy.extensions.logstats] INFO: Crawled 2028 pages (at 13 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:02:57 [zhongyaocai] INFO: 💾 已保存临时文件（2000条）
+2025-12-21 22:03:53 [scrapy.extensions.logstats] INFO: Crawled 2047 pages (at 19 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:05:49 [scrapy.extensions.logstats] INFO: Crawled 2105 pages (at 58 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:06:08 [scrapy.extensions.logstats] INFO: Crawled 2110 pages (at 5 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:07:12 [scrapy.extensions.logstats] INFO: Crawled 2118 pages (at 8 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:07:28 [zhongyaocai] INFO: 💾 已保存临时文件（2100条）
+2025-12-21 22:07:59 [scrapy.extensions.logstats] INFO: Crawled 2168 pages (at 50 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:08:54 [scrapy.extensions.logstats] INFO: Crawled 2190 pages (at 22 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:10:18 [scrapy.extensions.logstats] INFO: Crawled 2196 pages (at 6 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:10:41 [zhongyaocai] INFO: 💾 已保存临时文件（2200条）
+2025-12-21 22:10:53 [scrapy.extensions.logstats] INFO: Crawled 2248 pages (at 52 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:11:53 [scrapy.extensions.logstats] INFO: Crawled 2315 pages (at 67 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:12:37 [zhongyaocai] INFO: 💾 已保存临时文件（2300条）
+2025-12-21 22:12:53 [scrapy.extensions.logstats] INFO: Crawled 2341 pages (at 26 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:13:55 [scrapy.extensions.logstats] INFO: Crawled 2353 pages (at 12 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:14:53 [scrapy.extensions.logstats] INFO: Crawled 2386 pages (at 33 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:15:57 [scrapy.extensions.logstats] INFO: Crawled 2400 pages (at 14 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:16:25 [zhongyaocai] INFO: 💾 已保存临时文件（2400条）
+2025-12-21 22:17:20 [scrapy.extensions.logstats] INFO: Crawled 2449 pages (at 49 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:17:53 [scrapy.extensions.logstats] INFO: Crawled 2469 pages (at 20 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:18:56 [zhongyaocai] INFO: 💾 已保存临时文件（2500条）
+2025-12-21 22:18:56 [scrapy.extensions.logstats] INFO: Crawled 2530 pages (at 61 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:19:53 [scrapy.extensions.logstats] INFO: Crawled 2597 pages (at 67 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:20:17 [zhongyaocai] INFO: 💾 已保存临时文件（2600条）
+2025-12-21 22:20:53 [scrapy.extensions.logstats] INFO: Crawled 2717 pages (at 120 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:21:03 [zhongyaocai] INFO: 💾 已保存临时文件（2700条）
+2025-12-21 22:22:06 [scrapy.extensions.logstats] INFO: Crawled 2778 pages (at 61 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:22:53 [scrapy.extensions.logstats] INFO: Crawled 2807 pages (at 29 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:24:14 [zhongyaocai] INFO: 💾 已保存临时文件（2800条）
+2025-12-21 22:24:14 [scrapy.extensions.logstats] INFO: Crawled 2831 pages (at 24 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:25:15 [scrapy.extensions.logstats] INFO: Crawled 2839 pages (at 8 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:25:53 [scrapy.extensions.logstats] INFO: Crawled 2850 pages (at 11 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:27:01 [scrapy.extensions.logstats] INFO: Crawled 2874 pages (at 24 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:27:53 [scrapy.extensions.logstats] INFO: Crawled 2904 pages (at 30 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:28:05 [zhongyaocai] INFO: 💾 已保存临时文件（2900条）
+2025-12-21 22:28:53 [scrapy.extensions.logstats] INFO: Crawled 3012 pages (at 108 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:29:07 [zhongyaocai] INFO: 💾 已保存临时文件（3000条）
+2025-12-21 22:29:53 [scrapy.extensions.logstats] INFO: Crawled 3084 pages (at 72 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:30:22 [zhongyaocai] INFO: 💾 已保存临时文件（3100条）
+2025-12-21 22:30:53 [scrapy.extensions.logstats] INFO: Crawled 3192 pages (at 108 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:31:22 [zhongyaocai] INFO: 💾 已保存临时文件（3200条）
+2025-12-21 22:31:53 [scrapy.extensions.logstats] INFO: Crawled 3260 pages (at 68 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:32:53 [scrapy.extensions.logstats] INFO: Crawled 3318 pages (at 58 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:33:00 [zhongyaocai] INFO: 💾 已保存临时文件（3300条）
+2025-12-21 22:33:53 [scrapy.extensions.logstats] INFO: Crawled 3342 pages (at 24 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:34:49 [zhongyaocai] INFO: 💾 已保存临时文件（3400条）
+2025-12-21 22:35:12 [scrapy.extensions.logstats] INFO: Crawled 3433 pages (at 91 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:35:53 [scrapy.extensions.logstats] INFO: Crawled 3484 pages (at 51 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:37:07 [scrapy.extensions.logstats] INFO: Crawled 3513 pages (at 29 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:37:53 [scrapy.extensions.logstats] INFO: Crawled 3520 pages (at 7 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:38:25 [zhongyaocai] INFO: 💾 已保存临时文件（3500条）
+2025-12-21 22:38:55 [scrapy.extensions.logstats] INFO: Crawled 3536 pages (at 16 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:39:53 [scrapy.extensions.logstats] INFO: Crawled 3582 pages (at 46 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:40:57 [scrapy.extensions.logstats] INFO: Crawled 3601 pages (at 19 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:41:17 [zhongyaocai] INFO: 💾 已保存临时文件（3600条）
+2025-12-21 22:42:09 [scrapy.extensions.logstats] INFO: Crawled 3673 pages (at 72 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:43:54 [scrapy.extensions.logstats] INFO: Crawled 3717 pages (at 44 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:44:25 [zhongyaocai] INFO: 💾 已保存临时文件（3700条）
+2025-12-21 22:45:07 [scrapy.extensions.logstats] INFO: Crawled 3737 pages (at 20 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:46:01 [scrapy.extensions.logstats] INFO: Crawled 3750 pages (at 13 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:46:56 [scrapy.extensions.logstats] INFO: Crawled 3766 pages (at 16 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:47:57 [scrapy.extensions.logstats] INFO: Crawled 3782 pages (at 16 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:48:40 [zhongyaocai] INFO: 💾 已保存临时文件（3800条）
+2025-12-21 22:48:53 [scrapy.extensions.logstats] INFO: Crawled 3835 pages (at 53 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:50:11 [scrapy.extensions.logstats] INFO: Crawled 3863 pages (at 28 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:50:56 [scrapy.extensions.logstats] INFO: Crawled 3871 pages (at 8 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:51:57 [scrapy.extensions.logstats] INFO: Crawled 3885 pages (at 14 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:52:53 [scrapy.extensions.logstats] INFO: Crawled 3890 pages (at 5 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:53:32 [zhongyaocai] INFO: 💾 已保存临时文件（3900条）
+2025-12-21 22:53:53 [scrapy.extensions.logstats] INFO: Crawled 3969 pages (at 79 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:54:53 [scrapy.extensions.logstats] INFO: Crawled 4002 pages (at 33 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:55:25 [zhongyaocai] INFO: 💾 已保存临时文件（4000条）
+2025-12-21 22:55:58 [scrapy.extensions.logstats] INFO: Crawled 4046 pages (at 44 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:56:53 [scrapy.extensions.logstats] INFO: Crawled 4078 pages (at 32 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:58:14 [scrapy.extensions.logstats] INFO: Crawled 4085 pages (at 7 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:58:57 [scrapy.extensions.logstats] INFO: Crawled 4086 pages (at 1 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 22:59:53 [scrapy.extensions.logstats] INFO: Crawled 4091 pages (at 5 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:00:53 [scrapy.extensions.logstats] INFO: Crawled 4127 pages (at 36 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:00:56 [zhongyaocai] INFO: 💾 已保存临时文件（4100条）
+2025-12-21 23:02:20 [scrapy.extensions.logstats] INFO: Crawled 4164 pages (at 37 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:02:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 14 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:03:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:04:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:05:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:06:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:07:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:08:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:09:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:10:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:11:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:12:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:13:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:14:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:15:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:16:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:17:53 [scrapy.extensions.logstats] INFO: Crawled 4178 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:18:53 [scrapy.extensions.logstats] INFO: Crawled 4188 pages (at 10 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:19:24 [zhongyaocai] INFO: 💾 已保存临时文件（4200条）
+2025-12-21 23:19:53 [scrapy.extensions.logstats] INFO: Crawled 4241 pages (at 53 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:20:53 [scrapy.extensions.logstats] INFO: Crawled 4277 pages (at 36 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:21:28 [zhongyaocai] INFO: 💾 已保存临时文件（4300条）
+2025-12-21 23:21:53 [scrapy.extensions.logstats] INFO: Crawled 4344 pages (at 67 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:22:58 [scrapy.extensions.logstats] INFO: Crawled 4357 pages (at 13 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:24:18 [scrapy.extensions.logstats] INFO: Crawled 4361 pages (at 4 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:25:12 [scrapy.extensions.logstats] INFO: Crawled 4363 pages (at 2 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:26:15 [scrapy.extensions.logstats] INFO: Crawled 4366 pages (at 3 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:27:05 [scrapy.extensions.logstats] INFO: Crawled 4369 pages (at 3 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:28:06 [scrapy.extensions.logstats] INFO: Crawled 4374 pages (at 5 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:28:57 [scrapy.extensions.logstats] INFO: Crawled 4377 pages (at 3 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:29:55 [scrapy.extensions.logstats] INFO: Crawled 4381 pages (at 4 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:31:00 [scrapy.extensions.logstats] INFO: Crawled 4386 pages (at 5 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:31:53 [scrapy.extensions.logstats] INFO: Crawled 4392 pages (at 6 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:33:02 [scrapy.extensions.logstats] INFO: Crawled 4402 pages (at 10 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:33:39 [zhongyaocai] INFO: 💾 已保存临时文件（4400条）
+2025-12-21 23:33:53 [scrapy.extensions.logstats] INFO: Crawled 4457 pages (at 55 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:34:53 [scrapy.extensions.logstats] INFO: Crawled 4511 pages (at 54 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:35:26 [zhongyaocai] INFO: 💾 已保存临时文件（4500条）
+2025-12-21 23:35:53 [scrapy.extensions.logstats] INFO: Crawled 4544 pages (at 33 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:36:53 [scrapy.extensions.logstats] INFO: Crawled 4591 pages (at 47 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:37:15 [zhongyaocai] INFO: 💾 已保存临时文件（4600条）
+2025-12-21 23:37:53 [scrapy.extensions.logstats] INFO: Crawled 4678 pages (at 87 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:38:37 [zhongyaocai] INFO: 💾 已保存临时文件（4700条）
+2025-12-21 23:38:53 [scrapy.extensions.logstats] INFO: Crawled 4764 pages (at 86 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:39:53 [scrapy.extensions.logstats] INFO: Crawled 4821 pages (at 57 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:39:58 [zhongyaocai] INFO: 💾 已保存临时文件（4800条）
+2025-12-21 23:40:53 [scrapy.extensions.logstats] INFO: Crawled 4882 pages (at 61 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:41:22 [zhongyaocai] INFO: 💾 已保存临时文件（4900条）
+2025-12-21 23:41:53 [scrapy.extensions.logstats] INFO: Crawled 4959 pages (at 77 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:42:53 [scrapy.extensions.logstats] INFO: Crawled 5023 pages (at 64 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:43:10 [zhongyaocai] INFO: 💾 已保存临时文件（5000条）
+2025-12-21 23:44:25 [scrapy.extensions.logstats] INFO: Crawled 5069 pages (at 46 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:44:53 [scrapy.extensions.logstats] INFO: Crawled 5083 pages (at 14 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:45:41 [zhongyaocai] INFO: 💾 已保存临时文件（5100条）
+2025-12-21 23:45:53 [scrapy.extensions.logstats] INFO: Crawled 5144 pages (at 61 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:47:18 [scrapy.extensions.logstats] INFO: Crawled 5212 pages (at 68 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:47:44 [zhongyaocai] INFO: 💾 已保存临时文件（5200条）
+2025-12-21 23:47:53 [scrapy.extensions.logstats] INFO: Crawled 5241 pages (at 29 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:48:53 [scrapy.extensions.logstats] INFO: Crawled 5320 pages (at 79 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:49:01 [zhongyaocai] INFO: 💾 已保存临时文件（5300条）
+2025-12-21 23:49:53 [scrapy.extensions.logstats] INFO: Crawled 5386 pages (at 66 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:50:32 [zhongyaocai] INFO: 💾 已保存临时文件（5400条）
+2025-12-21 23:50:53 [scrapy.extensions.logstats] INFO: Crawled 5470 pages (at 84 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:51:53 [scrapy.extensions.logstats] INFO: Crawled 5507 pages (at 37 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:52:16 [zhongyaocai] INFO: 💾 已保存临时文件（5500条）
+2025-12-21 23:53:12 [scrapy.extensions.logstats] INFO: Crawled 5559 pages (at 52 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:53:53 [scrapy.extensions.logstats] INFO: Crawled 5610 pages (at 51 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:54:01 [zhongyaocai] INFO: 💾 已保存临时文件（5600条）
+2025-12-21 23:54:53 [scrapy.extensions.logstats] INFO: Crawled 5713 pages (at 103 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:55:14 [zhongyaocai] INFO: 💾 已保存临时文件（5700条）
+2025-12-21 23:56:44 [scrapy.extensions.logstats] INFO: Crawled 5753 pages (at 40 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:56:53 [scrapy.extensions.logstats] INFO: Crawled 5758 pages (at 5 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:57:53 [scrapy.extensions.logstats] INFO: Crawled 5792 pages (at 34 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:58:13 [zhongyaocai] INFO: 💾 已保存临时文件（5800条）
+2025-12-21 23:58:54 [scrapy.extensions.logstats] INFO: Crawled 5834 pages (at 42 pages/min), scraped 0 items (at 0 items/min)
+2025-12-21 23:59:53 [scrapy.extensions.logstats] INFO: Crawled 5848 pages (at 14 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:00:33 [zhongyaocai] INFO: 💾 已保存临时文件（5900条）
+2025-12-22 00:00:58 [scrapy.extensions.logstats] INFO: Crawled 5943 pages (at 95 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:01:55 [scrapy.extensions.logstats] INFO: Crawled 6018 pages (at 75 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:02:32 [zhongyaocai] INFO: 💾 已保存临时文件（6000条）
+2025-12-22 00:02:53 [scrapy.extensions.logstats] INFO: Crawled 6040 pages (at 22 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:03:38 [zhongyaocai] INFO: 💾 已保存临时文件（6100条）
+2025-12-22 00:03:53 [scrapy.extensions.logstats] INFO: Crawled 6152 pages (at 112 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:04:53 [scrapy.extensions.logstats] INFO: Crawled 6224 pages (at 72 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:05:00 [zhongyaocai] INFO: 💾 已保存临时文件（6200条）
+2025-12-22 00:05:53 [scrapy.extensions.logstats] INFO: Crawled 6316 pages (at 92 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:06:49 [zhongyaocai] INFO: 💾 已保存临时文件（6300条）
+2025-12-22 00:06:53 [scrapy.extensions.logstats] INFO: Crawled 6331 pages (at 15 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:07:53 [scrapy.extensions.logstats] INFO: Crawled 6374 pages (at 43 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:09:11 [scrapy.extensions.logstats] INFO: Crawled 6409 pages (at 35 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:09:57 [scrapy.extensions.logstats] INFO: Crawled 6417 pages (at 8 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:10:20 [zhongyaocai] INFO: 💾 已保存临时文件（6400条）
+2025-12-22 00:10:53 [scrapy.extensions.logstats] INFO: Crawled 6484 pages (at 67 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:11:44 [zhongyaocai] INFO: 💾 已保存临时文件（6500条）
+2025-12-22 00:11:53 [scrapy.extensions.logstats] INFO: Crawled 6540 pages (at 56 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:12:53 [scrapy.extensions.logstats] INFO: Crawled 6599 pages (at 59 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:13:10 [zhongyaocai] INFO: 💾 已保存临时文件（6600条）
+2025-12-22 00:14:30 [scrapy.extensions.logstats] INFO: Crawled 6655 pages (at 56 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:14:53 [scrapy.extensions.logstats] INFO: Crawled 6668 pages (at 13 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:15:21 [zhongyaocai] INFO: 💾 已保存临时文件（6700条）
+2025-12-22 00:15:53 [scrapy.extensions.logstats] INFO: Crawled 6790 pages (at 122 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:16:13 [zhongyaocai] INFO: 💾 已保存临时文件（6800条）
+2025-12-22 00:17:10 [scrapy.extensions.logstats] INFO: Crawled 6897 pages (at 107 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:17:47 [zhongyaocai] INFO: 💾 已保存临时文件（6900条）
+2025-12-22 00:17:53 [scrapy.extensions.logstats] INFO: Crawled 6945 pages (at 48 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:19:27 [scrapy.extensions.logstats] INFO: Crawled 6986 pages (at 41 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:20:20 [scrapy.extensions.logstats] INFO: Crawled 6989 pages (at 3 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:20:53 [scrapy.extensions.logstats] INFO: Crawled 6994 pages (at 5 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:21:38 [zhongyaocai] INFO: 💾 已保存临时文件（7000条）
+2025-12-22 00:21:53 [scrapy.extensions.logstats] INFO: Crawled 7046 pages (at 52 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:23:29 [scrapy.extensions.logstats] INFO: Crawled 7086 pages (at 40 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:23:53 [scrapy.extensions.logstats] INFO: Crawled 7101 pages (at 15 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:24:33 [zhongyaocai] INFO: 💾 已保存临时文件（7100条）
+2025-12-22 00:24:53 [scrapy.extensions.logstats] INFO: Crawled 7159 pages (at 58 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:25:53 [scrapy.extensions.logstats] INFO: Crawled 7191 pages (at 32 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:26:19 [zhongyaocai] INFO: 💾 已保存临时文件（7200条）
+2025-12-22 00:27:27 [scrapy.extensions.logstats] INFO: Crawled 7259 pages (at 68 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:28:15 [scrapy.extensions.logstats] INFO: Crawled 7269 pages (at 10 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:29:00 [scrapy.extensions.logstats] INFO: Crawled 7283 pages (at 14 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:30:13 [scrapy.extensions.logstats] INFO: Crawled 7303 pages (at 20 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:30:40 [zhongyaocai] INFO: 💾 已保存临时文件（7300条）
+2025-12-22 00:30:53 [scrapy.extensions.logstats] INFO: Crawled 7340 pages (at 37 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:31:29 [zhongyaocai] INFO: 💾 已保存临时文件（7400条）
+2025-12-22 00:31:53 [scrapy.extensions.logstats] INFO: Crawled 7527 pages (at 187 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:32:13 [zhongyaocai] INFO: 💾 已保存临时文件（7500条）
+2025-12-22 00:32:43 [zhongyaocai] INFO: 💾 已保存临时文件（7600条）
+2025-12-22 00:32:53 [scrapy.extensions.logstats] INFO: Crawled 7673 pages (at 146 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:33:08 [zhongyaocai] INFO: 💾 已保存临时文件（7700条）
+2025-12-22 00:33:33 [zhongyaocai] INFO: 💾 已保存临时文件（7800条）
+2025-12-22 00:33:53 [scrapy.extensions.logstats] INFO: Crawled 7908 pages (at 235 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:33:59 [zhongyaocai] INFO: 💾 已保存临时文件（7900条）
+2025-12-22 00:34:41 [zhongyaocai] INFO: 💾 已保存临时文件（8000条）
+2025-12-22 00:34:53 [scrapy.extensions.logstats] INFO: Crawled 8062 pages (at 154 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:35:13 [zhongyaocai] INFO: 💾 已保存临时文件（8100条）
+2025-12-22 00:35:41 [zhongyaocai] INFO: 💾 已保存临时文件（8200条）
+2025-12-22 00:35:54 [scrapy.extensions.logstats] INFO: Crawled 8279 pages (at 217 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:36:07 [zhongyaocai] INFO: 💾 已保存临时文件（8300条）
+2025-12-22 00:36:34 [zhongyaocai] INFO: 💾 已保存临时文件（8400条）
+2025-12-22 00:36:53 [scrapy.extensions.logstats] INFO: Crawled 8500 pages (at 221 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:37:27 [zhongyaocai] INFO: 💾 已保存临时文件（8500条）
+2025-12-22 00:37:53 [scrapy.extensions.logstats] INFO: Crawled 8615 pages (at 115 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:37:58 [zhongyaocai] INFO: 💾 已保存临时文件（8600条）
+2025-12-22 00:38:24 [zhongyaocai] INFO: 💾 已保存临时文件（8700条）
+2025-12-22 00:38:51 [zhongyaocai] INFO: 💾 已保存临时文件（8800条）
+2025-12-22 00:38:53 [scrapy.extensions.logstats] INFO: Crawled 8840 pages (at 225 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:39:18 [zhongyaocai] INFO: 💾 已保存临时文件（8900条）
+2025-12-22 00:40:17 [zhongyaocai] INFO: 💾 已保存临时文件（9000条）
+2025-12-22 00:40:17 [scrapy.extensions.logstats] INFO: Crawled 9029 pages (at 189 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:40:47 [zhongyaocai] INFO: 💾 已保存临时文件（9100条）
+2025-12-22 00:40:53 [scrapy.extensions.logstats] INFO: Crawled 9152 pages (at 123 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:41:14 [zhongyaocai] INFO: 💾 已保存临时文件（9200条）
+2025-12-22 00:41:41 [zhongyaocai] INFO: 💾 已保存临时文件（9300条）
+2025-12-22 00:41:53 [scrapy.extensions.logstats] INFO: Crawled 9378 pages (at 226 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:42:07 [zhongyaocai] INFO: 💾 已保存临时文件（9400条）
+2025-12-22 00:42:51 [zhongyaocai] INFO: 💾 已保存临时文件（9500条）
+2025-12-22 00:42:53 [scrapy.extensions.logstats] INFO: Crawled 9532 pages (at 154 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:43:19 [zhongyaocai] INFO: 💾 已保存临时文件（9600条）
+2025-12-22 00:43:47 [zhongyaocai] INFO: 💾 已保存临时文件（9700条）
+2025-12-22 00:43:54 [scrapy.extensions.logstats] INFO: Crawled 9749 pages (at 217 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:44:17 [zhongyaocai] INFO: 💾 已保存临时文件（9800条）
+2025-12-22 00:44:53 [scrapy.extensions.logstats] INFO: Crawled 9920 pages (at 171 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:44:59 [zhongyaocai] INFO: 💾 已保存临时文件（9900条）
+2025-12-22 00:45:43 [zhongyaocai] INFO: 💾 已保存临时文件（10000条）
+2025-12-22 00:45:53 [scrapy.extensions.logstats] INFO: Crawled 10058 pages (at 138 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:46:13 [zhongyaocai] INFO: 💾 已保存临时文件（10100条）
+2025-12-22 00:46:38 [zhongyaocai] INFO: 💾 已保存临时文件（10200条）
+2025-12-22 00:46:53 [scrapy.extensions.logstats] INFO: Crawled 10288 pages (at 230 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:47:04 [zhongyaocai] INFO: 💾 已保存临时文件（10300条）
+2025-12-22 00:47:35 [zhongyaocai] INFO: 💾 已保存临时文件（10400条）
+2025-12-22 00:47:53 [scrapy.extensions.logstats] INFO: Crawled 10502 pages (at 214 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:48:29 [zhongyaocai] INFO: 💾 已保存临时文件（10500条）
+2025-12-22 00:48:53 [scrapy.extensions.logstats] INFO: Crawled 10612 pages (at 110 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:48:58 [zhongyaocai] INFO: 💾 已保存临时文件（10600条）
+2025-12-22 00:49:24 [zhongyaocai] INFO: 💾 已保存临时文件（10700条）
+2025-12-22 00:49:50 [zhongyaocai] INFO: 💾 已保存临时文件（10800条）
+2025-12-22 00:49:53 [scrapy.extensions.logstats] INFO: Crawled 10843 pages (at 231 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:50:16 [zhongyaocai] INFO: 💾 已保存临时文件（10900条）
+2025-12-22 00:51:01 [zhongyaocai] INFO: 💾 已保存临时文件（11000条）
+2025-12-22 00:51:01 [scrapy.extensions.logstats] INFO: Crawled 11029 pages (at 186 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:51:28 [zhongyaocai] INFO: 💾 已保存临时文件（11100条）
+2025-12-22 00:51:53 [scrapy.extensions.logstats] INFO: Crawled 11229 pages (at 200 pages/min), scraped 0 items (at 0 items/min)
+2025-12-22 00:51:55 [zhongyaocai] INFO: 💾 已保存临时文件（11200条）
+2025-12-22 00:52:21 [zhongyaocai] INFO: 💾 已保存临时文件（11300条）
+2025-12-22 00:52:23 [scrapy.core.engine] INFO: Closing spider (finished)
+2025-12-22 00:52:41 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/exception_count': 1413,
+ 'downloader/exception_type_count/twisted.internet.error.TimeoutError': 63,
+ 'downloader/exception_type_count/twisted.web._newclient.ResponseNeverReceived': 1350,
+ 'downloader/request_bytes': 4995754,
+ 'downloader/request_count': 12765,
+ 'downloader/request_method_count/GET': 12765,
+ 'downloader/response_bytes': 55003213,
+ 'downloader/response_count': 11352,
+ 'downloader/response_status_count/200': 11336,
+ 'downloader/response_status_count/301': 16,
+ 'dupefilter/filtered': 136,
+ 'elapsed_time_seconds': 11507.866026,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2025, 12, 21, 16, 52, 41, 791625, tzinfo=datetime.timezone.utc),
+ 'httpcompression/response_bytes': 143184290,
+ 'httpcompression/response_count': 11336,
+ 'items_per_minute': 0.0,
+ 'log_count/INFO': 314,
+ 'log_count/WARNING': 2,
+ 'request_depth_max': 1,
+ 'response_received_count': 11336,
+ 'responses_per_minute': 59.108368818979756,
+ 'retry/count': 1413,
+ 'retry/reason_count/twisted.internet.error.TimeoutError': 63,
+ 'retry/reason_count/twisted.web._newclient.ResponseNeverReceived': 1350,
+ 'scheduler/dequeued': 12765,
+ 'scheduler/dequeued/memory': 12765,
+ 'scheduler/enqueued': 12765,
+ 'scheduler/enqueued/memory': 12765,
+ 'start_time': datetime.datetime(2025, 12, 21, 13, 40, 53, 925599, tzinfo=datetime.timezone.utc)}
+2025-12-22 00:52:41 [scrapy.core.engine] INFO: Spider closed (finished)
