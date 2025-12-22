@@ -1,0 +1,11 @@
+# 忽略PyCharm IDE设置文件夹
+.idea/
+
+# 忽略所有爬虫生成的数据和日志
+output/
+images/
+*.csv
+*.xlsx
+processed_urls.txt
+crawl.log
+*.temp.*
