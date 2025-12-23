@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>中医药智能平台 · 系统控制台</title>
+
+<style>
+body{
+  margin:0;
+  background:#f1f5f4;
+  font-family:"Microsoft YaHei",sans-serif;
+  color:#1f2937;
+}
+
+/* 顶栏 */
+header{
+  height:64px;
+  background:#0f766e;
+  color:white;
+  display:flex;
+  align-items:center;
+  padding:0 24px;
+  font-size:20px;
+}
+
+/* 主布局 */
+.app{
+  display:grid;
+  grid-template-columns:240px 1fr 360px;
+  height:calc(100vh - 64px);
+}
+
+/* 左导航 */
+nav{
+  background:#ffffff;
+  border-right:1px solid #e5e7eb;
+  padding:20px;
+}
+
+nav h4{margin-top:0}
+
+nav div{
+  padding:10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+nav div:hover{background:#f0fdfa}
+
+/* 中心 */
+main{
+  padding:24px;
+  overflow:auto;
+}
+
+.section{
+  margin-bottom:30px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:16px;
+}
+
+.card{
+  background:white;
+  border-radius:12px;
+  padding:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+/* 右侧 */
+aside{
+  background:white;
+  border-left:1px solid #e5e7eb;
+  padding:20px;
+  overflow:auto;
+}
+
+small{color:#6b7280}
+</style>
+</head>
+
+<body>
+
+<header>
+🌿 中医药智能平台 · 知识图谱 × RAG × LLM
+</header>
+
+<div class="app">
+
+<!-- 左 -->
+<nav>
+  <h4>系统模块</h4>
+  <div>🏠 智能首页</div>
+  <div>🌿 中药数据库</div>
+  <div>📜 方剂系统</div>
+  <div>🧠 病证 / 体质</div>
+  <div>🕸 知识图谱</div>
+  <div>🤖 AI 问诊</div>
+  <div>📊 推荐分析</div>
+</nav>
+
+<!-- 中 -->
+<main>
+
+<div class="section">
+<h3>🔮 高置信推荐中药（图谱 × 文献）</h3>
+<div class="cards">
+  <div class="card"><b>黄芪</b><br><small>补气 · 免疫 · 证据 92%</small></div>
+  <div class="card"><b>当归</b><br><small>补血 · 调经</small></div>
+  <div class="card"><b>酸枣仁</b><br><small>安神 · 睡眠</small></div>
+</div>
+</div>
+
+<div class="section">
+<h3>📌 高频健康场景</h3>
+<div class="cards">
+  <div class="card">失眠调理路径</div>
+  <div class="card">脾胃虚弱方案</div>
+  <div class="card">亚健康恢复</div>
+</div>
+</div>
+
+<div class="section">
+<h3>📈 系统实时洞察</h3>
+<div class="cards">
+  <div class="card">今日问诊：124</div>
+  <div class="card">图谱命中率：87%</div>
+  <div class="card">文献覆盖：12,431</div>
+</div>
+</div>
+
+</main>
+
+<!-- 右 -->
+<aside>
+<h3>🤖 AI 分析面板</h3>
+<p>当前可执行任务：</p>
+<ul>
+<li>症状 → 证型推断</li>
+<li>中药 → 禁忌分析</li>
+<li>方剂 → 适用人群</li>
+</ul>
+<small>所有推荐均可追溯知识图谱与文献</small>
+</aside>
+
+</div>
+
+</body>
+</html>
