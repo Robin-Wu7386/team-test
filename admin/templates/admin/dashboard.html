@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员后台首页</title>
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei";}
+        body {background:#f5f7fa;}
+        .header {background:#2c3e50;color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;}
+        .header a {color:#fff;text-decoration:none;margin-left:20px;}
+        .sidebar {width:200px;background:#34495e;height:calc(100vh - 60px);position:fixed;top:60px;left:0;padding-top:20px;}
+        .sidebar a {display:block;color:#ecf0f1;padding:10px 20px;text-decoration:none;}
+        .sidebar a:hover {background:#2c3e50;}
+        .content {margin-left:220px;padding:30px;}
+        .card {background:#fff;padding:50px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.1);text-align:center;}
+        .card h1 {color:#7f8c8d;}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h3>中药管理系统 - 管理员后台</h3>
+        <div>
+            <span>当前登录：{{ username }}</span>
+            <a href="{{ url_for('admin.logout') }}">退出登录</a>
+        </div>
+    </div>
+    <div class="sidebar">
+        <a href="{{ url_for('admin.dashboard') }}">后台首页</a>
+        <a href="{{ url_for('admin.users') }}">用户管理</a>
+    </div>
+    <div class="content">
+        <div class="card">
+            <h1>管理员后台功能仅开放用户管理，其余功能暂未开发！</h1>
+        </div>
+    </div>
+</body>
+</html>

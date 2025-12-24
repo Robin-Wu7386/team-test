@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎使用中药管理系统</title>
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei";}
+        body {background:#f5f7fa;}
+        .welcome-box {width:500px;margin:100px auto;background:#fff;padding:50px;border-radius:10px;box-shadow:0 2px 15px rgba(0,0,0,0.1);text-align:center;}
+        .welcome-box h1 {color:#2c3e50;margin-bottom:40px;}
+        .btn-group {display:flex;justify-content:center;gap:20px;}
+        .btn {display:block;width:200px;height:60px;line-height:60px;text-decoration:none;border-radius:8px;font-size:18px;color:#fff;}
+        .btn-admin {background:#3498db;}
+        .btn-admin:hover {background:#2980b9;}
+        .btn-user {background:#2ecc71;}
+        .btn-user:hover {background:#27ae60;}
+    </style>
+</head>
+<body>
+    <div class="welcome-box">
+        <h1>中药管理系统</h1>
+        <div class="btn-group">
+            <a href="{{ url_for('admin.login') }}" class="btn btn-admin">我是管理员</a>
+            <a href="{{ url_for('user.login') }}" class="btn btn-user">我是用户</a>
+        </div>
+    </div>
+</body>
+</html>
