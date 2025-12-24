@@ -229,11 +229,12 @@ ${msg}
 `;
 
     try {
-        const res = await fetch("http://127.0.0.1:8000/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: prompt, history: history })
+        const res = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: prompt, history: history })
         });
+
 
         if (!res.ok) {
             chatBox.innerHTML += `<div class="msg ai">⚠️ 后端返回状态码 ${res.status}</div>`;
