@@ -53,6 +53,7 @@
                     <tr>
                         <th>ID</th>
                         <th>用户名</th>
+                        <th>手机号</th>
                         <th>邮箱</th>
                         <th>状态</th>
                         <th>创建时间</th>
@@ -64,6 +65,7 @@
                     <tr>
                         <td>{{ user.id }}</td>
                         <td>{{ user.username }}</td>
+                        <td>{{ user.phonenumber }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ '启用' if user.status == 1 else '禁用' }}</td>
                         <td>{{ user.created_at }}</td>

@@ -19,9 +19,11 @@ def init_mysql():
                     id INT AUTO_INCREMENT PRIMARY KEY COMMENT '用户ID',
                     username VARCHAR(50) NOT NULL UNIQUE COMMENT '账号',
                     password VARCHAR(255) NOT NULL COMMENT '加密密码',
+                    phonenumber VARCHAR(255) NOT NULL UNIQUE COMMENT '手机号',
                     email VARCHAR(100) NOT NULL UNIQUE COMMENT '邮箱',
                     role ENUM('admin', 'user') DEFAULT 'user' COMMENT '角色：admin-管理员，user-普通用户',
                     status INT DEFAULT 1 COMMENT '状态：1-启用，0-禁用',
+                    del INT DEFAULT 1 COMMENT '逻辑删除：1-存在，0-删除',
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
             ''')
@@ -33,13 +35,15 @@ def init_mysql():
                            (current_app.config['ADMIN_USERNAME'], 'admin'))
             if not cursor.fetchone():
                 cursor.execute('''
-                    INSERT INTO users (username, password, email, role, status)
-                    VALUES (%s, %s, %s, %s, %s)
+                    INSERT INTO users (username, password,phonenumber, email, role,status,del)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
                 ''', (
                     current_app.config['ADMIN_USERNAME'],
                     admin_pwd,
+                    '12345678900',
                     'admin@tcm.com',
                     'admin',
+                    1,
                     1
                 ))
 

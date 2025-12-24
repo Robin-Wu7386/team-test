@@ -1,3 +1,5 @@
+import re
+
 from flask import render_template, request, redirect, url_for, session, flash
 from admin.routes import user_bp
 from admin.extensions import get_mysql_conn
@@ -20,9 +22,9 @@ def login():
             with conn.cursor() as cursor:
                 # 仅查询普通用户
                 cursor.execute('''
-                    SELECT id, username, password, role, status 
+                    SELECT id, username, password,phonenumber,role, status,del 
                     FROM users 
-                    WHERE username = %s AND role = %s
+                    WHERE username = %s AND role = %s AND del = 1
                 ''', (username, 'user'))
                 user = cursor.fetchone()
 
@@ -32,6 +34,8 @@ def login():
                     flash('账号已被禁用！', 'danger')
                 elif not check_password(password, user['password']):
                     flash('密码错误！', 'danger')
+                elif user['del'] != 1:
+                    flash('账号已被删除！', 'danger')
                 else:
                     # 登录成功，设置session
                     session['username'] = user['username']
@@ -53,6 +57,7 @@ def register():
     if request.method == 'POST':
         username = request.form['username'].strip()
         password = request.form['password'].strip()
+        phonenumber = request.form['phonenumber'].strip()
         email = request.form['email'].strip()
         confirm_pwd = request.form['confirm_pwd'].strip()
 
@@ -63,6 +68,10 @@ def register():
         if len(password) < 6:
             flash('密码长度不少于6位！', 'danger')
             return render_template('register.html')
+        if not re.match(r'^\d{11}$', phonenumber):
+            flash('手机号必须为11位数字！', 'danger')
+            return render_template('user/register.html')
+
 
         conn = get_mysql_conn()
         try:
@@ -76,9 +85,9 @@ def register():
                 # 插入普通用户（固定role=user）
                 hashed_pwd = hash_password(password)
                 cursor.execute('''
-                    INSERT INTO users (username, password, email, role)
-                    VALUES (%s, %s, %s, %s)
-                ''', (username, hashed_pwd, email, 'user'))
+                    INSERT INTO users (username, password, phonenumber,email, role)
+                    VALUES (%s, %s, %s, %s,%s)
+                ''', (username, hashed_pwd,phonenumber, email, 'user'))
                 conn.commit()
                 flash('注册成功！请登录', 'success')
                 return redirect(url_for('user.login'))

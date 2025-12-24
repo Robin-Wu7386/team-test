@@ -78,7 +78,11 @@ def users():
             user_id = request.form['user_id']
             with conn.cursor() as cursor:
                 # 验证是普通用户才删除
-                cursor.execute('DELETE FROM users WHERE id = %s AND role = %s', (user_id, 'user'))
+                cursor.execute('''
+                    UPDATE users 
+                    SET del = 0 
+                    WHERE id = %s AND role = %s
+                ''', (user_id, 'user'))
                 conn.commit()
                 flash('普通用户删除成功！', 'success')
             return redirect(url_for('admin.users'))
@@ -96,7 +100,7 @@ def users():
 
         # 3. 查询所有普通用户（管理员仅1个，不展示）
         with conn.cursor() as cursor:
-            cursor.execute('SELECT * FROM users WHERE role = %s ORDER BY id DESC', ('user',))
+            cursor.execute('SELECT * FROM users WHERE role = %s AND del = 1  ORDER BY id DESC', ('user',))
             users = cursor.fetchall()
     except Exception as e:
         flash(f'操作失败：{str(e)}', 'danger')
