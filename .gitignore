@@ -1,0 +1,15 @@
+# 忽略PyCharm IDE设置文件夹
+.idea/
+
+# 忽略所有爬虫生成的数据和日志 (位于 neo4j/ 目录下)
+neo4j/output/
+neo4j/images/
+neo4j/*.csv
+neo4j/*.xlsx
+neo4j/processed_urls.txt
+neo4j/crawl.log
+neo4j/*.temp.*
+
+# 忽略Python缓存文件
+__pycache__/
+*.py[cod]

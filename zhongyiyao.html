@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>中医药智能平台</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f4f8f2;
+  --green:#6fbf9a;
+  --green-dark:#3e7f65;
+  --yellow:#f3e8a5;
+  --panel:rgba(255,255,255,.82);
+  --border:#ddebe2;
+  --text:#2e4a3c;
+  --muted:#7a9487;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Noto Serif SC",serif;
+  background:
+    radial-gradient(circle at 10% 0%,#ffffffcc,transparent 40%),
+    radial-gradient(circle at 90% 10%,#e7f5ee,transparent 45%),
+    var(--bg);
+  color:var(--text);
+}
+
+/* ===== Header ===== */
+header{
+  position:sticky;
+  top:0;
+  z-index:99;
+  height:78px;
+  padding:0 56px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(255,255,255,.7);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+
+.logo{font-weight:600;font-size:20px}
+.login{
+  padding:10px 30px;
+  border-radius:999px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#fff,var(--yellow));
+  border:1px solid #e6dc9c;
+}
+
+/* ===== Hero ===== */
+.hero{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:60px;
+  padding:90px 80px 70px;
+}
+
+.hero h1{font-size:44px;margin:0 0 20px}
+.hero p{color:var(--muted);max-width:520px}
+
+.hero button{
+  margin-top:30px;
+  padding:16px 40px;
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+  background:linear-gradient(135deg,var(--green),var(--yellow));
+}
+
+.hero-visual{
+  border-radius:28px;
+  background:linear-gradient(135deg,#dff2e8,#f7f1cf);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
+  color:#7c6d1f;
+  box-shadow:0 40px 80px rgba(0,0,0,.15);
+}
+
+/* ===== Section ===== */
+.section{
+  padding:90px 80px;
+}
+
+.section h2{
+  font-size:34px;
+  margin-bottom:14px;
+  color:var(--green-dark);
+}
+
+.section-desc{
+  color:var(--muted);
+  max-width:680px;
+  margin-bottom:46px;
+}
+
+/* ===== 核心能力矩阵（重点） ===== */
+.cap-matrix{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:36px;
+}
+
+.cap-card{
+  position:relative;
+  padding:34px 30px 30px;
+  border-radius:28px;
+  cursor:pointer;
+  background:
+    linear-gradient(var(--panel),var(--panel)) padding-box,
+    linear-gradient(135deg,var(--green),var(--yellow)) border-box;
+  border:2px solid transparent;
+  box-shadow:0 30px 60px rgba(0,0,0,.08);
+  transition:.4s ease;
+  overflow:hidden;
+}
+
+/* 光带 */
+.cap-card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  background:linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255,255,255,.45),
+    transparent 70%
+  );
+  opacity:0;
+  transition:.4s;
+}
+
+/* hover 效果 */
+.cap-card:hover{
+  transform:translateY(-12px) scale(1.02);
+  box-shadow:0 45px 90px rgba(0,0,0,.18);
+}
+.cap-card:hover::before{
+  opacity:1;
+}
+
+/* 内容 */
+.cap-title{
+  font-size:20px;
+  font-weight:600;
+  color:#7a6b1e;
+}
+
+.cap-tags{
+  margin:14px 0 18px;
+}
+.cap-tags span{
+  display:inline-block;
+  font-size:12px;
+  padding:6px 12px;
+  border-radius:999px;
+  margin-right:8px;
+  background:#eef6df;
+  border:1px solid #e3daa2;
+  color:#7a6b1e;
+}
+
+.cap-desc{
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* ===== Recommend ===== */
+.recommend{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+}
+
+.rec{
+  padding:30px;
+  background:var(--panel);
+  border-radius:26px;
+  border:1px solid var(--border);
+  cursor:pointer;
+  transition:.3s;
+}
+.rec:hover{
+  transform:translateY(-8px);
+  box-shadow:0 25px 50px rgba(0,0,0,.12);
+}
+
+/* ===== Modal ===== */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.modal.active{display:flex}
+
+.modal-box{
+  width:520px;
+  background:#fff;
+  padding:30px;
+  border-radius:26px;
+  box-shadow:0 40px 80px rgba(0,0,0,.25);
+}
+
+.modal-box button{
+  margin-top:20px;
+  padding:10px 26px;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--green),var(--yellow));
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">中医药智能平台</div>
+  <div class="login" onclick="openModal('登录 / 注册')">登录 / 注册</div>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>中医药知识图谱 × 大模型智能平台</h1>
+    <p>融合中医理论、现代医学文献与大模型推理能力，构建可信、可解释的智能系统。</p>
+    <button onclick="scrollToSection('cap')">查看核心能力</button>
+  </div>
+  <div class="hero-visual">主视觉区域（可替换图片）</div>
+</section>
+
+<section class="section" id="cap">
+  <h2>平台核心能力</h2>
+  <div class="section-desc">
+    所有能力均基于中医知识图谱与大语言模型协同构建，
+    支持可解释推理与文献证据溯源。
+  </div>
+
+  <div class="cap-matrix">
+    <div class="cap-card" onclick="openModal('中药智能推荐')">
+      <div class="cap-title">中药智能推荐</div>
+      <div class="cap-tags">
+        <span>证型识别</span><span>个性化</span>
+      </div>
+      <div class="cap-desc">
+        根据症状、体质与证型，结合知识图谱关系，生成个性化中药推荐方案。
+      </div>
+    </div>
+
+    <div class="cap-card" onclick="openModal('方剂结构推理')">
+      <div class="cap-title">方剂结构推理</div>
+      <div class="cap-tags">
+        <span>君臣佐使</span><span>配伍逻辑</span>
+      </div>
+      <div class="cap-desc">
+        自动解析方剂组成结构，揭示中医配伍原则与作用机制。
+      </div>
+    </div>
+
+    <div class="cap-card" onclick="openModal('知识图谱推演')">
+      <div class="cap-title">知识图谱推演</div>
+      <div class="cap-tags">
+        <span>关系建模</span><span>可解释</span>
+      </div>
+      <div class="cap-desc">
+        多层实体与关系建模，实现疾病—证候—方药的推演与解释。
+      </div>
+    </div>
+
+    <div class="cap-card" onclick="openModal('RAG 文献证据')">
+      <div class="cap-title">RAG 文献证据</div>
+      <div class="cap-tags">
+        <span>循证医学</span><span>溯源</span>
+      </div>
+      <div class="cap-desc">
+        融合经典医籍与现代研究，生成可追溯的文献证据链。
+      </div>
+    </div>
+
+    <div class="cap-card" onclick="window.open('AI_chat.html')">
+      <div class="cap-title">AI 智能问诊（聊天式）</div>
+      <div class="cap-tags"><span>多轮对话</span><span>RAG</span></div>
+      <div class="cap-desc">支持自由提问的中医智能问答。</div>
+    </div>
+
+    <div class="cap-card" onclick="window.open('ai_consult_wizard.html')">
+      <div class="cap-title">AI 流程引导式问诊</div>
+      <div class="cap-tags"><span>结构化</span><span>辨证</span></div>
+      <div class="cap-desc">模拟真实中医问诊流程，逐步采集信息并综合分析。</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>今日推荐</h2>
+  <div class="recommend">
+    <div class="rec" onclick="openModal('黄芪')">黄芪</div>
+    <div class="rec" onclick="openModal('当归')">当归</div>
+    <div class="rec" onclick="openModal('酸枣仁')">酸枣仁</div>
+  </div>
+</section>
+
+<div class="modal" id="modal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <h3 id="modalTitle"></h3>
+    <p>此处为功能详情 / 后续页面或接口调用位置。</p>
+    <button onclick="closeModal()">关闭</button>
+  </div>
+</div>
+
+<script>
+function openModal(title){
+  document.getElementById('modalTitle').innerText = title;
+  document.getElementById('modal').classList.add('active');
+}
+function closeModal(e){
+  if(!e || e.target.id === 'modal'){
+    document.getElementById('modal').classList.remove('active');
+  }
+}
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>
