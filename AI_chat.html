@@ -2,180 +2,260 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>AI 智能问诊</title>
+<title>AI 智能中医问诊</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --bg:#f4f8f2;
-  --panel:#ffffffee;
   --green:#6fbf9a;
+  --green-dark:#3e7f65;
   --yellow:#f3e8a5;
+  --panel:rgba(255,255,255,.88);
   --border:#ddebe2;
   --text:#2e4a3c;
+  --muted:#7a9487;
 }
 
+*{box-sizing:border-box}
 body{
   margin:0;
+  height:100vh;
   font-family:"Noto Serif SC",serif;
-  background:var(--bg);
-}
-
-/* Header */
-header{
-  padding:22px 40px;
-  background:rgba(255,255,255,.75);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-}
-
-/* Chat */
-.chat-wrap{
-  max-width:900px;
-  margin:30px auto;
-  padding:0 20px;
-}
-
-.messages{
-  height:460px;
-  overflow-y:auto;
-  padding:20px;
-  background:var(--panel);
-  border-radius:26px;
-  border:1px solid var(--border);
-}
-
-.msg{margin-bottom:18px;line-height:1.7}
-.user{text-align:right}
-.ai{color:#4a6f5c}
-
-.input{
-  margin-top:20px;
+  background:
+    radial-gradient(circle at 10% 0%,#ffffffcc,transparent 40%),
+    radial-gradient(circle at 90% 10%,#e7f5ee,transparent 45%),
+    var(--bg);
+  color:var(--text);
   display:flex;
-  gap:14px;
+  justify-content:center;
+  align-items:center;
 }
 
-textarea{
-  flex:1;
-  padding:14px;
-  border-radius:16px;
+/* ===== 主容器 ===== */
+.chat-wrapper{
+  width:900px;
+  height:600px;
+  display:flex;
+  flex-direction:column;
+  background:var(--panel);
+  border-radius:28px;
   border:1px solid var(--border);
-  resize:none;
+  box-shadow:0 40px 80px rgba(0,0,0,.18);
+  overflow:hidden;
 }
 
-button{
-  padding:14px 34px;
+/* ===== 顶部 ===== */
+.chat-header{
+  padding:18px 28px;
+  font-size:20px;
+  font-weight:600;
+  background:linear-gradient(135deg,var(--green),var(--yellow));
+  color:#3e4a35;
+}
+
+/* ===== 聊天区 ===== */
+.chat-body{
+  flex:1;
+  padding:24px;
+  overflow-y:auto;
+}
+
+.msg{
+  max-width:70%;
+  padding:14px 18px;
+  border-radius:18px;
+  margin-bottom:16px;
+  line-height:1.6;
+}
+
+.user{
+  background:#e7f5ee;
+  align-self:flex-end;
+  margin-left:auto;
+}
+
+.ai{
+  background:#fff;
+  border:1px solid var(--border);
+}
+
+/* ===== 输入区 ===== */
+.chat-input{
+  display:flex;
+  gap:12px;
+  padding:18px;
+  border-top:1px solid var(--border);
+}
+
+.chat-input input{
+  flex:1;
+  padding:14px 18px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  font-size:15px;
+}
+
+.chat-input button{
+  padding:14px 32px;
   border:none;
   border-radius:999px;
   cursor:pointer;
   background:linear-gradient(135deg,var(--green),var(--yellow));
+  font-size:15px;
 }
 
-/* ===== Modal ===== */
+/* ===== 弹窗 ===== */
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.35);
+  background:rgba(0,0,0,.4);
   display:flex;
   align-items:center;
   justify-content:center;
-  z-index:999;
+  z-index:99;
 }
 
 .modal-box{
-  width:520px;
+  width:420px;
   background:#fff;
   padding:30px;
   border-radius:26px;
   box-shadow:0 40px 80px rgba(0,0,0,.25);
 }
 
-.modal-box h3{margin-top:0}
-
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-  margin-top:16px;
+.modal-box h3{
+  margin-top:0;
+  margin-bottom:20px;
+  font-weight:600;
 }
 
-input,select{
-  padding:12px;
-  border-radius:14px;
-  border:1px solid var(--border);
+.modal-box input{
   width:100%;
+  padding:12px 14px;
+  margin-bottom:14px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  font-size:14px;
+}
+
+.modal-box button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--green),var(--yellow));
+  cursor:pointer;
+  font-size:16px;
+  font-weight:600;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h2>AI 智能问诊</h2>
-</header>
-
-<!-- 基础信息弹窗 -->
+<!-- ===== 信息登记弹窗 ===== -->
 <div class="modal" id="infoModal">
   <div class="modal-box">
-    <h3>请先填写基础信息</h3>
-    <div class="row">
-      <input id="age" placeholder="年龄">
-      <select id="gender">
-        <option value="">性别</option>
-        <option>男</option>
-        <option>女</option>
-      </select>
-      <input id="height" placeholder="身高 (cm)">
-      <input id="weight" placeholder="体重 (kg)">
-    </div>
-    <button style="margin-top:20px" onclick="confirmInfo()">确认进入问诊</button>
+    <h3>问诊前请填写基本信息</h3>
+    <input id="age" type="number" placeholder="年龄">
+    <input id="gender" placeholder="性别">
+    <input id="height" type="number" placeholder="身高（cm）">
+    <input id="weight" type="number" placeholder="体重（kg）">
+    <button onclick="saveInfo()">开始问诊</button>
   </div>
 </div>
 
-<div class="chat-wrap">
-  <div class="messages" id="msgs"></div>
+<!-- ===== 主界面 ===== -->
+<div class="chat-wrapper">
+  <div class="chat-header">AI 中医智能问诊</div>
 
-  <div class="input">
-    <textarea id="q" rows="2" placeholder="请描述你的症状或问题..."></textarea>
-    <button onclick="send()">发送</button>
+  <div class="chat-body" id="chatBox">
+    <div class="msg ai">
+      你好，我是你的中医智能问诊助手。请详细描述你的不适症状。
+    </div>
+  </div>
+
+  <div class="chat-input">
+    <input id="userInput" placeholder="请输入你的症状描述...">
+    <button onclick="sendMessage()">发送</button>
   </div>
 </div>
 
 <script>
-let baseInfo="";
+let userProfile = {};
+let history = [];
 
-function confirmInfo(){
-  if(!age.value || !gender.value){
-    alert("请至少填写年龄和性别");
-    return;
-  }
-  baseInfo =
-    `患者信息：性别${gender.value}，${age.value}岁，`+
-    `身高${height.value || '未知'}cm，`+
-    `体重${weight.value || '未知'}kg。`;
-  document.getElementById("infoModal").style.display="none";
+function saveInfo(){
+  userProfile = {
+    age: document.getElementById("age").value,
+    gender: document.getElementById("gender").value,
+    height: document.getElementById("height").value,
+    weight: document.getElementById("weight").value
+  };
+  document.getElementById("infoModal").style.display = "none";
 }
 
-function send(){
-  const q = document.getElementById("q").value.trim();
-  if(!q) return;
+async function sendMessage() {
+    const input = document.getElementById("userInput");
+    const msg = input.value.trim();
+    if (!msg) return;
 
-  msgs.innerHTML += `<div class="msg user">${q}</div>`;
-  document.getElementById("q").value="";
-  msgs.scrollTop = msgs.scrollHeight;
+    const chatBox = document.getElementById("chatBox");
+    chatBox.innerHTML += `<div class="msg user">${msg}</div>`;
+    input.value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
 
-  fetch("http://127.0.0.1:5000/ask",{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({ question: baseInfo + q })
-  })
-  .then(r=>r.json())
-  .then(d=>{
-    msgs.innerHTML += `<div class="msg ai">${d.answer}</div>`;
-    msgs.scrollTop = msgs.scrollHeight;
-  });
+    const instruction = `
+你是一名中医智能问诊助手：
+- 根据中医理论（阴阳五行、脏腑、经络、证型等）分析症状。
+- 提供可能的中医证候分析和调理方案。
+- 避免使用西医术语。
+- 仅提供一般建议，不做具体诊断。
+`;
+
+    const prompt = `
+${instruction}
+
+患者信息：
+年龄：${userProfile.age}
+性别：${userProfile.gender}
+身高：${userProfile.height}
+体重：${userProfile.weight}
+
+症状描述：
+${msg}
+`;
+
+    try {
+        const res = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: prompt, history: history })
+        });
+
+
+        if (!res.ok) {
+            chatBox.innerHTML += `<div class="msg ai">⚠️ 后端返回状态码 ${res.status}</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return;
+        }
+
+        const data = await res.json();
+        chatBox.innerHTML += `<div class="msg ai">${data.reply}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        history.push({ role: "user", content: msg });
+        history.push({ role: "assistant", content: data.reply });
+
+    } catch (err) {
+        console.error("请求失败:", err);
+        chatBox.innerHTML += `<div class="msg ai">⚠️ 请求失败，错误信息: ${err}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
 }
+
 </script>
 
 </body>

@@ -2,30 +2,25 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>中医药智能平台</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
-
 <style>
 :root{
   --bg:#f4f8f2;
   --green:#6fbf9a;
-  --green-dark:#3e7f65;
   --yellow:#f3e8a5;
-  --panel:rgba(255,255,255,.82);
-  --border:#ddebe2;
   --text:#2e4a3c;
-  --muted:#7a9487;
+  --header-bg:#fff;
+  --border:#ddebe2;
 }
 
-*{box-sizing:border-box}
+/* Reset */
+*{box-sizing:border-box;}
 body{
   margin:0;
   font-family:"Noto Serif SC",serif;
-  background:
-    radial-gradient(circle at 10% 0%,#ffffffcc,transparent 40%),
-    radial-gradient(circle at 90% 10%,#e7f5ee,transparent 45%),
-    var(--bg);
+  background:var(--bg);
   color:var(--text);
 }
 
@@ -34,165 +29,132 @@ header{
   position:sticky;
   top:0;
   z-index:99;
-  height:78px;
-  padding:0 56px;
   display:flex;
+  align-items:center;
   justify-content:space-between;
-  align-items:center;
-  background:rgba(255,255,255,.7);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
+  padding:0 40px;
+  height:78px;
+  background:var(--header-bg);
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
 }
 
-.logo{font-weight:600;font-size:20px}
-.login{
-  padding:10px 30px;
-  border-radius:999px;
-  cursor:pointer;
-  background:linear-gradient(135deg,#fff,var(--yellow));
-  border:1px solid #e6dc9c;
+.logo{
+  font-weight:700;
+  font-size:22px;
+  color:var(--yellow);
 }
 
-/* ===== Hero ===== */
-.hero{
-  display:grid;
-  grid-template-columns:1.2fr 1fr;
-  gap:60px;
-  padding:90px 80px 70px;
-}
-
-.hero h1{font-size:44px;margin:0 0 20px}
-.hero p{color:var(--muted);max-width:520px}
-
-.hero button{
-  margin-top:30px;
-  padding:16px 40px;
-  border:none;
-  border-radius:999px;
-  cursor:pointer;
-  background:linear-gradient(135deg,var(--green),var(--yellow));
-}
-
-.hero-visual{
-  border-radius:28px;
-  background:linear-gradient(135deg,#dff2e8,#f7f1cf);
+/* 导航功能按钮 */
+.nav-menu{
   display:flex;
   align-items:center;
-  justify-content:center;
-  font-size:26px;
-  color:#7c6d1f;
-  box-shadow:0 40px 80px rgba(0,0,0,.15);
+  gap:12px;
+  flex-wrap:wrap;
 }
 
-/* ===== Section ===== */
-.section{
-  padding:90px 80px;
-}
-
-.section h2{
-  font-size:34px;
-  margin-bottom:14px;
-  color:var(--green-dark);
-}
-
-.section-desc{
-  color:var(--muted);
-  max-width:680px;
-  margin-bottom:46px;
-}
-
-/* ===== 核心能力矩阵（重点） ===== */
-.cap-matrix{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:36px;
-}
-
-.cap-card{
-  position:relative;
-  padding:34px 30px 30px;
-  border-radius:28px;
-  cursor:pointer;
-  background:
-    linear-gradient(var(--panel),var(--panel)) padding-box,
-    linear-gradient(135deg,var(--green),var(--yellow)) border-box;
-  border:2px solid transparent;
-  box-shadow:0 30px 60px rgba(0,0,0,.08);
-  transition:.4s ease;
-  overflow:hidden;
-}
-
-/* 光带 */
-.cap-card::before{
-  content:"";
-  position:absolute;
-  inset:-1px;
-  background:linear-gradient(
-    120deg,
-    transparent 30%,
-    rgba(255,255,255,.45),
-    transparent 70%
-  );
-  opacity:0;
-  transition:.4s;
-}
-
-/* hover 效果 */
-.cap-card:hover{
-  transform:translateY(-12px) scale(1.02);
-  box-shadow:0 45px 90px rgba(0,0,0,.18);
-}
-.cap-card:hover::before{
-  opacity:1;
-}
-
-/* 内容 */
-.cap-title{
-  font-size:20px;
-  font-weight:600;
-  color:#7a6b1e;
-}
-
-.cap-tags{
-  margin:14px 0 18px;
-}
-.cap-tags span{
-  display:inline-block;
-  font-size:12px;
-  padding:6px 12px;
-  border-radius:999px;
-  margin-right:8px;
-  background:#eef6df;
-  border:1px solid #e3daa2;
-  color:#7a6b1e;
-}
-
-.cap-desc{
-  color:var(--muted);
-  line-height:1.6;
-}
-
-/* ===== Recommend ===== */
-.recommend{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:30px;
-}
-
-.rec{
-  padding:30px;
-  background:var(--panel);
-  border-radius:26px;
+.nav-menu .func-button{
+  padding:12px 24px;
+  font-size:16px;
+  border-radius:20px;
+  background:#fff;
   border:1px solid var(--border);
   cursor:pointer;
   transition:.3s;
 }
-.rec:hover{
-  transform:translateY(-8px);
-  box-shadow:0 25px 50px rgba(0,0,0,.12);
+.nav-menu .func-button:hover{
+  background:var(--green);
+  color:#fff;
+  transform:scale(1.05);
+  box-shadow:0 6px 12px rgba(0,0,0,0.15);
 }
 
-/* ===== Modal ===== */
+/* 登录注册按钮 */
+.nav-menu .login-button{
+  padding:12px 28px;
+  font-size:16px;
+  border-radius:20px;
+  background:linear-gradient(135deg,var(--green),var(--yellow));
+  border:none;
+  color:#fff;
+  font-weight:500;
+  cursor:pointer;
+  transition:.3s;
+}
+.nav-menu .login-button:hover{
+  transform:scale(1.05);
+  box-shadow:0 8px 16px rgba(0,0,0,.15);
+}
+
+/* Hero / 轮播 */
+.hero{
+  position:relative;
+  width:100%;
+  height:400px;
+  margin-bottom:40px;
+  overflow:hidden;
+  border-radius:12px;
+}
+
+.hero img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:none;
+  transition:opacity 1s ease-in-out;
+}
+
+.hero img.active{
+  display:block;
+}
+
+/* 今日推荐卡片 */
+.recommend-section{
+  padding:0 40px 40px 40px;
+}
+.recommend-section h2{
+  color:var(--green);
+  text-align:center;
+  margin-bottom:24px;
+}
+
+.recommend-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  overflow:hidden;
+  cursor:pointer;
+  transition:.3s;
+}
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 8px 16px rgba(0,0,0,0.15);
+}
+.card img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+}
+.card-content{
+  padding:16px;
+}
+.card-content h3{
+  margin:0 0 10px 0;
+  font-size:18px;
+  color:#2e4a3c;
+}
+.card-content p{
+  margin:0;
+  font-size:14px;
+  color:#555;
+}
+
+/* Modal */
 .modal{
   position:fixed;
   inset:0;
@@ -204,111 +166,72 @@ header{
 .modal.active{display:flex}
 
 .modal-box{
-  width:520px;
+  width:480px;
   background:#fff;
   padding:30px;
   border-radius:26px;
   box-shadow:0 40px 80px rgba(0,0,0,.25);
 }
-
 .modal-box button{
   margin-top:20px;
   padding:10px 26px;
   border:none;
   border-radius:999px;
   background:linear-gradient(135deg,var(--green),var(--yellow));
+  color:#fff;
 }
 </style>
 </head>
-
 <body>
 
 <header>
   <div class="logo">中医药智能平台</div>
-  <div class="login" onclick="openModal('登录 / 注册')">登录 / 注册</div>
+
+  <div class="nav-menu">
+    <button class="func-button" onclick="window.open('/chat_page')">智能问诊</button>
+    <button class="func-button" onclick="window.open('ai_consult_wizard.html')">流程问诊</button>
+    <button class="func-button" onclick="openModal('中药智能推荐')">中药推荐</button>
+    <button class="func-button" onclick="openModal('方剂结构推理')">方剂推理</button>
+    <button class="login-button" onclick="openModal('登录 / 注册')">登录 / 注册</button>
+  </div>
 </header>
 
+<!-- Hero / 轮播 -->
 <section class="hero">
-  <div>
-    <h1>中医药知识图谱 × 大模型智能平台</h1>
-    <p>融合中医理论、现代医学文献与大模型推理能力，构建可信、可解释的智能系统。</p>
-    <button onclick="scrollToSection('cap')">查看核心能力</button>
-  </div>
-  <div class="hero-visual">主视觉区域（可替换图片）</div>
+  <img src="/static/pictures/zhongyao1.png" class="active" alt="轮播图1">
+  <img src="/static/pictures/zhongyao2.png" alt="轮播图2">
+  <img src="/static/pictures/zhongyao3.png" alt="轮播图3">
 </section>
 
-<section class="section" id="cap">
-  <h2>平台核心能力</h2>
-  <div class="section-desc">
-    所有能力均基于中医知识图谱与大语言模型协同构建，
-    支持可解释推理与文献证据溯源。
-  </div>
-
-  <div class="cap-matrix">
-    <div class="cap-card" onclick="openModal('中药智能推荐')">
-      <div class="cap-title">中药智能推荐</div>
-      <div class="cap-tags">
-        <span>证型识别</span><span>个性化</span>
-      </div>
-      <div class="cap-desc">
-        根据症状、体质与证型，结合知识图谱关系，生成个性化中药推荐方案。
-      </div>
-    </div>
-
-    <div class="cap-card" onclick="openModal('方剂结构推理')">
-      <div class="cap-title">方剂结构推理</div>
-      <div class="cap-tags">
-        <span>君臣佐使</span><span>配伍逻辑</span>
-      </div>
-      <div class="cap-desc">
-        自动解析方剂组成结构，揭示中医配伍原则与作用机制。
-      </div>
-    </div>
-
-    <div class="cap-card" onclick="openModal('知识图谱推演')">
-      <div class="cap-title">知识图谱推演</div>
-      <div class="cap-tags">
-        <span>关系建模</span><span>可解释</span>
-      </div>
-      <div class="cap-desc">
-        多层实体与关系建模，实现疾病—证候—方药的推演与解释。
-      </div>
-    </div>
-
-    <div class="cap-card" onclick="openModal('RAG 文献证据')">
-      <div class="cap-title">RAG 文献证据</div>
-      <div class="cap-tags">
-        <span>循证医学</span><span>溯源</span>
-      </div>
-      <div class="cap-desc">
-        融合经典医籍与现代研究，生成可追溯的文献证据链。
-      </div>
-    </div>
-
-    <div class="cap-card" onclick="window.open('AI_chat.html')">
-      <div class="cap-title">AI 智能问诊（聊天式）</div>
-      <div class="cap-tags"><span>多轮对话</span><span>RAG</span></div>
-      <div class="cap-desc">支持自由提问的中医智能问答。</div>
-    </div>
-
-    <div class="cap-card" onclick="window.open('ai_consult_wizard.html')">
-      <div class="cap-title">AI 流程引导式问诊</div>
-      <div class="cap-tags"><span>结构化</span><span>辨证</span></div>
-      <div class="cap-desc">模拟真实中医问诊流程，逐步采集信息并综合分析。</div>
-    </div>
-
-  </div>
-</section>
-
-<section class="section">
+<!-- 今日推荐 -->
+<section class="recommend-section">
   <h2>今日推荐</h2>
-  <div class="recommend">
-    <div class="rec" onclick="openModal('黄芪')">黄芪</div>
-    <div class="rec" onclick="openModal('当归')">当归</div>
-    <div class="rec" onclick="openModal('酸枣仁')">酸枣仁</div>
+  <div class="recommend-cards">
+    <div class="card" onclick="openModal('黄芪')">
+      <img src="/static/pictures/huangqi.png" alt="黄芪">
+      <div class="card-content">
+        <h3>黄芪</h3>
+        <p>黄芪具有补气固表、利尿托毒等功效，是常用中药材。</p>
+      </div>
+    </div>
+    <div class="card" onclick="openModal('当归')">
+      <img src="/static/pictures/danggui.png" alt="当归">
+      <div class="card-content">
+        <h3>当归</h3>
+        <p>当归补血活血，调经止痛，是中医常用药材。</p>
+      </div>
+    </div>
+    <div class="card" onclick="openModal('酸枣仁')">
+      <img src="/static/pictures/suanzaoren.png" alt="酸枣仁">
+      <div class="card-content">
+        <h3>酸枣仁</h3>
+        <p>酸枣仁养心安神，助眠，对于失眠多梦有帮助。</p>
+      </div>
+    </div>
   </div>
 </section>
 
+<!-- Modal -->
 <div class="modal" id="modal" onclick="closeModal(event)">
   <div class="modal-box">
     <h3 id="modalTitle"></h3>
@@ -327,10 +250,15 @@ function closeModal(e){
     document.getElementById('modal').classList.remove('active');
   }
 }
-function scrollToSection(id){
-  document.getElementById(id).scrollIntoView({behavior:'smooth'});
-}
-</script>
 
+/* 简单轮播 */
+let currentSlide = 0;
+const slides = document.querySelectorAll('.hero img');
+setInterval(() => {
+  slides[currentSlide].classList.remove('active');
+  currentSlide = (currentSlide+1) % slides.length;
+  slides[currentSlide].classList.add('active');
+}, 4000);
+</script>
 </body>
 </html>
