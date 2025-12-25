@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理 - 管理员后台</title>
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei";}
+        body {background:#f5f7fa;}
+        .header {background:#2c3e50;color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;}
+        .header a {color:#fff;text-decoration:none;margin-left:20px;}
+        .sidebar {width:200px;background:#34495e;height:calc(100vh - 60px);position:fixed;top:60px;left:0;padding-top:20px;}
+        .sidebar a {display:block;color:#ecf0f1;padding:10px 20px;text-decoration:none;}
+        .sidebar a:hover, .sidebar a.active {background:#2c3e50;}
+        .content {margin-left:220px;padding:30px;}
+        .card {background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.1);margin-bottom:20px;}
+        .alert {padding:10px;margin-bottom:15px;border-radius:4px;}
+        .alert-danger {background:#f2dede;color:#a94442;}
+        .alert-success {background:#dff0d8;color:#3c763d;}
+        table {width:100%;border-collapse:collapse;margin-top:20px;}
+        table th, table td {padding:12px;border:1px solid #ddd;text-align:center;}
+        table th {background:#f5f5f5;}
+        .btn {padding:6px 12px;border:none;border-radius:4px;cursor:pointer;margin:0 5px;}
+        .btn-danger {background:#e74c3c;color:#fff;}
+        .btn-warning {background:#f39c12;color:#fff;}
+        .btn-success {background:#2ecc71;color:#fff;}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h3>中药管理系统 - 管理员后台</h3>
+        <div>
+            <span>当前登录：{{ username }}</span>
+            <a href="{{ url_for('admin.logout') }}">退出登录</a>
+        </div>
+    </div>
+    <div class="sidebar">
+        <a href="{{ url_for('admin.dashboard') }}">后台首页</a>
+        <a href="{{ url_for('admin.users') }}" class="active">用户管理</a>
+    </div>
+    <div class="content">
+        <div class="card">
+            <h2>普通用户管理</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, msg in messages %}
+                        <div class="alert alert-{{ category }}">{{ msg }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>手机号</th>
+                        <th>邮箱</th>
+                        <th>状态</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.phonenumber }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ '启用' if user.status == 1 else '禁用' }}</td>
+                        <td>{{ user.created_at }}</td>
+                        <td>
+                            <!-- 禁用/启用 -->
+                            <form method="POST" style="display:inline;">
+                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                <input type="hidden" name="status" value="{{ 0 if user.status == 1 else 1 }}">
+                                <button type="submit" name="change_status" class="btn {% if user.status == 1 %}btn-warning{% else %}btn-success{% endif %}">
+                                    {{ '禁用' if user.status == 1 else '启用' }}
+                                </button>
+                            </form>
+                            <!-- 删除 -->
+                            <form method="POST" style="display:inline;" onsubmit="return confirm('确定删除该用户？');">
+                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                <button type="submit" name="delete" class="btn btn-danger">删除</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% if not users %}
+                    <tr>
+                        <td colspan="6">暂无普通用户</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
