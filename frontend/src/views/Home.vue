@@ -30,7 +30,7 @@
       </button>
       <button
         class="login-button"
-        @click="openModal('登录 / 注册')"
+        @click="$router.push('/login')"
       >
         登录 / 注册
       </button>
