@@ -1,8 +1,7 @@
 import os
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 from AI_chat import chat_logic, ChatRequest
 
 app = FastAPI()
@@ -16,28 +15,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ===== 静态文件挂载 =====
+# ===== 静态文件（给 Vue 用图片）=====
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(BASE_DIR, "static")
-app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
-# ===== 首页 =====
+if os.path.exists(STATIC_DIR):
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+# ===== 根路由（后端提示用）=====
 @app.get("/")
 def index():
-    file_path = os.path.join(BASE_DIR, "zhongyiyao.html")
-    if not os.path.exists(file_path):
-        raise HTTPException(status_code=404, detail="主页文件不存在")
-    return FileResponse(file_path)
+    return {
+        "msg": "FastAPI 后端接口运行中",
+        "usage": {
+            "frontend": "http://localhost:5173",
+            "chat_api": "POST /chat",
+            "test": "/test"
+        }
+    }
 
-# ===== 智能问诊页面 =====
-@app.get("/chat_page")
-def chat_page():
-    file_path = os.path.join(BASE_DIR, "AI_chat.html")
-    if not os.path.exists(file_path):
-        raise HTTPException(status_code=404, detail="聊天页面文件不存在")
-    return FileResponse(file_path)
-
-# ===== 聊天接口 =====
+# ===== 聊天接口（Vue 调用）=====
 @app.post("/chat")
 def chat(req: ChatRequest):
     return chat_logic(req)
