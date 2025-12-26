@@ -24,7 +24,7 @@
       </button>
       <button
         class="func-button"
-        @click="openModal('知识图谱推演')"
+        @click="$router.push('/knowledge_graph')"
       >
         知识图谱
       </button>
