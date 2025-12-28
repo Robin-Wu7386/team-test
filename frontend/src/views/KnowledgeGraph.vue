@@ -3,7 +3,7 @@
     <!-- 头部 - 完全对应原代码 -->
     <header>
       <div class="logo">中医药知识图谱推演</div>
-      <button class="back-button" @click="goBack">返回主界面</button>
+      <button @click="goToHome" class="back-button">返回主页</button>
     </header>
 
     <!-- 主容器 - 完全对应原代码 -->
@@ -99,6 +99,18 @@ const maxNodes = ref(20)
 const historyItems = ref([null, null, null])
 const graphData = ref({ nodes: [], links: [] })
 const suggestionBox = ref(null)
+
+// 返回首页函数
+const goToHome = () => {
+  // 方式1：使用Vue Router跳转（推荐，需提前配置首页路由）
+  // router.push('/'); // 替换为你的首页路由路径，如 '/home'
+
+  // 方式2：跳转到指定URL（适合无路由场景）
+  window.location.href = '/'; // 替换为你的首页实际URL，如 'index.html'
+
+  // 方式3：仅提示（测试用）
+  // alert('返回首页');
+};
 
 // 挂载时初始化
 onMounted(() => {
@@ -421,7 +433,7 @@ header {
 .logo {
   font-weight: 700;
   font-size: 22px;
-  color: var(--green);
+  color: var(--yellow);
 }
 .back-button {
   padding: 10px 24px;

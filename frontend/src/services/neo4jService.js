@@ -1,6 +1,6 @@
 import neo4j from 'neo4j-driver'
 
-const NEO4J_URI = 'bolt://10.138.238.141:7687'
+const NEO4J_URI = 'bolt://localhost:7687'
 const NEO4J_USER = 'neo4j'
 const NEO4J_PASSWORD = '12345678'
 
