@@ -9,7 +9,7 @@ import AIConsultWizard from "./views/AIConsultWizard.vue";
 import KnowledgeGraph from "./views/KnowledgeGraph.vue";
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
-// 修正路径：从 ../views 改为 ./views（保持路径层级统一）
+
 import HerbRecommend from './views/HerbRecommend.vue'
 
 // 创建并导出路由实例
@@ -25,7 +25,7 @@ export default createRouter({
     { path: '/login', component: Login }, // 登录页
     { path: '/register', component: Register }, // 注册页
     { // 中药推荐页（补充完整，无语法错误）
-      path: '/herb-recommend',
+      path: '/recommend',
       name: 'HerbRecommend',
       component: HerbRecommend
     }
