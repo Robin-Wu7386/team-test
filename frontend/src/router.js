@@ -9,6 +9,9 @@ import AIConsultWizard from "./views/AIConsultWizard.vue";
 import KnowledgeGraph from "./views/KnowledgeGraph.vue";
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
+import AdminBackend from './views/AdminBackend.vue';
+import AdminLogin from './views/AdminLogin.vue';
+
 
 import HerbRecommend from './views/HerbRecommend.vue'
 
@@ -24,6 +27,12 @@ export default createRouter({
     { path: "/knowledge_graph", component: KnowledgeGraph }, // 知识图谱页
     { path: '/login', component: Login }, // 登录页
     { path: '/register', component: Register }, // 注册页
+    { path: '/admin/login', component: AdminLogin },
+    {
+      path: '/admin/backend',
+      component: AdminBackend,
+      meta: { requiresAuth: true } // 需要管理员登录验证
+    },
     { // 中药推荐页（补充完整，无语法错误）
       path: '/recommend',
       name: 'HerbRecommend',

@@ -28,7 +28,7 @@ db.connect((err) => {
 });
 
 // 3. 注册接口（新增用户，默认is_deleted=0）
-app.post('/register', async (req, res) => {
+app.post('/user/register', async (req, res) => {
   try {
     const { username, phonenumber, email, password } = req.body;
 
@@ -79,7 +79,7 @@ app.post('/register', async (req, res) => {
 });
 
 // 4. 登录接口（排除逻辑删除的用户）
-app.post('/login', async (req, res) => {
+app.post('/user/login', async (req, res) => {
   try {
     const { account, password } = req.body;
 

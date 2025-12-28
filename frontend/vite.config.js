@@ -11,11 +11,17 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      // 新增：后端/api接口的代理配置（对应登录/注册接口）
-      "/api": {
-        target: "http://localhost:3001", // 后端服务地址
-        changeOrigin: true, // 解决跨域
-        rewrite: (path) => path.replace(/^\/api/, "") // 去掉请求路径中的/api前缀
+       // 用户后端API（登录/注册等）- 端口3001
+      "/api/user": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/user/, "/user")
+      }
+      // 管理员后端API - 端口3000
+      "/api/admin": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        rewrite: (path) => path // 保持原路径
       },
       // 保留原有的/chat和/static代理
       "/chat": "http://127.0.0.1:8000",
