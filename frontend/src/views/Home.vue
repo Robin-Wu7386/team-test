@@ -191,7 +191,7 @@
 
       <!-- 右侧：登录/注册 -->
       <div class="nav-right">
-        <button class="login-btn" @click="handleLogin">
+        <button class="login-btn" @click="navigate('/login')">
           <span class="login-icon">👤</span>
           <span>登录 / 注册</span>
           <i class="ri-arrow-right-s-line login-arrow"></i>
