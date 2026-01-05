@@ -515,6 +515,89 @@
         <div class="vertical-deco right-deco">医者仁心</div>
       </div>
     </main>
+    <!-- ================= 4. 中药非遗传承人展示模块 ================= -->
+<section class="heritage-section">
+  <!-- 板块标题区（延续国风样式） -->
+  <div class="heritage-title">
+    <h2>国药非遗 · 匠人传承</h2>
+    <p>守护中药古法技艺的传承者</p>
+  </div>
+
+  <!-- 传承人卡片容器（响应式网格布局，贴合页面风格） -->
+  <div class="heritage-card-container">
+    <!-- 遍历传承人数据生成卡片 -->
+    <div
+      class="heritage-card"
+      v-for="(inheritor, index) in inheritorList"
+      :key="index"
+      @click="showInheritorDetail(inheritor)"
+    >
+      <!-- 传承人头像/技艺场景图 -->
+      <img
+        :src="inheritor.imgUrl"
+        :alt="`${inheritor.name}-${inheritor.project}`"
+        class="card-img"
+      >
+      <!-- 卡片内容区 -->
+      <div class="card-content">
+        <div class="card-name">
+          {{ inheritor.name }}
+          <span class="card-project">{{ inheritor.project }}</span>
+        </div>
+        <div class="card-tag">{{ inheritor.tag }}</div>
+        <div class="card-desc">{{ inheritor.desc }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 传承人详情弹窗（点击卡片显示，贴合国风视觉） -->
+  <div class="detail-modal" v-if="showModal" @click.self="closeModal">
+    <div class="modal-content">
+      <div class="modal-close" @click="closeModal">×</div>
+      <img :src="currentInheritor.imgUrl" :alt="currentInheritor.name" class="modal-img">
+      <div class="modal-info">
+        <h3>{{ currentInheritor.name }} - {{ currentInheritor.project }}</h3>
+        <p class="modal-tag">{{ currentInheritor.tag }}</p>
+        <p class="modal-desc">{{ currentInheritor.detailDesc }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+    <!-- ================= 5. 道地药材产地分布 - 高德地图模块 ================= -->
+<section class="herb-distribution-section">
+  <!-- 标题区 -->
+  <div class="distribution-title-wrapper">
+    <h2 class="distribution-main-title">道地药材 · 产地分布</h2>
+    <p class="distribution-subtitle">探索传统中药材的核心产区</p>
+    <div class="title-divider"></div>
+  </div>
+
+  <!-- 地图容器 -->
+  <div class="map-container" id="herbMap"></div>
+
+  <!-- 产地筛选面板 -->
+  <div class="herb-filter-panel">
+    <div class="filter-title">
+      <i class="ri-map-pin-line"></i>
+      <span>核心产区筛选</span>
+    </div>
+    <div class="filter-tags">
+      <button
+        v-for="(region, idx) in herbRegions"
+        :key="idx"
+        class="filter-tag"
+        :class="{ active: activeRegion === region.name }"
+        @click="filterHerbRegion(region.name)"
+      >
+        {{ region.name }}
+      </button>
+    </div>
+    <div class="herb-tip">
+      <i class="ri-information-line"></i>
+      <span>点击地图标记查看药材详情</span>
+    </div>
+  </div>
+</section>
 
     <!-- ================= 4. 底部装饰 ================= -->
     <footer class="home-footer">
@@ -690,7 +773,283 @@ const getHerbColorRGBA = (n, alpha) => {
 const getOpacity = (n) => {
   return 0.4 + Math.random() * 0.3; // 0.4-0.7
 };
+// ---------------- 高德地图相关配置 ----------------
+const AMapKey = 'a51d346dda9ace47e9b2397d91f3a6aa'; // 高德前端KEY
+const mapInstance = ref(null); // 地图实例
+const activeRegion = ref('全部'); // 激活的产区筛选
 
+// 道地药材产地数据（含经纬度、药材信息）
+const herbRegions = ref([
+  {
+    name: '全部',
+    herbs: [] // 所有产地合并
+  },
+  {
+    name: '四川',
+    herbs: [
+      {
+        lnglat: [104.06, 30.67], // 成都经纬度
+        name: '川芎',
+        alias: '芎藭、小叶川芎',
+        efficacy: '活血行气，祛风止痛',
+        feature: '四川都江堰特产，个大饱满，香气浓郁'
+      },
+      {
+        lnglat: [103.73, 30.05], // 彭州
+        name: '黄连',
+        alias: '川连、味连',
+        efficacy: '清热燥湿，泻火解毒',
+        feature: '雅连为四川特有，质坚味极苦'
+      }
+    ]
+  },
+  {
+    name: '云南',
+    herbs: [
+      {
+        lnglat: [102.71, 25.04], // 昆明
+        name: '三七',
+        alias: '田七、金不换',
+        efficacy: '散瘀止血，消肿定痛',
+        feature: '文山三七为道地，质地坚实，断面灰绿'
+      },
+      {
+        lnglat: [99.90, 25.88], // 大理
+        name: '重楼',
+        alias: '七叶一枝花',
+        efficacy: '清热解毒，消肿止痛',
+        feature: '滇重楼为云南道地，根茎粗壮'
+      }
+    ]
+  },
+  {
+    name: '安徽',
+    herbs: [
+      {
+        lnglat: [117.28, 31.86], // 亳州
+        name: '白芍',
+        alias: '亳芍',
+        efficacy: '养血调经，敛阴止汗',
+        feature: '亳州白芍条粗长，粉性足'
+      },
+      {
+        lnglat: [118.30, 30.56], // 宣城
+        name: '木瓜',
+        alias: '宣木瓜',
+        efficacy: '舒筋活络，和胃化湿',
+        feature: '宣州木瓜肉厚味酸，个大色红'
+      }
+    ]
+  },
+  {
+    name: '甘肃',
+    herbs: [
+      {
+        lnglat: [103.82, 36.05], // 定西
+        name: '当归',
+        alias: '秦归、云归',
+        efficacy: '补血活血，调经止痛',
+        feature: '岷县当归油润，味甘辛'
+      },
+      {
+        lnglat: [105.15, 35.48], // 平凉
+        name: '黄芪',
+        alias: '黄耆、北芪',
+        efficacy: '补气升阳，固表止汗',
+        feature: '陇西黄芪条粗，断面金井玉栏'
+      }
+    ]
+  }
+]);
+
+// 合并全部产地数据
+herbRegions.value[0].herbs = herbRegions.value.slice(1).reduce((total, item) => {
+  total.push(...item.herbs);
+  return total;
+}, []);
+
+// 加载高德地图API
+const loadAMap = () => {
+  return new Promise((resolve, reject) => {
+    if (window.AMap) {
+      resolve(window.AMap);
+      return;
+    }
+    // 动态加载高德地图JS API
+    const script = document.createElement('script');
+    script.src = `https://webapi.amap.com/maps?v=2.0&key=${AMapKey}&callback=initAMap`;
+    script.type = 'text/javascript';
+    script.async = true;
+    window.initAMap = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+};
+
+// 初始化地图
+const initMap = async () => {
+  try {
+    await loadAMap();
+    // 创建地图实例
+    mapInstance.value = new window.AMap.Map('herbMap', {
+      zoom: 5, // 初始缩放级别
+      center: [108.95, 34.27], // 初始中心点（西安）
+      resizeEnable: true,
+      // 自定义地图样式（适配中式风格）
+      mapStyle: 'amap://styles/light',
+      // 隐藏默认控件
+      features: ['bg', 'road', 'building', 'point'],
+      zoomEnable: true,
+      dragEnable: true,
+      scrollWheel: true
+    });
+
+    // 添加地图控件（自定义样式）
+    mapInstance.value.addControl(new window.AMap.Scale({
+      position: 'bottom-right'
+    }));
+    mapInstance.value.addControl(new window.AMap.Zoom({
+      position: 'bottom-right'
+    }));
+
+    // 初始化显示全部产地标记
+    renderHerbMarkers(herbRegions.value[0].herbs);
+
+  } catch (error) {
+    console.error('高德地图加载失败:', error);
+  }
+};
+
+// 渲染药材标记点
+const renderHerbMarkers = (herbs) => {
+  if (!mapInstance.value) return;
+  // 清除原有标记
+  mapInstance.value.clearMap();
+
+  herbs.forEach(herb => {
+    // 创建自定义标记图标
+    const markerIcon = new window.AMap.Icon({
+      size: new window.AMap.Size(36, 36),
+      image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxOCIgY3k9IjE4IiByPSIxMCIgZmlsbD0iIzJkNWE0NyIgc3Ryb2tlPSIjMWEzZDJlIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTE4IDhDMTEuMzcgOCA2IDEzLjM3IDYgMjBDNiAyNi42MyAxMS4zNyAzMiAxOCAzMkMyNC42MyAzMiAzMCAyNi42MyAzMCAyMEMzMCAxMy4zNyAyNC42MyA4IDE4IDhNMTggMjZDMTEuMzkgMjYgNiAyMC42MSA2IDE0QzYgNy4zOSAxMS4zOSAyIDE4IDJDMjQuNjEgMiAzMCA3LjM5IDMwIDE0QzMwIDIwLjYxIDI0LjYxIDI2IDE4IDI2WiIgZmlsbD0iI2NmZmNmYyIgc3Ryb2tlPSIjMWEzZDJlIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+',
+      imageSize: new window.AMap.Size(36, 36),
+      imageOffset: new window.AMap.Pixel(0, 0)
+    });
+
+    // 创建标记点
+    const marker = new window.AMap.Marker({
+      position: herb.lnglat,
+      icon: markerIcon,
+      offset: new window.AMap.Pixel(-18, -18),
+      animation: 'AMAP_ANIMATION_DROP' // 下落动画
+    });
+
+    // 创建信息窗口
+    const infoWindow = new window.AMap.InfoWindow({
+      content: `
+        <div class="herb-info-window">
+          <h3 class="info-name">${herb.name}</h3>
+          <p class="info-alias">别名：${herb.alias}</p>
+          <p class="info-efficacy">功效：${herb.efficacy}</p>
+          <p class="info-feature">道地特征：${herb.feature}</p>
+        </div>
+      `,
+      offset: new window.AMap.Pixel(0, -40),
+      closeWhenClickMap: true
+    });
+
+    // 标记点点击事件
+    marker.on('click', () => {
+      infoWindow.open(mapInstance.value, herb.lnglat);
+      // 标记点弹跳动画
+      marker.setAnimation('AMAP_ANIMATION_BOUNCE');
+      setTimeout(() => {
+        marker.setAnimation(null);
+      }, 1500);
+    });
+
+    // 添加标记到地图
+    mapInstance.value.add(marker);
+  });
+};
+
+// 筛选产区
+const filterHerbRegion = (regionName) => {
+  activeRegion.value = regionName;
+  const targetRegion = herbRegions.value.find(item => item.name === regionName);
+  if (targetRegion) {
+    renderHerbMarkers(targetRegion.herbs);
+    // 地图居中（全部则居中全国，否则居中对应省份）
+    if (regionName === '全部') {
+      mapInstance.value.setCenter([108.95, 34.27]);
+      mapInstance.value.setZoom(5);
+    } else {
+      const centerLnglat = targetRegion.herbs[0].lnglat;
+      mapInstance.value.setCenter(centerLnglat);
+      mapInstance.value.setZoom(8);
+    }
+  }
+};
+
+// 挂载时初始化地图
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+  // 延迟初始化地图，确保DOM加载完成
+  setTimeout(initMap, 500);
+});
+// ================= 非遗传承人核心数据与方法 =================
+const showModal = ref(false); // 控制详情弹窗显示/隐藏
+const currentInheritor = ref({}); // 存储当前选中的传承人信息
+// 非遗传承人列表数据（可根据实际需求扩展）
+const inheritorList = ref([
+  {
+    name: "王孝涛",
+    project: "中药炮制技术",
+    tag: "炮制学科奠基人 | 国家级非遗第一批传承人",
+    desc: "编撰《中药炮制经验集成》，规范传统饮片工艺，奠定中药炮制学科体系。",
+    detailDesc: "王孝涛先生是我国著名中药炮制专家，毕生致力于中药炮制技艺的整理、研究与传承。他牵头编撰了多部中药炮制经典著作，系统梳理了全国各地区的炮制经验，推动中药炮制从传统经验向现代科学标准化发展，培养了大批中药炮制专业人才。",
+    imgUrl: "/static/pictures/王孝涛.jpg"// 可替换为真实图片地址
+  },
+  {
+    name: "肖永庆",
+    project: "中药炮制技术",
+    tag: "炮制与药性研究专家 | 第六批国家级非遗传承人",
+    desc: "提出“炮制与药性相关性”研究范式，完善饮片质量标准体系。",
+    detailDesc: "肖永庆长期从事中药炮制工艺与质量标准研究，聚焦中药炮制前后药性变化规律，建立了多项中药饮片质量控制方法，推动传统中药炮制技艺与现代检测技术相结合，为中药饮片的规范化生产和临床安全用药提供了重要支撑。",
+   imgUrl: "/static/pictures/肖永庆.jpg"
+  },
+  {
+    name: "申屠银洪",
+    project: "桐君传统中药文化",
+    tag: "古法中药传承者 | 国家级非遗传承人",
+    desc: "传承桐君阁古法炮制技艺，建立非遗馆，培育多代中药传承人。",
+    detailDesc: "申屠银洪深耕桐君传统中药文化数十年，坚守古法中药炮制工艺，对桐君阁经典方剂的配伍、炮制流程进行完整传承与保护。他建立了桐君中药非遗展示馆，通过口传心授的方式培养中青年传承人，让传统中药文化得以活态传承。",
+    imgUrl: "/static/pictures/申屠银洪.jpg"
+  },
+  {
+    name: "王俊良",
+    project: "人参炮制技艺",
+    tag: "人参古法炮制专家 | 第五批国家级非遗传承人",
+    desc: "专注人参传统炮制工艺，保留人参药效活性，推动道地人参产业化。",
+    detailDesc: "王俊良精通人参的洗、晒、蒸、制等古法炮制工序，深谙不同炮制方法对人参药效的影响，所炮制的人参饮片药效稳定、品质上乘。他在传承古法的同时，结合现代仓储技术，解决了道地人参的保存难题，推动人参炮制技艺与产业发展深度融合。",
+    imgUrl: "/static/pictures/王俊良.jpg"
+  }
+]);
+
+// 显示传承人详情弹窗
+const showInheritorDetail = (inheritor) => {
+  currentInheritor.value = inheritor;
+  showModal.value = true;
+  // 禁止页面滚动（弹窗显示时）
+  document.body.style.overflow = "hidden";
+};
+
+// 关闭传承人详情弹窗
+const closeModal = () => {
+  showModal.value = false;
+  currentInheritor.value = {};
+  // 恢复页面滚动
+  document.body.style.overflow = "auto";
+};
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
 });
@@ -2434,13 +2793,447 @@ onMounted(() => {
     justify-content: center;
   }
 
-  /* 移动端进一步减少背景草 */
+  /* 移动端进一步减少背景草 */+                                                                                                                    ·
   .background-herbs-layer .background-herb:nth-child(n+16) {
     display: none;
   }
 
   .background-herb {
     opacity: 0.02 !important;
+  }
+
+}
+/* ====== 5. 道地药材产地分布模块样式 ====== */
+.herb-distribution-section {
+  width: 100%;
+  min-height: 700px;
+  position: relative;
+  z-index: 20;
+  padding: 80px 8% 120px;
+  background: rgba(247, 249, 244, 0.85);
+  backdrop-filter: blur(8px);
+  margin-top: 40px;
+}
+
+.distribution-title-wrapper {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.distribution-main-title {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--ink-green);
+  margin: 0 0 12px 0;
+  font-family: 'ZCOOL XiaoWei', serif;
+  letter-spacing: 3px;
+}
+
+.distribution-subtitle {
+  font-size: 16px;
+  color: var(--sage-green);
+  margin: 0 0 16px 0;
+  letter-spacing: 2px;
+}
+
+.title-divider {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-accent), transparent);
+  margin: 0 auto;
+}
+
+/* 地图容器 */
+.map-container {
+  width: 100%;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(26, 61, 46, 0.15), 0 5px 15px rgba(26, 61, 46, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+}
+
+/* 筛选面板 */
+.herb-filter-panel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(26, 61, 46, 0.1);
+  border: 1px solid rgba(45, 90, 71, 0.1);
+  max-width: 320px;
+}
+
+.filter-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-weight: 700;
+  color: var(--ink-green);
+  font-size: 15px;
+}
+
+.filter-title i {
+  color: var(--gold-accent);
+  font-size: 18px;
+}
+
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.filter-tag {
+  padding: 6px 12px;
+  background: rgba(45, 90, 71, 0.08);
+  border: 1px solid rgba(45, 90, 71, 0.15);
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--sage-green);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-tag.active {
+  /* 绿色渐变背景（可根据你的主色调整色值） */
+  background: linear-gradient(135deg, #2D5D46, #3E7D65);
+  /* 文字用浅米色（非纯白），比纯白更贴合中式风格 */
+  color: #F8F5F0;
+  border-color: #2D5D46;
+  box-shadow: 0 4px 12px rgba(45, 90, 71, 0.2);
+  transform: translateY(-2px);
+}
+.filter-tag:hover:not(.active) {
+  border-color: var(--gold-accent);
+  transform: translateY(-2px);
+}
+
+.herb-tip {
+  font-size: 12px;
+  color: var(--sage-green);
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.herb-tip i {
+  font-size: 12px;
+}
+
+/* 地图信息窗口样式 */
+.herb-info-window {
+  padding: 12px 16px;
+  font-family: 'Noto Serif SC', serif;
+  width: 220px;
+}
+
+.info-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink-green);
+  margin: 0 0 6px 0;
+  border-bottom: 1px solid rgba(197, 166, 102, 0.3);
+  padding-bottom: 4px;
+}
+
+.info-alias {
+  font-size: 12px;
+  color: var(--gold-accent);
+  margin: 0 0 4px 0;
+}
+
+.info-efficacy {
+  font-size: 13px;
+  color: var(--sage-green);
+  margin: 0 0 4px 0;
+  line-height: 1.5;
+}
+
+.info-feature {
+  font-size: 13px;
+  color: #4a6659;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 响应式适配 */
+@media (max-width: 1200px) {
+  .herb-distribution-section {
+    padding: 60px 6% 100px;
+  }
+  .map-container {
+    height: 450px;
+  }
+  .herb-filter-panel {
+    max-width: 280px;
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .herb-distribution-section {
+    padding: 40px 4% 80px;
+    min-height: 500px;
+  }
+  .distribution-main-title {
+    font-size: 2rem;
+  }
+  .map-container {
+    height: 400px;
+  }
+  .herb-filter-panel {
+    position: relative;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    margin: 0 auto 20px;
+  }
+  .herb-info-window {
+    width: 180px;
+  }
+}
+/* ====== 4. 中药非遗传承人展示模块样式 ====== */
+.heritage-section {
+  width: 100%;
+  min-height: 600px;
+  position: relative;
+  z-index: 20;
+  padding: 100px 8% 80px;
+  background: rgba(247, 249, 244, 0.9);
+  backdrop-filter: blur(8px);
+  margin-top: 40px;
+}
+
+/* 标题样式 */
+.heritage-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.heritage-title h2 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--ink-green);
+  margin: 0 0 12px 0;
+  font-family: 'ZCOOL XiaoWei', serif;
+  letter-spacing: 3px;
+}
+
+.heritage-title p {
+  font-size: 16px;
+  color: var(--sage-green);
+  margin: 0;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+/* 卡片容器（响应式网格） */
+.heritage-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+/* 传承人卡片 */
+.heritage-card {
+  width: 100%;
+  max-width: 320px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(26, 61, 46, 0.12), 0 4px 15px rgba(26, 61, 46, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.heritage-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(26, 61, 46, 0.18), 0 8px 20px rgba(26, 61, 46, 0.12);
+  border-color: var(--gold-accent);
+}
+
+/* 卡片图片 */
+.card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.heritage-card:hover .card-img {
+  transform: scale(1.08);
+}
+
+/* 卡片内容 */
+.card-content {
+  padding: 20px 16px;
+}
+
+.card-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink-green);
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-project {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gold-accent);
+  opacity: 0.8;
+  letter-spacing: 1px;
+}
+
+.card-tag {
+  font-size: 12px;
+  color: var(--sage-green);
+  padding: 4px 8px;
+  background: rgba(45, 90, 71, 0.08);
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.card-desc {
+  font-size: 14px;
+  color: #4a6659;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* 详情弹窗 */
+.detail-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 61, 46, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 800px;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 24px;
+  color: var(--sage-green);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: var(--gold-accent);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.modal-info {
+  padding: 30px 25px;
+}
+
+.modal-info h3 {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--ink-green);
+  margin: 0 0 12px 0;
+  border-bottom: 2px solid rgba(197, 166, 102, 0.3);
+  padding-bottom: 10px;
+}
+
+.modal-tag {
+  font-size: 13px;
+  color: var(--gold-accent);
+  margin: 0 0 16px 0;
+  letter-spacing: 1px;
+}
+
+.modal-desc {
+  font-size: 15px;
+  color: #4a6659;
+  line-height: 1.8;
+  margin: 0;
+  text-align: justify;
+}
+
+/* 响应式适配 */
+@media (max-width: 1200px) {
+  .heritage-section {
+    padding: 80px 6% 60px;
+  }
+  .modal-content {
+    max-width: 650px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heritage-section {
+    padding: 60px 4% 40px;
+    min-height: 500px;
+  }
+  .heritage-title h2 {
+    font-size: 2rem;
+  }
+  .heritage-card-container {
+    gap: 20px;
+  }
+  .modal-content {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+  .modal-img {
+    height: 200px;
+  }
+  .modal-info {
+    padding: 20px 16px;
+  }
+  .modal-info h3 {
+    font-size: 18px;
   }
 }
 </style>
