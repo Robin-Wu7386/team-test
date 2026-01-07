@@ -50,8 +50,10 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
+import { useUserStore } from '../stores/user'
 
 const router = useRouter()
+const userStore = useUserStore()
 const form = ref({
   account: '',
   password: ''
@@ -61,7 +63,7 @@ const handleLogin = async () => {
   try {
     const res = await axios.post('/api/user/login', form.value)
     if (res.data.success) {
-      localStorage.setItem('userInfo', JSON.stringify(res.data.data))
+      userStore.setUser(res.data.data)
       router.push('/')
     } else {
       alert(res.data.msg)
