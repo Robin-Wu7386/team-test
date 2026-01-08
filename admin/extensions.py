@@ -28,6 +28,19 @@ def init_mysql():
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
             ''')
 
+            # 2.1 创建评论表（关联用户）
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS comments (
+                    id INT AUTO_INCREMENT PRIMARY KEY COMMENT '评论ID',
+                    user_id INT NOT NULL COMMENT '用户ID',
+                    content TEXT NOT NULL COMMENT '评论内容',
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                    CONSTRAINT fk_comments_user FOREIGN KEY (user_id) REFERENCES users(id)
+                        ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户评论表';
+            ''')
+
             # 3. 创建默认管理员（从配置读取账号密码）
             from admin.utils.security import hash_password
             admin_pwd = hash_password(current_app.config['ADMIN_PASSWORD'])

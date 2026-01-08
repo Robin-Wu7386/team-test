@@ -1,7 +1,24 @@
-# 忽略PyCharm IDE设置文件夹
+# PyCharm / IDE
 .idea/
 
-# 忽略所有爬虫生成的数据和日志 (位于 neo4j/ 目录下)
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Node
+node_modules/
+frontend/node_modules/
+.vite/
+
+# Build
+dist/
+
+# Backup (本地用，不提交)
+backup-backend/
+backup-frontend/
+
+# Neo4j crawler outputs
 neo4j/output/
 neo4j/images/
 neo4j/*.csv
@@ -9,8 +26,3 @@ neo4j/*.xlsx
 neo4j/processed_urls.txt
 neo4j/crawl.log
 neo4j/*.temp.*
-
-# 忽略Python缓存文件
-__pycache__/
-*.py[cod]
-/frontend/node_modules/
