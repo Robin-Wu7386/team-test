@@ -549,11 +549,7 @@
     <h2 class="distribution-main-title">道地药材 · 产地分布</h2>
     <p class="distribution-subtitle">探索传统中药材的核心产区</p>
     <div class="title-divider"></div>
-    <!-- 新增：操作按钮 -->
-    <button class="add-herb-btn" @click="openHerbForm('add')">
-      <i class="ri-add-line"></i>
-      <span>新增产地</span>
-    </button>
+
   </div>
 
   <!-- 原有地图容器和筛选面板 -->
@@ -581,67 +577,7 @@
     </div>
   </div>
 
-  <!-- 新增：药材产地增删改查表单弹窗 -->
-  <div class="herb-form-modal" v-if="showHerbForm" @click.self="closeHerbForm">
-    <div class="modal-inner">
-      <div class="modal-header">
-        <h3>{{ formType === 'add' ? '新增药材产地' : '编辑药材产地' }}</h3>
-        <span class="modal-close" @click="closeHerbForm">×</span>
-      </div>
-      <div class="modal-form">
-        <div class="form-item">
-          <label>所属产区</label>
-          <select v-model="currentHerb.region" required>
-            <option v-for="(region, idx) in herbRegions.slice(1)" :key="idx" :value="region.name">
-              {{ region.name }}
-            </option>
-          </select>
-        </div>
-        <div class="form-item">
-          <label>经度</label>
-          <input type="number" step="0.01" v-model="currentHerb.lnglat[0]" required placeholder="如：104.06">
-        </div>
-        <div class="form-item">
-          <label>纬度</label>
-          <input type="number" step="0.01" v-model="currentHerb.lnglat[1]" required placeholder="如：30.67">
-        </div>
-        <div class="form-item">
-          <label>药材名称</label>
-          <input type="text" v-model="currentHerb.name" required placeholder="如：川芎">
-        </div>
-        <div class="form-item">
-          <label>药材别名</label>
-          <input type="text" v-model="currentHerb.alias" placeholder="如：芎藭、小叶川芎">
-        </div>
-        <div class="form-item">
-          <label>功效描述</label>
-          <textarea v-model="currentHerb.efficacy" required placeholder="如：活血行气，祛风止痛"></textarea>
-        </div>
-        <div class="form-item">
-          <label>道地特征</label>
-          <textarea v-model="currentHerb.feature" placeholder="如：四川都江堰特产，个大饱满，香气浓郁"></textarea>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-cancel" @click="closeHerbForm">取消</button>
-        <button class="btn-confirm" @click="submitHerbForm" :disabled="!currentHerb.name || !currentHerb.efficacy">
-          {{ formType === 'add' ? '新增保存' : '编辑保存' }}
-        </button>
-      </div>
-    </div>
-  </div>
 
-  <!-- 新增：删除确认弹窗 -->
-  <div class="delete-confirm-modal" v-if="showDeleteConfirm" @click.self="closeDeleteConfirm">
-    <div class="delete-modal-inner">
-      <h3>确认删除</h3>
-      <p>是否确定删除「{{ currentHerb.name }}」这个药材产地？删除后不可恢复！</p>
-      <div class="delete-btn-group">
-        <button class="btn-cancel" @click="closeDeleteConfirm">取消</button>
-        <button class="btn-delete" @click="confirmDeleteHerb">确认删除</button>
-      </div>
-    </div>
-  </div>
 </section>
 
     <!-- ================= 4. 底部装饰 ================= -->
@@ -1194,16 +1130,7 @@ const infoWindow = new window.AMap.InfoWindow({
         <span class="habitat-value">${herb.region} · ${herb.feature}</span>
       </div>
 
-      <!-- 操作按钮：悬浮式水墨按钮 -->
-      <div class="info-ops-refined">
-        <button class="btn-edit-refined" onclick="window.editHerb(${JSON.stringify(herb).replace(/"/g, '&quot;')})">
-          <i class="ri-edit-2-line"></i>
-          <span>编辑</span>
-        </button>
-        <button class="btn-del-refined" onclick="window.deleteHerb(${JSON.stringify(herb).replace(/"/g, '&quot;')})">
-          <i class="ri-delete-bin-line"></i>
-          <span>删除</span>
-        </button>
+
       </div>
     </div>
   `,

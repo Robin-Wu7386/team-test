@@ -2,7 +2,7 @@ import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import { fileURLToPath, URL } from "node:url"
 
-// 完整无语法错误的Vite配置
+// 完整无语法错误的Vite配置（已添加每日推荐API代理）
 export default defineConfig({
   plugins: [vue()], // Vue插件配置
   resolve: {
@@ -13,12 +13,18 @@ export default defineConfig({
   },
   server: {
     proxy: {
+      // 新增：每日推荐API代理（指向后端8000端口）
+      "/api/daily-recommend": {
+        target: "http://localhost:8000", // 后端服务地址
+        changeOrigin: true, // 开启跨域
+        rewrite: (path) => path // 路径不重写（后端接口就是/api/daily-recommend）
+      },
       // 用户后端API（登录/注册等）- 端口3001
       "/api/user": {
         target: "http://localhost:3001",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/user/, "/user")
-      }, // 关键：补充了这个逗号，解决语法报错
+      },
       // 管理员后端API - 端口3000
       "/api/admin": {
         target: "http://localhost:3000",
