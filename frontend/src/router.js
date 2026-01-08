@@ -5,7 +5,6 @@ import { createRouter, createWebHistory } from "vue-router";
 // 假设当前router.js在 frontend/ 目录下，views文件夹也在frontend/目录下
 import Home from "./views/Home.vue";
 import AIChat from "./views/AIChat.vue";
-import AIConsultWizard from "./views/AIConsultWizard.vue";
 import KnowledgeGraph from "./views/KnowledgeGraph.vue";
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
@@ -25,7 +24,6 @@ export default createRouter({
   routes: [
     { path: "/", component: Home }, // 首页
     { path: "/chat_page", component: AIChat }, // AI问诊聊天页
-    { path: "/ai_consult_wizard", component: AIConsultWizard }, // AI流程问诊页
     { path: "/knowledge_graph", component: KnowledgeGraph }, // 知识图谱页
     { path: "/comments", component: Comments }, // 评论区
     { path: "/profile", component: Profile }, // 个人中心
