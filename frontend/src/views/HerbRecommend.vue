@@ -101,7 +101,7 @@
 
     <!-- 底部信息 -->
     <div class="page-footer">
-      <p>© 2025 AI 中医智能推荐平台 | 本推荐仅供参考，使用前请咨询专业中医师</p>
+      <p>© 2026  老中医智能AI推荐平台 | 本推荐仅供参考，使用前请咨询专业中医师</p>
     </div>
   </div>
 </template>
@@ -625,38 +625,5 @@ onMounted(() => {
   margin-top: 40px;
 }
 
-/* 响应式适配 */
-@media (max-width: 768px) {
-  .header-content {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
 
-  .focus-card {
-    flex-direction: column;
-    padding: 16px;
-  }
-
-  .focus-left, .focus-right {
-    width: 100%;
-  }
-
-  .herb-img {
-    width: 100%;
-    max-width: 200px;
-  }
-
-  .card-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .main-content {
-    padding: 16px;
-  }
-
-  .focus-left h2 {
-    font-size: 24px;
-  }
-}
 </style>

@@ -142,10 +142,10 @@
 
           <!-- Logo文字 -->
           <div class="logo-text-wrapper">
-            <span class="logo-text">岐黄</span>
+            <span class="logo-text">老中医</span>
             <span class="logo-divider">·</span>
-            <span class="logo-highlight">AI</span>
-            <span class="logo-subtitle">本草智能</span>
+            <span class="logo-highlight">智能问诊</span>
+
           </div>
         </div>
       </div>
@@ -157,15 +157,6 @@
             <i class="ri-chat-3-line nav-icon"></i>
           </span>
           <span class="nav-label">智能问诊</span>
-          <div class="ink-stroke"></div>
-          <div class="nav-glow"></div>
-        </button>
-
-        <button class="nav-item" @click="navigate('/ai_consult_wizard')">
-          <span class="nav-icon-wrapper">
-            <i class="ri-flask-line nav-icon"></i>
-          </span>
-          <span class="nav-label">流程问诊</span>
           <div class="ink-stroke"></div>
           <div class="nav-glow"></div>
         </button>
@@ -187,11 +178,34 @@
           <div class="ink-stroke"></div>
           <div class="nav-glow"></div>
         </button>
+
+        <button class="nav-item" @click="navigate('/comments')">
+          <span class="nav-icon-wrapper">
+            <i class="ri-chat-smile-2-line nav-icon"></i>
+          </span>
+          <span class="nav-label">经纬药谈</span>
+          <div class="ink-stroke"></div>
+          <div class="nav-glow"></div>
+        </button>
       </nav>
 
       <!-- 右侧：登录/注册 -->
       <div class="nav-right">
-        <button class="login-btn" @click="navigate('/login')">
+        <div v-if="isLoggedIn" class="user-entry" @click="toggleUserMenu">
+          <div class="avatar">{{ (currentUser.username || 'U').slice(0, 1).toUpperCase() }}</div>
+          <div class="user-meta">
+            <span class="user-name">{{ currentUser.username }}</span>
+            <span class="user-phone">{{ currentUser.phonenumber }}</span>
+          </div>
+          <i class="ri-arrow-down-s-line user-arrow"></i>
+
+          <div v-if="showUserMenu" class="user-menu" @click.stop>
+            <button class="menu-action" @click="goProfile">个人中心</button>
+            <button class="menu-action" @click="goMyComments">我的评论</button>
+            <button class="menu-action danger" @click="handleLogout">退出登录</button>
+          </div>
+        </div>
+        <button v-else class="login-btn" @click="navigate('/login')">
           <span class="login-icon">👤</span>
           <span>登录 / 注册</span>
           <i class="ri-arrow-right-s-line login-arrow"></i>
@@ -378,26 +392,12 @@
 
         <!-- 描述文字 -->
         <div class="desc-wrapper">
-          <p class="desc-line">汇集千年医案数据，融合深度学习算法。</p>
-          <p class="desc-line">为您提供精准的辨证分析与本草调理建议。</p>
+          <p class="desc-line">汇集千年中医药典智慧，融合现代循证医学方法。</p>
+          <p class="desc-line">为您提供个性化的辨证论治与本草调理方案。</p>
           <div class="desc-divider"></div>
         </div>
 
-        <!-- 特性标签 -->
-        <div class="feature-tags">
-          <div class="feature-tag">
-            <i class="ri-database-2-line"></i>
-            <span>海量医案</span>
-          </div>
-          <div class="feature-tag">
-            <i class="ri-brain-line"></i>
-            <span>AI智能</span>
-          </div>
-          <div class="feature-tag">
-            <i class="ri-leaf-line"></i>
-            <span>本草精粹</span>
-          </div>
-        </div>
+
 
         <!-- 行动按钮组 -->
         <div class="cta-group">
@@ -433,74 +433,52 @@
           <div class="orbit orbit-slow"></div>
         </div>
 
-        <!-- 悬浮的中药卡片组 -->
-        <div class="herb-cards-container">
-          <!-- 卡片1: 黄芪 -->
-          <div class="herb-card card-top" @click="navigate('/recommend')">
-            <div class="card-glow"></div>
-            <div class="card-inner">
-              <div class="card-image-wrapper">
-                <img src="../../static/pictures/huangqi.png" alt="黄芪" />
-                <div class="card-overlay"></div>
-              </div>
-              <div class="card-label">
-                <span class="card-name">黄芪</span>
-                <span class="card-tag">补气固表</span>
-                <div class="card-property">
-                  <span>性温</span>
-                  <span>味甘</span>
-                </div>
-              </div>
-            </div>
-            <div class="card-particles">
-              <div v-for="n in 8" :key="`card1-${n}`" class="card-particle"></div>
-            </div>
+       <!-- 悬浮的中药卡片组（随机） -->
+<div class="herb-cards-container">
+  <div
+    v-for="slot in cardSlots"
+    :key="slot.position"
+    class="herb-card"
+    :class="slot.position"
+    @click="navigate('/recommend')"
+  >
+    <transition
+      name="fade-float"
+      mode="out-in"
+    >
+      <!-- 必须加 key，触发动画 -->
+      <div v-if="slot.herb" :key="slot.herb.id">
+        <div class="card-glow"></div>
+
+        <div class="card-inner">
+          <div class="card-image-wrapper">
+            <img
+              :src="`../../static/pictures/${slot.herb.name}.png`"
+              :alt="slot.herb.name"
+            />
+            <div class="card-overlay"></div>
           </div>
 
-          <!-- 卡片2: 酸枣仁 -->
-          <div class="herb-card card-mid" @click="navigate('/recommend')">
-            <div class="card-glow"></div>
-            <div class="card-inner">
-              <div class="card-image-wrapper">
-                <img src="../../static/pictures/suanzaoren.png" alt="酸枣仁" />
-                <div class="card-overlay"></div>
-              </div>
-              <div class="card-label">
-                <span class="card-name">酸枣仁</span>
-                <span class="card-tag">养心安神</span>
-                <div class="card-property">
-                  <span>性平</span>
-                  <span>味甘</span>
-                </div>
-              </div>
-            </div>
-            <div class="card-particles">
-              <div v-for="n in 8" :key="`card2-${n}`" class="card-particle"></div>
-            </div>
-          </div>
+          <div class="card-label">
+            <span class="card-name">{{ slot.herb.name }}</span>
+            <span class="card-tag">{{ slot.herb.category }}</span>
 
-          <!-- 卡片3: 当归 -->
-          <div class="herb-card card-bottom" @click="navigate('/recommend')">
-            <div class="card-glow"></div>
-            <div class="card-inner">
-              <div class="card-image-wrapper">
-                <img src="../../static/pictures/danggui.png" alt="当归" />
-                <div class="card-overlay"></div>
-              </div>
-              <div class="card-label">
-                <span class="card-name">当归</span>
-                <span class="card-tag">补血活血</span>
-                <div class="card-property">
-                  <span>性温</span>
-                  <span>味甘辛</span>
-                </div>
-              </div>
-            </div>
-            <div class="card-particles">
-              <div v-for="n in 8" :key="`card3-${n}`" class="card-particle"></div>
+            <div class="card-property">
+              <span v-for="tag in slot.herb.shortTags" :key="tag">
+                {{ tag }}
+              </span>
             </div>
           </div>
         </div>
+
+        <div class="card-particles">
+          <div v-for="n in 8" :key="n" class="card-particle"></div>
+        </div>
+      </div>
+    </transition>
+  </div>
+</div>
+
 
         <!-- 中心能量核心 -->
         <div class="energy-core">
@@ -680,13 +658,48 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted ,onUnmounted} from 'vue';
+import { useHerbPool } from '@/composables/useHerbPool';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '../stores/user';
 
 const router = useRouter();
+const { herbList } = useHerbPool();
+const cardSlots = ref([
+  { position: 'card-top', herb: null },
+  { position: 'card-mid', herb: null },
+  { position: 'card-bottom', herb: null }
+])
+const userStore = useUserStore();
 const mouseX = ref(0);
 const mouseY = ref(0);
 const isScrolled = ref(false);
+const showUserMenu = ref(false);
+
+// 随机刷新函数
+function refreshCards() {
+  if (!herbList.value || herbList.value.length === 0) return
+
+  const shuffled = [...herbList.value].sort(() => Math.random() - 0.5)
+  cardSlots.value.forEach((slot, index) => {
+    // 用 % 防止越界
+    slot.herb = shuffled[index % shuffled.length]
+  })
+}
+
+let timer = null
+
+onMounted(() => {
+  refreshCards() // 页面进来立即刷新一次
+  timer = setInterval(refreshCards, 30 * 1000) // 每30秒刷新
+})
+
+onUnmounted(() => {
+  if (timer) clearInterval(timer)
+})
+
+
+
 
 // 预生成位置数组（避免每次渲染都重新计算）
 const herbPositions = (() => {
@@ -710,9 +723,31 @@ const navigate = (path) => {
   router.push(path);
 };
 
-// 登录点击
-const handleLogin = () => {
-  alert("登录模态框将在此处弹出");
+const isLoggedIn = computed(() => userStore.isLoggedIn);
+const currentUser = computed(() => userStore.userInfo || {});
+
+const toggleUserMenu = () => {
+  showUserMenu.value = !showUserMenu.value;
+};
+
+const goProfile = () => {
+  showUserMenu.value = false;
+  if (!isLoggedIn.value) {
+    router.push('/login');
+    return;
+  }
+  router.push('/profile');
+};
+
+const goMyComments = () => {
+  showUserMenu.value = false;
+  router.push({ path: '/comments', query: { tab: 'mine' } });
+};
+
+const handleLogout = () => {
+  userStore.logout();
+  showUserMenu.value = false;
+  router.push('/login');
 };
 
 // 滚动监听
@@ -1352,6 +1387,7 @@ onMounted(() => {
   color: var(--ink-green);
   font-family: 'Noto Serif SC', serif;
   overflow-x: hidden;
+  overflow-y: hidden;
   position: relative;
 }
 
@@ -1706,14 +1742,7 @@ onMounted(() => {
   font-size: 28px;
 }
 
-.logo-subtitle {
-  font-size: 12px;
-  color: var(--sage-green);
-  font-weight: 400;
-  margin-left: 8px;
-  letter-spacing: 1px;
-  opacity: 0.8;
-}
+
 
 /* 中间导航菜单 */
 .nav-center {
@@ -1721,6 +1750,14 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   gap: 12px;
+  flex-wrap: nowrap; /* 强制不换行 */
+  min-width: 0; /* 允许 flex item 缩小 */
+  overflow-x: auto; /* 如果实在太窄，允许横向滚动而不是换行 */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.nav-center::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-item {
@@ -1739,6 +1776,8 @@ onMounted(() => {
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 10px;
   overflow: visible;
+  white-space: nowrap; /* 文字不换行 */
+  flex-shrink: 0; /* 防止被压缩 */
 }
 
 .nav-icon-wrapper {
@@ -1747,6 +1786,7 @@ onMounted(() => {
   justify-content: center;
   width: 24px;
   height: 24px;
+  flex-shrink: 0; /* 图标不压缩 */
 }
 
 .nav-icon {
@@ -1756,6 +1796,7 @@ onMounted(() => {
 
 .nav-label {
   transition: color 0.3s ease;
+  white-space: nowrap; /* 再次确保标签文字不换行 */
 }
 
 .nav-item:hover {
@@ -1804,6 +1845,103 @@ onMounted(() => {
   flex: 1;
   display: flex;
   justify-content: flex-end;
+}
+
+.user-entry {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px 14px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(111, 191, 154, 0.2);
+  cursor: pointer;
+  border: 1px solid rgba(111, 191, 154, 0.25);
+  transition: all 0.3s ease;
+}
+
+.user-entry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(111, 191, 154, 0.28);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.user-meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.user-name {
+  font-weight: 700;
+  color: var(--ink-green);
+}
+
+.user-phone {
+  font-size: 12px;
+  color: var(--sage-green);
+  opacity: 0.8;
+}
+
+.user-arrow {
+  color: var(--sage-green);
+  font-size: 18px;
+}
+
+.user-menu {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 8px;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2000;
+}
+
+.menu-action {
+  padding: 10px 12px;
+  background: #f8fdfa;
+  border: 1px solid rgba(111, 191, 154, 0.2);
+  border-radius: 10px;
+  color: var(--ink-green);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.menu-action:hover {
+  background: rgba(111, 191, 154, 0.12);
+  border-color: var(--primary);
+}
+
+.menu-action.danger {
+  color: #c03434;
+  border-color: rgba(192, 52, 52, 0.18);
+  background: #fff7f7;
+}
+
+.menu-action.danger:hover {
+  background: #ffeaea;
+  border-color: #c03434;
 }
 
 .login-btn {
@@ -2167,40 +2305,6 @@ onMounted(() => {
   margin-top: 20px;
 }
 
-/* 特性标签 */
-.feature-tags {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 45px;
-  opacity: 0;
-  animation: fadeUp 1s 1.2s forwards;
-}
-
-.feature-tag {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background: rgba(45, 90, 71, 0.08);
-  border: 1px solid rgba(45, 90, 71, 0.15);
-  border-radius: 25px;
-  font-size: 14px;
-  color: var(--sage-green);
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.feature-tag i {
-  font-size: 16px;
-  color: var(--gold-accent);
-}
-
-.feature-tag:hover {
-  background: rgba(45, 90, 71, 0.12);
-  border-color: var(--gold-accent);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(45, 90, 71, 0.15);
-}
 
 /* 行动按钮组 */
 .cta-group {
@@ -2941,135 +3045,6 @@ onMounted(() => {
   }
 }
 
-/* ====== 响应式设计 ====== */
-@media (max-width: 1400px) {
-  .hero-section {
-    padding: 120px 6% 80px;
-    gap: 50px;
-  }
-
-  .main-title {
-    font-size: 5.5rem;
-  }
-
-  .visual-content {
-    height: 600px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .glass-nav {
-    padding: 0 40px;
-  }
-
-  .nav-item {
-    padding: 10px 18px;
-    font-size: 14px;
-  }
-
-  .nav-label {
-    display: none;
-  }
-
-  .main-title {
-    font-size: 4.5rem;
-  }
-
-  .hero-section {
-    flex-direction: column;
-    text-align: center;
-    padding-top: 140px;
-  }
-
-  .text-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 100%;
-  }
-
-  .visual-content {
-    width: 100%;
-    height: 500px;
-    margin-top: 50px;
-  }
-
-  /* 响应式 - 减少背景草数量 */
-  .background-herbs-layer .background-herb:nth-child(n+26) {
-    display: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .glass-nav {
-    height: 75px;
-    padding: 0 20px;
-  }
-
-  .herb-garden {
-    width: 50px;
-    height: 60px;
-  }
-
-  .logo-text-wrapper {
-    font-size: 18px;
-  }
-
-  .logo-highlight {
-    font-size: 20px;
-  }
-
-  .logo-subtitle {
-    display: none;
-  }
-
-  .main-title {
-    font-size: 3.5rem;
-  }
-
-  .nav-center {
-    gap: 8px;
-  }
-
-  .nav-item {
-    padding: 8px 12px;
-  }
-
-  .login-btn {
-    padding: 10px 18px;
-    font-size: 14px;
-  }
-
-  .stamp-group {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .feature-tags {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .cta-group {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .cta-primary {
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* 移动端进一步减少背景草 */+                                                                                                                    ·
-  .background-herbs-layer .background-herb:nth-child(n+16) {
-    display: none;
-  }
-
-  .background-herb {
-    opacity: 0.02 !important;
-  }
-
-}
 /* ====== 5. 道地药材产地分布模块样式 ====== */
 .herb-distribution-section {
   width: 100%;
@@ -3232,42 +3207,7 @@ onMounted(() => {
   line-height: 1.5;
 }
 
-/* 响应式适配 */
-@media (max-width: 1200px) {
-  .herb-distribution-section {
-    padding: 60px 6% 100px;
-  }
-  .map-container {
-    height: 450px;
-  }
-  .herb-filter-panel {
-    max-width: 280px;
-    padding: 12px 16px;
-  }
-}
 
-@media (max-width: 768px) {
-  .herb-distribution-section {
-    padding: 40px 4% 80px;
-    min-height: 500px;
-  }
-  .distribution-main-title {
-    font-size: 2rem;
-  }
-  .map-container {
-    height: 400px;
-  }
-  .herb-filter-panel {
-    position: relative;
-    top: 0;
-    left: 0;
-    max-width: 100%;
-    margin: 0 auto 20px;
-  }
-  .herb-info-window {
-    width: 180px;
-  }
-}
 /* ====== 4. 中药非遗传承人展示模块样式 ====== */
 .heritage-section {
   width: 100%;
@@ -3468,42 +3408,7 @@ onMounted(() => {
   text-align: justify;
 }
 
-/* 响应式适配 */
-@media (max-width: 1200px) {
-  .heritage-section {
-    padding: 80px 6% 60px;
-  }
-  .modal-content {
-    max-width: 650px;
-  }
-}
 
-@media (max-width: 768px) {
-  .heritage-section {
-    padding: 60px 4% 40px;
-    min-height: 500px;
-  }
-  .heritage-title h2 {
-    font-size: 2rem;
-  }
-  .heritage-card-container {
-    gap: 20px;
-  }
-  .modal-content {
-    grid-template-columns: 1fr;
-    max-width: 400px;
-  }
-  .modal-img {
-    height: 200px;
-  }
-  .modal-info {
-    padding: 20px 16px;
-  }
-  .modal-info h3 {
-    font-size: 18px;
-  }
-}
-/* 新增：操作按钮样式 */
 /* 新增：操作按钮样式 */
 .add-herb-btn {
   margin-top: 20px;
@@ -3850,4 +3755,30 @@ onMounted(() => {
   box-shadow: 0 2px 8px rgba(197, 166, 102, 0.2);
   transform: translateY(-1px);
 }
+/* 高级淡入 + 浮动动画 */
+.fade-float-enter-active,
+.fade-float-leave-active {
+  transition: all 0.8s ease;
+}
+
+.fade-float-enter-from {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.9);
+}
+
+.fade-float-enter-to {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.fade-float-leave-from {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.fade-float-leave-to {
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+}
+
 </style>
