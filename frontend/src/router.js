@@ -14,7 +14,8 @@ import Comments from './views/Comments.vue';
 import Profile from './views/Profile.vue';
 import AdminUsers from './views/AdminUsers.vue'; // 引入刚才新建的文件
 
-import HerbRecommend from './views/HerbRecommend.vue';
+
+import HerbRecommend from './views/HerbRecommend.vue'
 
 // 创建并导出路由实例
 export default createRouter({

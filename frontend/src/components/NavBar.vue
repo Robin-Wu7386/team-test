@@ -2,39 +2,6 @@
 <template>
   <nav class="navbar" :class="{ scrolled: isScrolled }">
     <div class="nav-inner">
-<<<<<<< HEAD
-      <div class="logo" @click="go('/')">
-        <div class="logo-symbol">岐</div>
-        <span>岐黄 · 本草智能</span>
-      </div>
-
-      <div class="pill-container">
-        <div class="pill-menu">
-          <RouterLink class="pill-item" to="/">首页</RouterLink>
-          <RouterLink class="pill-item" to="/chat_page">智能问诊</RouterLink>
-          <RouterLink class="pill-item" to="/ai_consult_wizard">流程问诊</RouterLink>
-          <RouterLink class="pill-item" to="/knowledge_graph">知识图谱</RouterLink>
-          <RouterLink class="pill-item" to="/recommend">中药推荐</RouterLink>
-          <RouterLink class="pill-item" to="/comments">论坛</RouterLink>
-        </div>
-        <div class="divider"></div>
-        <button v-if="!isLoggedIn" class="login-pill" @click="go('/login')">
-          <i class="ri-user-3-line"></i>
-          <span>登录/注册</span>
-        </button>
-        <div v-else class="user-chip" @click="toggleMenu">
-          <div class="chip-avatar">{{ (currentUser.username || 'U').slice(0, 1).toUpperCase() }}</div>
-          <span class="chip-name">{{ currentUser.username }}</span>
-          <i class="ri-arrow-down-s-line"></i>
-          <div v-if="showMenu" class="chip-menu" @click.stop>
-            <button class="chip-action" @click="go('/profile')">个人中心</button>
-            <button class="chip-action" @click="goMyComments">我的评论</button>
-            <button class="chip-action danger" @click="logout">退出登录</button>
-          </div>
-        </div>
-      </div>
-=======
->>>>>>> aef0256c (整合前端)
     </div>
   </nav>
 </template>

@@ -12,4 +12,7 @@ neo4j/*.temp.*
 
 # 忽略Python缓存文件
 __pycache__/
-*.py[cod]
+*.py[cod]"node_modules/" 
+".vite/" 
+"frontend/node_modules/" 
+"static/" 

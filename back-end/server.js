@@ -3,8 +3,6 @@ const express = require('express');
 const mysql = require('mysql2');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
-const { exec } = require('child_process');
-const path = require('path');
 
 const app = express();
 
@@ -105,69 +103,37 @@ app.get(['/comments', '/api/comments'], async (req, res) => {
   }
 });
 
-// =======================
-// 4. 发表评论 (含情感分析功能)
-// =======================
+// 4. 发表评论
 app.post(['/comments', '/api/comments'], async (req, res) => {
-  console.log('收到发表评论请求:', req.body);
+  console.log('收到发表评论请求:', req.body); // 添加日志
   try {
     const { userId, content, parentId, replyToUsername } = req.body;
     if (!userId || !content) return res.json({ success: false, msg: '参数不全' });
 
-    // --- 情感分析核心逻辑开始 ---
-    // 定义 Python 脚本路径
-    const scriptPath = path.join(__dirname, 'analysis.py');
-    // 处理评论内容中的特殊字符（防止命令行报错）
-    const safeContent = content.replace(/"/g, '\\"');
+    const insertSql = `
+      INSERT INTO comments (user_id, content, parent_id, reply_to_username) 
+      VALUES (?, ?, ?, ?)
+    `;
+    const [result] = await pool.promise().query(insertSql, [
+      userId, content, parentId || null, replyToUsername || null
+    ]);
 
-    // 调用 Python 脚本
-    exec(`python "${scriptPath}" "${safeContent}"`, async (error, stdout, stderr) => {
-      let score = 0.5; // 默认中性
+    // 查回新数据
+    const [newComment] = await pool.promise().query(`
+      SELECT c.id, c.content, c.created_at, c.parent_id, c.reply_to_username,
+             u.username, u.id as user_id
+      FROM comments c
+      LEFT JOIN user u ON c.user_id = u.id
+      WHERE c.id = ?
+    `, [result.insertId]);
 
-      if (!error && stdout) {
-        // 获取 Python 输出的分数 (去掉换行符)
-        score = parseFloat(stdout.trim());
-        console.log(`情感分析结果: ${content} => 得分: ${score}`);
-      } else {
-        console.error('情感分析脚本出错，使用默认值:', error || stderr);
-      }
-
-      // 根据分数判断标签
-      let sentiment = 'neutral'; // 中性
-      if (score >= 0.6) sentiment = 'positive'; // 正面
-      else if (score <= 0.4) sentiment = 'negative'; // 负面
-
-      // --- 存入数据库 ---
-      try {
-        const insertSql = `
-          INSERT INTO comments (user_id, content, parent_id, reply_to_username, sentiment, sentiment_score) 
-          VALUES (?, ?, ?, ?, ?, ?)
-        `;
-        const [result] = await pool.promise().query(insertSql, [
-          userId, content, parentId || null, replyToUsername || null, sentiment, score
-        ]);
-
-        // 查回新数据
-        const [newComment] = await pool.promise().query(`
-          SELECT c.*, u.username 
-          FROM comments c
-          LEFT JOIN user u ON c.user_id = u.id
-          WHERE c.id = ?
-        `, [result.insertId]);
-
-        res.json({ success: true, msg: '发布成功', data: newComment[0] });
-      } catch (dbErr) {
-        console.error(dbErr);
-        res.json({ success: false, msg: '数据库存入失败' });
-      }
-    });
-    // --- 情感分析逻辑结束 ---
-
+    res.json({ success: true, msg: '发布成功', data: newComment[0] });
   } catch (err) {
     console.error('发表评论出错:', err);
     res.json({ success: false, msg: err.message });
   }
 });
+
 
 // =======================
 // 5. 提交问诊信息接口
