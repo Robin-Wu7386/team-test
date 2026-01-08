@@ -183,7 +183,7 @@
           <span class="nav-icon-wrapper">
             <i class="ri-chat-smile-2-line nav-icon"></i>
           </span>
-          <span class="nav-label">评论区</span>
+          <span class="nav-label">经纬药谈</span>
           <div class="ink-stroke"></div>
           <div class="nav-glow"></div>
         </button>
@@ -442,29 +442,40 @@
     :class="slot.position"
     @click="navigate('/recommend')"
   >
-    <div v-if="slot.herb">
-      <div class="card-glow"></div>
+    <transition
+      name="fade-float"
+      mode="out-in"
+    >
+      <!-- 必须加 key，触发动画 -->
+      <div v-if="slot.herb" :key="slot.herb.id">
+        <div class="card-glow"></div>
 
-      <div class="card-inner">
-        <div class="card-label">
-          <span class="card-name">{{ slot.herb.name }}</span>
-          <span class="card-tag">{{ slot.herb.category }}</span>
+        <div class="card-inner">
+          <div class="card-image-wrapper">
+            <img
+              :src="`../../static/pictures/${slot.herb.name}.png`"
+              :alt="slot.herb.name"
+            />
+            <div class="card-overlay"></div>
+          </div>
 
-          <div class="card-property">
-            <span
-              v-for="tag in slot.herb.shortTags"
-              :key="tag"
-            >
-              {{ tag }}
-            </span>
+          <div class="card-label">
+            <span class="card-name">{{ slot.herb.name }}</span>
+            <span class="card-tag">{{ slot.herb.category }}</span>
+
+            <div class="card-property">
+              <span v-for="tag in slot.herb.shortTags" :key="tag">
+                {{ tag }}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="card-particles">
-        <div v-for="n in 8" :key="n" class="card-particle"></div>
+        <div class="card-particles">
+          <div v-for="n in 8" :key="n" class="card-particle"></div>
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
 </div>
 
@@ -647,7 +658,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted ,onUnmounted} from 'vue';
 import { useHerbPool } from '@/composables/useHerbPool';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../stores/user';
@@ -665,12 +676,28 @@ const mouseY = ref(0);
 const isScrolled = ref(false);
 const showUserMenu = ref(false);
 
-onMounted(() => {
+// 随机刷新函数
+function refreshCards() {
+  if (!herbList.value || herbList.value.length === 0) return
+
   const shuffled = [...herbList.value].sort(() => Math.random() - 0.5)
   cardSlots.value.forEach((slot, index) => {
-    slot.herb = shuffled[index]
+    // 用 % 防止越界
+    slot.herb = shuffled[index % shuffled.length]
   })
+}
+
+let timer = null
+
+onMounted(() => {
+  refreshCards() // 页面进来立即刷新一次
+  timer = setInterval(refreshCards, 30 * 1000) // 每30秒刷新
 })
+
+onUnmounted(() => {
+  if (timer) clearInterval(timer)
+})
+
 
 
 
@@ -3728,4 +3755,30 @@ onMounted(() => {
   box-shadow: 0 2px 8px rgba(197, 166, 102, 0.2);
   transform: translateY(-1px);
 }
+/* 高级淡入 + 浮动动画 */
+.fade-float-enter-active,
+.fade-float-leave-active {
+  transition: all 0.8s ease;
+}
+
+.fade-float-enter-from {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.9);
+}
+
+.fade-float-enter-to {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.fade-float-leave-from {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.fade-float-leave-to {
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+}
+
 </style>
