@@ -538,6 +538,156 @@
         <div class="vertical-deco right-deco">医者仁心</div>
       </div>
     </main>
+    <!-- ================= 4. 中药非遗传承人展示模块 ================= -->
+<section class="heritage-section">
+  <!-- 板块标题区（延续国风样式） -->
+  <div class="heritage-title">
+    <h2>国药非遗 · 匠人传承</h2>
+    <p>守护中药古法技艺的传承者</p>
+  </div>
+
+  <!-- 传承人卡片容器（响应式网格布局，贴合页面风格） -->
+  <div class="heritage-card-container">
+    <!-- 遍历传承人数据生成卡片 -->
+    <div
+      class="heritage-card"
+      v-for="(inheritor, index) in inheritorList"
+      :key="index"
+      @click="showInheritorDetail(inheritor)"
+    >
+      <!-- 传承人头像/技艺场景图 -->
+      <img
+        :src="inheritor.imgUrl"
+        :alt="`${inheritor.name}-${inheritor.project}`"
+        class="card-img"
+      >
+      <!-- 卡片内容区 -->
+      <div class="card-content">
+        <div class="card-name">
+          {{ inheritor.name }}
+          <span class="card-project">{{ inheritor.project }}</span>
+        </div>
+        <div class="card-tag">{{ inheritor.tag }}</div>
+        <div class="card-desc">{{ inheritor.desc }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 传承人详情弹窗（点击卡片显示，贴合国风视觉） -->
+  <div class="detail-modal" v-if="showModal" @click.self="closeModal">
+    <div class="modal-content">
+      <div class="modal-close" @click="closeModal">×</div>
+      <img :src="currentInheritor.imgUrl" :alt="currentInheritor.name" class="modal-img">
+      <div class="modal-info">
+        <h3>{{ currentInheritor.name }} - {{ currentInheritor.project }}</h3>
+        <p class="modal-tag">{{ currentInheritor.tag }}</p>
+        <p class="modal-desc">{{ currentInheritor.detailDesc }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+    <!-- ================= 5. 道地药材产地分布 - 高德地图模块 ================= -->
+<!-- 道地药材产地分布模块 -->
+<section class="herb-distribution-section">
+  <!-- 原有标题区 -->
+  <div class="distribution-title-wrapper">
+    <h2 class="distribution-main-title">道地药材 · 产地分布</h2>
+    <p class="distribution-subtitle">探索传统中药材的核心产区</p>
+    <div class="title-divider"></div>
+    <!-- 新增：操作按钮 -->
+    <button class="add-herb-btn" @click="openHerbForm('add')">
+      <i class="ri-add-line"></i>
+      <span>新增产地</span>
+    </button>
+  </div>
+
+  <!-- 原有地图容器和筛选面板 -->
+  <div class="map-container" id="herbMap"></div>
+  <div class="herb-filter-panel">
+    <!-- 原有筛选内容 -->
+    <div class="filter-title">
+      <i class="ri-map-pin-line"></i>
+      <span>核心产区筛选</span>
+    </div>
+    <div class="filter-tags">
+      <button
+        v-for="(region, idx) in herbRegions"
+        :key="idx"
+        class="filter-tag"
+        :class="{ active: activeRegion === region.name }"
+        @click="filterHerbRegion(region.name)"
+      >
+        {{ region.name }}
+      </button>
+    </div>
+    <div class="herb-tip">
+      <i class="ri-information-line"></i>
+      <span>点击地图标记查看/编辑/删除药材详情</span>
+    </div>
+  </div>
+
+  <!-- 新增：药材产地增删改查表单弹窗 -->
+  <div class="herb-form-modal" v-if="showHerbForm" @click.self="closeHerbForm">
+    <div class="modal-inner">
+      <div class="modal-header">
+        <h3>{{ formType === 'add' ? '新增药材产地' : '编辑药材产地' }}</h3>
+        <span class="modal-close" @click="closeHerbForm">×</span>
+      </div>
+      <div class="modal-form">
+        <div class="form-item">
+          <label>所属产区</label>
+          <select v-model="currentHerb.region" required>
+            <option v-for="(region, idx) in herbRegions.slice(1)" :key="idx" :value="region.name">
+              {{ region.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-item">
+          <label>经度</label>
+          <input type="number" step="0.01" v-model="currentHerb.lnglat[0]" required placeholder="如：104.06">
+        </div>
+        <div class="form-item">
+          <label>纬度</label>
+          <input type="number" step="0.01" v-model="currentHerb.lnglat[1]" required placeholder="如：30.67">
+        </div>
+        <div class="form-item">
+          <label>药材名称</label>
+          <input type="text" v-model="currentHerb.name" required placeholder="如：川芎">
+        </div>
+        <div class="form-item">
+          <label>药材别名</label>
+          <input type="text" v-model="currentHerb.alias" placeholder="如：芎藭、小叶川芎">
+        </div>
+        <div class="form-item">
+          <label>功效描述</label>
+          <textarea v-model="currentHerb.efficacy" required placeholder="如：活血行气，祛风止痛"></textarea>
+        </div>
+        <div class="form-item">
+          <label>道地特征</label>
+          <textarea v-model="currentHerb.feature" placeholder="如：四川都江堰特产，个大饱满，香气浓郁"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" @click="closeHerbForm">取消</button>
+        <button class="btn-confirm" @click="submitHerbForm" :disabled="!currentHerb.name || !currentHerb.efficacy">
+          {{ formType === 'add' ? '新增保存' : '编辑保存' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 新增：删除确认弹窗 -->
+  <div class="delete-confirm-modal" v-if="showDeleteConfirm" @click.self="closeDeleteConfirm">
+    <div class="delete-modal-inner">
+      <h3>确认删除</h3>
+      <p>是否确定删除「{{ currentHerb.name }}」这个药材产地？删除后不可恢复！</p>
+      <div class="delete-btn-group">
+        <button class="btn-cancel" @click="closeDeleteConfirm">取消</button>
+        <button class="btn-delete" @click="confirmDeleteHerb">确认删除</button>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- ================= 4. 底部装饰 ================= -->
     <footer class="home-footer">
@@ -739,6 +889,481 @@ const getOpacity = (n) => {
   return 0.4 + Math.random() * 0.3; // 0.4-0.7
 };
 
+// ---------------- 高德地图改造：支持增删改查 ----------------
+const AMapKey = 'a51d346dda9ace47e9b2397d91f3a6aa';
+const mapInstance = ref(null);
+const activeRegion = ref('全部');
+
+// 1. 动态响应式数据（替代原有静态数据，可从数据库拉取）
+// 1. 动态响应式数据（替代原有静态数据，可从数据库拉取）
+const herbRegions = ref([
+  {
+    name: '全部',
+    herbs: []
+  },
+  {
+    name: '四川',
+    herbs: [
+      {
+        id: 1, // 新增：唯一标识（数据库主键）
+        lnglat: [104.06, 30.67],
+        name: '川芎',
+        alias: '芎藭、小叶川芎',
+        efficacy: '活血行气，祛风止痛',
+        feature: '四川都江堰特产',
+        region: '四川' // 新增：关联产区
+      },
+      {
+        id: 2,
+        lnglat: [103.73, 30.05],
+        name: '黄连',
+        alias: '川连、味连',
+        efficacy: '清热燥湿，泻火解毒',
+        feature: '四川雅连为特有',
+        region: '四川'
+      },
+      {
+        id: 12,
+        lnglat: [105.50, 30.67],
+        name: '贝母',
+        alias: '川贝母、浙贝母',
+        efficacy: '清热润肺，化痰止咳',
+        feature: '四川川贝母颗粒小而坚实',
+        region: '四川'
+      }
+    ]
+  },
+  {
+    name: '云南',
+    herbs: [
+      {
+        id: 3,
+        lnglat: [102.71, 25.04],
+        name: '三七',
+        alias: '田七、金不换',
+        efficacy: '散瘀止血，消肿定痛',
+        feature: '云南文山三七为道地',
+        region: '云南'
+      },
+      {
+        id: 4,
+        lnglat: [99.90, 25.88],
+        name: '重楼',
+        alias: '七叶一枝花',
+        efficacy: '清热解毒，消肿止痛',
+        feature: '云南滇重楼为道地',
+        region: '云南'
+      },
+      {
+        id: 14,
+        lnglat: [102.71, 25.04],
+        name: '茯苓',
+        alias: '云茯苓、白茯苓',
+        efficacy: '利水渗湿，健脾宁心',
+        feature: '云南云茯苓质地坚实',
+        region: '云南'
+      }
+    ]
+  },
+  {
+    name: '安徽',
+    herbs: [
+      { id: 5, lnglat: [117.28, 31.86], name: '白芍', alias: '亳芍', efficacy: '养血调经，敛阴止汗', feature: '安徽亳州白芍条粗长', region: '安徽' },
+      { id: 6, lnglat: [118.30, 30.56], name: '木瓜', alias: '宣木瓜', efficacy: '舒筋活络，和胃化湿', feature: '安徽宣州木瓜肉厚味酸', region: '安徽' }
+    ]
+  },
+  {
+    name: '甘肃',
+    herbs: [
+      { id: 7, lnglat: [103.82, 36.05], name: '当归', alias: '秦归、云归', efficacy: '补血活血，调经止痛', feature: '甘肃岷县当归油润', region: '甘肃' },
+      { id: 8, lnglat: [105.15, 35.48], name: '黄芪', alias: '黄耆、北芪', efficacy: '补气升阳，固表止汗', feature: '甘肃陇西黄芪条粗', region: '甘肃' }
+    ]
+  },
+  {
+    name: '山西',
+    herbs: [
+      { id: 9, lnglat: [112.55, 37.87], name: '党参', alias: '潞党参、台党参', efficacy: '补中益气，健脾益肺', feature: '山西潞党参根条粗壮', region: '山西' }
+    ]
+  },
+  {
+    name: '宁夏',
+    herbs: [
+      { id: 10, lnglat: [106.27, 38.47], name: '枸杞', alias: '枸杞子、西枸杞', efficacy: '滋补肝肾，益精明目', feature: '宁夏中宁枸杞粒大肉厚', region: '宁夏' }
+    ]
+  },
+  {
+    name: '河南',
+    herbs: [
+      { id: 11, lnglat: [113.27, 34.76], name: '山药', alias: '怀山药、淮山药', efficacy: '补脾养胃，生津益肺', feature: '河南焦作怀山药质地细腻', region: '河南' }
+    ]
+  },
+  {
+    name: '浙江',
+    herbs: [
+      { id: 12, lnglat: [120.19, 30.26], name: '贝母', alias: '川贝母、浙贝母', efficacy: '清热润肺，化痰止咳', feature: '浙江浙贝母鳞茎肥厚', region: '浙江' },
+      { id: 13, lnglat: [119.64, 30.05], name: '白术', alias: '于术、冬术', efficacy: '健脾益气，燥湿利水', feature: '浙江于潜白术个大质坚', region: '浙江' }
+    ]
+  },
+  {
+    name: '内蒙古',
+    herbs: [
+      { id: 15, lnglat: [111.65, 40.82], name: '甘草', alias: '甜草、国老', efficacy: '益气补中，清热解毒', feature: '内蒙古甘草条粗色红', region: '内蒙古' }
+    ]
+  }
+]);
+
+// 合并全部产地数据（动态更新）
+const mergeAllHerbs = () => {
+  herbRegions.value[0].herbs = herbRegions.value.slice(1).reduce((total, item) => {
+    total.push(...item.herbs);
+    return total;
+  }, []);
+};
+// 初始化合并
+mergeAllHerbs();
+
+// 2. 表单相关响应式数据
+const showHerbForm = ref(false); // 表单弹窗显示状态
+const showDeleteConfirm = ref(false); // 删除确认弹窗状态
+const formType = ref('add'); // add:新增 / edit:编辑
+const currentHerb = ref({
+  id: '',
+  lnglat: [0, 0],
+  name: '',
+  alias: '',
+  efficacy: '',
+  feature: '',
+  region: herbRegions.value[1]?.name || '四川'
+});
+
+// 3. 打开表单弹窗（区分新增/编辑）
+const openHerbForm = (type, herb = null) => {
+  formType.value = type;
+  showHerbForm.value = true;
+  // 禁用页面滚动
+  document.body.style.overflow = 'hidden';
+  // 重置/赋值表单数据
+  if (type === 'add') {
+    currentHerb.value = {
+      id: Date.now(), // 临时ID，后端保存后替换为数据库ID
+      lnglat: [108.95, 34.27], // 默认中国中心点
+      name: '',
+      alias: '',
+      efficacy: '',
+      feature: '',
+      region: herbRegions.value[1]?.name || '四川'
+    };
+  } else if (type === 'edit' && herb) {
+    currentHerb.value = { ...herb }; // 深拷贝编辑对象
+  }
+};
+
+// 4. 关闭表单弹窗
+const closeHerbForm = () => {
+  showHerbForm.value = false;
+  document.body.style.overflow = 'auto';
+};
+
+// 5. 关闭删除确认弹窗
+const closeDeleteConfirm = () => {
+  showDeleteConfirm.value = false;
+};
+
+// 6. 提交表单（新增/编辑）
+const submitHerbForm = async () => {
+  try {
+    if (formType.value === 'add') {
+      // 调用新增接口，持久化到数据库
+      const res = await addHerbApi(currentHerb.value);
+      if (res.success) {
+        // 找到对应产区，添加数据
+        const targetRegion = herbRegions.value.find(item => item.name === currentHerb.value.region);
+        if (targetRegion) {
+          targetRegion.herbs.push({ ...currentHerb.value, id: res.data.id }); // 替换为数据库返回的ID
+          mergeAllHerbs(); // 重新合并全部数据
+          renderHerbMarkers(herbRegions.value[0].herbs); // 重新渲染地图
+        }
+      }
+    } else if (formType.value === 'edit') {
+      // 调用编辑接口，更新数据库
+      const res = await editHerbApi(currentHerb.value);
+      if (res.success) {
+        // 找到对应产区和药材，更新数据
+        const targetRegion = herbRegions.value.find(item => item.name === currentHerb.value.region);
+        if (targetRegion) {
+          const herbIndex = targetRegion.herbs.findIndex(h => h.id === currentHerb.value.id);
+          if (herbIndex > -1) {
+            targetRegion.herbs[herbIndex] = { ...currentHerb.value };
+            mergeAllHerbs(); // 重新合并全部数据
+            renderHerbMarkers(herbRegions.value[0].herbs); // 重新渲染地图
+          }
+        }
+      }
+    }
+    closeHerbForm(); // 关闭表单
+    alert(`${formType.value === 'add' ? '新增' : '编辑'}成功！`);
+  } catch (error) {
+    console.error('提交失败：', error);
+    alert(`${formType.value === 'add' ? '新增' : '编辑'}失败，请重试！`);
+  }
+};
+
+// 7. 打开删除确认弹窗
+const openDeleteConfirm = (herb) => {
+  currentHerb.value = { ...herb };
+  showDeleteConfirm.value = true;
+  document.body.style.overflow = 'hidden';
+};
+
+// 8. 确认删除
+const confirmDeleteHerb = async () => {
+  try {
+    // 调用删除接口，删除数据库数据
+    const res = await deleteHerbApi(currentHerb.value.id);
+    if (res.success) {
+      // 找到对应产区，删除数据
+      const targetRegion = herbRegions.value.find(item => item.name === currentHerb.value.region);
+      if (targetRegion) {
+        targetRegion.herbs = targetRegion.herbs.filter(h => h.id !== currentHerb.value.id);
+        mergeAllHerbs(); // 重新合并全部数据
+        renderHerbMarkers(herbRegions.value[0].herbs); // 重新渲染地图
+      }
+    }
+    closeDeleteConfirm(); // 关闭删除弹窗
+    alert('删除成功！');
+  } catch (error) {
+    console.error('删除失败：', error);
+    alert('删除失败，请重试！');
+  }
+};
+
+// 9. 封装增删改查API（对接后端数据库，此处为模拟接口，可替换为真实接口）
+// 新增药材
+const addHerbApi = (herb) => {
+  // 模拟后端请求，实际项目中替换为axios/fetch
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        success: true,
+        data: { id: herb.id || Date.now() } // 数据库返回的主键ID
+      });
+    }, 500);
+  });
+};
+
+// 编辑药材
+const editHerbApi = (herb) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ success: true });
+    }, 500);
+  });
+};
+
+// 删除药材
+const deleteHerbApi = (herbId) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ success: true });
+    }, 500);
+  });
+};
+
+// 10. 改造渲染标记方法（添加编辑/删除事件）
+const renderHerbMarkers = (herbs) => {
+  if (!mapInstance.value) return;
+  mapInstance.value.clearMap();
+
+  herbs.forEach(herb => {
+    // 自定义标记图标（原有代码）
+    const markerIcon = new window.AMap.Icon({
+      size: new window.AMap.Size(36, 36),
+      image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxOCIgY3k9IjE4IiByPSIxMCIgZmlsbD0iIzJkNWE0NyIgc3Ryb2tlPSIjMWEzZDJlIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTE4IDhDMTEuMzcgOCA2IDEzLjM3IDYgMjBDNiAyNi42MyAxMS4zNyAzMiAxOCAzMkMyNC42MyAzMiAzMCAyNi42MyAzMCAyMEMzMCAxMy4zNyAyNC42MyA4IDE4IDhNMTggMjZDMTEuMzkgMjYgNiAyMC42MSA2IDE0QzYgNy4zOSAxMS4zOSAyIDE4IDJDMjQuNjEgMiAzMCA3LjM5IDMwIDE0QzMwIDIwLjYxIDI0LjYxIDI2IDE4IDI2WiIgZmlsbD0iI2NmZmNmYyIgc3Ryb2tlPSIjMWEzZDJlIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+',
+      imageSize: new window.AMap.Size(36, 36),
+      imageOffset: new window.AMap.Pixel(0, 0)
+    });
+
+    // 创建标记点（原有代码）
+    const marker = new window.AMap.Marker({
+      position: herb.lnglat,
+      icon: markerIcon,
+      offset: new window.AMap.Pixel(-18, -18),
+      animation: 'AMAP_ANIMATION_DROP'
+    });
+
+    // 改造信息窗口：添加编辑/删除按钮
+const infoWindow = new window.AMap.InfoWindow({
+  content: `
+    <div class="herb-info-window-refined">
+      <!-- 顶部：名称+道地印章 -->
+      <div class="info-top">
+        <h3 class="info-name-refined">${herb.name}</h3>
+        <div class="seal-mark">道地</div>
+      </div>
+
+      <!-- 生境分布：中式分隔线+文字 -->
+      <div class="info-habitat-refined">
+        <span class="habitat-label">生境分布</span>
+        <span class="habitat-value">${herb.region} · ${herb.feature}</span>
+      </div>
+
+      <!-- 操作按钮：悬浮式水墨按钮 -->
+      <div class="info-ops-refined">
+        <button class="btn-edit-refined" onclick="window.editHerb(${JSON.stringify(herb).replace(/"/g, '&quot;')})">
+          <i class="ri-edit-2-line"></i>
+          <span>编辑</span>
+        </button>
+        <button class="btn-del-refined" onclick="window.deleteHerb(${JSON.stringify(herb).replace(/"/g, '&quot;')})">
+          <i class="ri-delete-bin-line"></i>
+          <span>删除</span>
+        </button>
+      </div>
+    </div>
+  `,
+  offset: new window.AMap.Pixel(0, -20),
+  closeWhenClickMap: true
+});
+
+    // 标记点点击事件（原有代码）
+    marker.on('click', () => {
+      infoWindow.open(mapInstance.value, herb.lnglat);
+      marker.setAnimation('AMAP_ANIMATION_BOUNCE');
+      setTimeout(() => {
+        marker.setAnimation(null);
+      }, 1500);
+    });
+
+    mapInstance.value.add(marker);
+  });
+
+  // 挂载全局方法，供信息窗口调用
+  window.editHerb = (herb) => {
+    openHerbForm('edit', herb);
+  };
+  window.deleteHerb = (herb) => {
+    currentHerb.value = { ...herb };
+    showDeleteConfirm.value = true;
+    document.body.style.overflow = 'hidden';
+  };
+};
+
+// 保留原有筛选方法
+const filterHerbRegion = (regionName) => {
+  activeRegion.value = regionName;
+  const targetRegion = herbRegions.value.find(item => item.name === regionName);
+  if (targetRegion) {
+    renderHerbMarkers(targetRegion.herbs);
+    if (regionName === '全部') {
+      mapInstance.value.setCenter([108.95, 34.27]);
+      mapInstance.value.setZoom(5);
+    } else {
+      const centerLnglat = targetRegion.herbs[0].lnglat;
+      mapInstance.value.setCenter(centerLnglat);
+      mapInstance.value.setZoom(8);
+    }
+  }
+};
+
+// 保留原有地图加载和初始化方法
+const loadAMap = () => {
+  return new Promise((resolve, reject) => {
+    if (window.AMap) {
+      resolve(window.AMap);
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = `https://webapi.amap.com/maps?v=2.0&key=${AMapKey}&callback=initAMap`;
+    script.type = 'text/javascript';
+    script.async = true;
+    window.initAMap = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+};
+
+const initMap = async () => {
+  try {
+    await loadAMap();
+    mapInstance.value = new window.AMap.Map('herbMap', {
+      zoom: 5,
+      center: [108.95, 34.27],
+      resizeEnable: true,
+      mapStyle: 'amap://styles/light',
+      features: ['bg', 'road', 'building', 'point'],
+      zoomEnable: true,
+      dragEnable: true,
+      scrollWheel: true
+    });
+
+    mapInstance.value.addControl(new window.AMap.Scale({ position: 'bottom-right' }));
+    mapInstance.value.addControl(new window.AMap.Zoom({ position: 'bottom-right' }));
+
+    renderHerbMarkers(herbRegions.value[0].herbs);
+  } catch (error) {
+    console.error('高德地图加载失败:', error);
+  }
+};
+
+// 挂载时初始化
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+  setTimeout(initMap, 500);
+});
+
+// ================= 非遗传承人核心数据与方法 =================
+const showModal = ref(false); // 控制详情弹窗显示/隐藏
+const currentInheritor = ref({}); // 存储当前选中的传承人信息
+// 非遗传承人列表数据（可根据实际需求扩展）
+const inheritorList = ref([
+  {
+    name: "王孝涛",
+    project: "中药炮制技术",
+    tag: "炮制学科奠基人 | 国家级非遗第一批传承人",
+    desc: "编撰《中药炮制经验集成》，规范传统饮片工艺，奠定中药炮制学科体系。",
+    detailDesc: "王孝涛先生是我国著名中药炮制专家，毕生致力于中药炮制技艺的整理、研究与传承。他牵头编撰了多部中药炮制经典著作，系统梳理了全国各地区的炮制经验，推动中药炮制从传统经验向现代科学标准化发展，培养了大批中药炮制专业人才。",
+    imgUrl: "/static/pictures/王孝涛.jpg"// 可替换为真实图片地址
+  },
+  {
+    name: "肖永庆",
+    project: "中药炮制技术",
+    tag: "炮制与药性研究专家 | 第六批国家级非遗传承人",
+    desc: "提出“炮制与药性相关性”研究范式，完善饮片质量标准体系。",
+    detailDesc: "肖永庆长期从事中药炮制工艺与质量标准研究，聚焦中药炮制前后药性变化规律，建立了多项中药饮片质量控制方法，推动传统中药炮制技艺与现代检测技术相结合，为中药饮片的规范化生产和临床安全用药提供了重要支撑。",
+   imgUrl: "/static/pictures/肖永庆.jpg"
+  },
+  {
+    name: "申屠银洪",
+    project: "桐君传统中药文化",
+    tag: "古法中药传承者 | 国家级非遗传承人",
+    desc: "传承桐君阁古法炮制技艺，建立非遗馆，培育多代中药传承人。",
+    detailDesc: "申屠银洪深耕桐君传统中药文化数十年，坚守古法中药炮制工艺，对桐君阁经典方剂的配伍、炮制流程进行完整传承与保护。他建立了桐君中药非遗展示馆，通过口传心授的方式培养中青年传承人，让传统中药文化得以活态传承。",
+    imgUrl: "/static/pictures/申屠银洪.jpg"
+  },
+  {
+    name: "王俊良",
+    project: "人参炮制技艺",
+    tag: "人参古法炮制专家 | 第五批国家级非遗传承人",
+    desc: "专注人参传统炮制工艺，保留人参药效活性，推动道地人参产业化。",
+    detailDesc: "王俊良精通人参的洗、晒、蒸、制等古法炮制工序，深谙不同炮制方法对人参药效的影响，所炮制的人参饮片药效稳定、品质上乘。他在传承古法的同时，结合现代仓储技术，解决了道地人参的保存难题，推动人参炮制技艺与产业发展深度融合。",
+    imgUrl: "/static/pictures/王俊良.jpg"
+  }
+]);
+
+// 显示传承人详情弹窗
+const showInheritorDetail = (inheritor) => {
+  currentInheritor.value = inheritor;
+  showModal.value = true;
+  // 禁止页面滚动（弹窗显示时）
+  document.body.style.overflow = "hidden";
+};
+
+// 关闭传承人详情弹窗
+const closeModal = () => {
+  showModal.value = false;
+  currentInheritor.value = {};
+  // 恢复页面滚动
+  document.body.style.overflow = "auto";
+};
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
 });
@@ -748,6 +1373,7 @@ onMounted(() => {
 /* ====== 引入字体和图标库 ====== */
 @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;600;700;900&family=Cinzel:wght@400;600;700&family=ZCOOL+XiaoWei&display=swap');
 @import url("https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css");
+
 
 /* ====== 核心配色系统 ====== */
 :root {
@@ -2591,7 +3217,7 @@ onMounted(() => {
     justify-content: center;
   }
 
-  /* 移动端进一步减少背景草 */
+  /* 移动端进一步减少背景草 */                                                                                                                  ·
   .background-herbs-layer .background-herb:nth-child(n+16) {
     display: none;
   }
@@ -2599,5 +3225,786 @@ onMounted(() => {
   .background-herb {
     opacity: 0.02 !important;
   }
+
+}
+/* ====== 5. 道地药材产地分布模块样式 ====== */
+.herb-distribution-section {
+  width: 100%;
+  min-height: 700px;
+  position: relative;
+  z-index: 20;
+  padding: 80px 8% 120px;
+  background: rgba(247, 249, 244, 0.85);
+  backdrop-filter: blur(8px);
+  margin-top: 40px;
+}
+
+.distribution-title-wrapper {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.distribution-main-title {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--ink-green);
+  margin: 0 0 12px 0;
+  font-family: 'ZCOOL XiaoWei', serif;
+  letter-spacing: 3px;
+}
+
+.distribution-subtitle {
+  font-size: 16px;
+  color: var(--sage-green);
+  margin: 0 0 16px 0;
+  letter-spacing: 2px;
+}
+
+.title-divider {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-accent), transparent);
+  margin: 0 auto;
+}
+
+/* 地图容器 */
+.map-container {
+  width: 100%;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(26, 61, 46, 0.15), 0 5px 15px rgba(26, 61, 46, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+}
+
+/* 筛选面板 */
+.herb-filter-panel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(26, 61, 46, 0.1);
+  border: 1px solid rgba(45, 90, 71, 0.1);
+  max-width: 320px;
+}
+
+.filter-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-weight: 700;
+  color: var(--ink-green);
+  font-size: 15px;
+}
+
+.filter-title i {
+  color: var(--gold-accent);
+  font-size: 18px;
+}
+
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.filter-tag {
+  padding: 6px 12px;
+  background: rgba(45, 90, 71, 0.08);
+  border: 1px solid rgba(45, 90, 71, 0.15);
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--sage-green);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-tag.active {
+  /* 绿色渐变背景（可根据你的主色调整色值） */
+  background: linear-gradient(135deg, #2D5D46, #3E7D65);
+  /* 文字用浅米色（非纯白），比纯白更贴合中式风格 */
+  color: #F8F5F0;
+  border-color: #2D5D46;
+  box-shadow: 0 4px 12px rgba(45, 90, 71, 0.2);
+  transform: translateY(-2px);
+}
+.filter-tag:hover:not(.active) {
+  border-color: var(--gold-accent);
+  transform: translateY(-2px);
+}
+
+.herb-tip {
+  font-size: 12px;
+  color: var(--sage-green);
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.herb-tip i {
+  font-size: 12px;
+}
+
+/* 地图信息窗口样式 */
+.herb-info-window {
+  padding: 12px 16px;
+  font-family: 'Noto Serif SC', serif;
+  width: 220px;
+}
+
+.info-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink-green);
+  margin: 0 0 6px 0;
+  border-bottom: 1px solid rgba(197, 166, 102, 0.3);
+  padding-bottom: 4px;
+}
+
+.info-alias {
+  font-size: 12px;
+  color: var(--gold-accent);
+  margin: 0 0 4px 0;
+}
+
+.info-efficacy {
+  font-size: 13px;
+  color: var(--sage-green);
+  margin: 0 0 4px 0;
+  line-height: 1.5;
+}
+
+.info-feature {
+  font-size: 13px;
+  color: #4a6659;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 响应式适配 */
+@media (max-width: 1200px) {
+  .herb-distribution-section {
+    padding: 60px 6% 100px;
+  }
+  .map-container {
+    height: 450px;
+  }
+  .herb-filter-panel {
+    max-width: 280px;
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .herb-distribution-section {
+    padding: 40px 4% 80px;
+    min-height: 500px;
+  }
+  .distribution-main-title {
+    font-size: 2rem;
+  }
+  .map-container {
+    height: 400px;
+  }
+  .herb-filter-panel {
+    position: relative;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    margin: 0 auto 20px;
+  }
+  .herb-info-window {
+    width: 180px;
+  }
+}
+/* ====== 4. 中药非遗传承人展示模块样式 ====== */
+.heritage-section {
+  width: 100%;
+  min-height: 600px;
+  position: relative;
+  z-index: 20;
+  padding: 100px 8% 80px;
+  background: rgba(247, 249, 244, 0.9);
+  backdrop-filter: blur(8px);
+  margin-top: 40px;
+}
+
+/* 标题样式 */
+.heritage-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.heritage-title h2 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--ink-green);
+  margin: 0 0 12px 0;
+  font-family: 'ZCOOL XiaoWei', serif;
+  letter-spacing: 3px;
+}
+
+.heritage-title p {
+  font-size: 16px;
+  color: var(--sage-green);
+  margin: 0;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+/* 卡片容器（响应式网格） */
+.heritage-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+/* 传承人卡片 */
+.heritage-card {
+  width: 100%;
+  max-width: 320px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(26, 61, 46, 0.12), 0 4px 15px rgba(26, 61, 46, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.heritage-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(26, 61, 46, 0.18), 0 8px 20px rgba(26, 61, 46, 0.12);
+  border-color: var(--gold-accent);
+}
+
+/* 卡片图片 */
+.card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.heritage-card:hover .card-img {
+  transform: scale(1.08);
+}
+
+/* 卡片内容 */
+.card-content {
+  padding: 20px 16px;
+}
+
+.card-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink-green);
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-project {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gold-accent);
+  opacity: 0.8;
+  letter-spacing: 1px;
+}
+
+.card-tag {
+  font-size: 12px;
+  color: var(--sage-green);
+  padding: 4px 8px;
+  background: rgba(45, 90, 71, 0.08);
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.card-desc {
+  font-size: 14px;
+  color: #4a6659;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* 详情弹窗 */
+.detail-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 61, 46, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 800px;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 24px;
+  color: var(--sage-green);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: var(--gold-accent);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.modal-info {
+  padding: 30px 25px;
+}
+
+.modal-info h3 {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--ink-green);
+  margin: 0 0 12px 0;
+  border-bottom: 2px solid rgba(197, 166, 102, 0.3);
+  padding-bottom: 10px;
+}
+
+.modal-tag {
+  font-size: 13px;
+  color: var(--gold-accent);
+  margin: 0 0 16px 0;
+  letter-spacing: 1px;
+}
+
+.modal-desc {
+  font-size: 15px;
+  color: #4a6659;
+  line-height: 1.8;
+  margin: 0;
+  text-align: justify;
+}
+
+/* 响应式适配 */
+@media (max-width: 1200px) {
+  .heritage-section {
+    padding: 80px 6% 60px;
+  }
+  .modal-content {
+    max-width: 650px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heritage-section {
+    padding: 60px 4% 40px;
+    min-height: 500px;
+  }
+  .heritage-title h2 {
+    font-size: 2rem;
+  }
+  .heritage-card-container {
+    gap: 20px;
+  }
+  .modal-content {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+  .modal-img {
+    height: 200px;
+  }
+  .modal-info {
+    padding: 20px 16px;
+  }
+  .modal-info h3 {
+    font-size: 18px;
+  }
+}
+/* 新增：操作按钮样式 */
+/* 新增：操作按钮样式 */
+.add-herb-btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(111, 191, 154, 0.3);
+  /* 新增：调整位置，避免遮挡筛选面板 */
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 99;
+}
+
+.add-herb-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(111, 191, 154, 0.4);
+}
+
+/* 新增：药材表单弹窗样式 */
+.herb-form-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 61, 46, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-inner {
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(45, 90, 71, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: var(--ink-green);
+  font-weight: 700;
+}
+
+.modal-close {
+  font-size: 24px;
+  color: var(--sage-green);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: rgba(45, 90, 71, 0.08);
+  color: var(--gold-accent);
+}
+
+.modal-form {
+  padding: 20px;
+}
+
+.form-item {
+  margin-bottom: 16px;
+}
+
+.form-item label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--ink-green);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.form-item input,
+.form-item select,
+.form-item textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(45, 90, 71, 0.15);
+  border-radius: 8px;
+  font-family: 'Noto Serif SC', serif;
+  color: var(--sage-green);
+  background: rgba(247, 249, 244, 0.5);
+  transition: border-color 0.3s ease;
+}
+
+.form-item input:focus,
+.form-item select:focus,
+.form-item textarea:focus {
+  outline: none;
+  border-color: var(--gold-accent);
+  box-shadow: 0 0 0 2px rgba(197, 166, 102, 0.1);
+}
+
+.form-item textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.modal-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(45, 90, 71, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-cancel {
+  padding: 8px 16px;
+  background: rgba(45, 90, 71, 0.08);
+  border: 1px solid rgba(45, 90, 71, 0.15);
+  border-radius: 8px;
+  color: var(--sage-green);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background: rgba(45, 90, 71, 0.12);
+}
+
+.btn-confirm {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-confirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-confirm:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-dark), #1e4a3d);
+}
+
+/* 新增：删除确认弹窗样式 */
+.delete-confirm-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 61, 46, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.delete-modal-inner {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.delete-modal-inner h3 {
+  margin: 0 0 12px 0;
+  color: var(--ink-green);
+  font-weight: 700;
+  text-align: center;
+}
+
+.delete-modal-inner p {
+  margin: 0 0 20px 0;
+  color: #4a6659;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.delete-btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn-delete {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #e53e3e, #c53030);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #c53030, #a32020);
+}
+
+/* 窗口容器：留白+薄阴影+圆角 */
+.herb-info-window-refined {
+  width: 280px;
+  padding: 16px 20px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e6eee9;
+  box-shadow: 0 4px 15px rgba(26, 61, 46, 0.08);
+  font-family: 'Noto Serif SC', serif;
+  position: relative;
+}
+
+/* 名称+印章区域：错落排版 */
+.info-top {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.info-name-refined {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a3d2e;
+  margin: 0;
+  letter-spacing: 1px;
+  font-family: 'ZCOOL XiaoWei', serif;
+}
+
+/* 道地印章：仿真篆刻效果 */
+.seal-mark {
+  font-size: 12px;
+  color: #c5a666;
+  border: 2px solid #c5a666;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  transform: rotate(-5deg);
+  background: rgba(197, 166, 102, 0.05);
+}
+
+/* 生境分布：中式分隔线+文字层次 */
+.info-habitat-refined {
+  padding-top: 8px;
+  border-top: 1px dashed #dcece6;
+  margin-bottom: 14px;
+  line-height: 1.8;
+}
+
+.habitat-label {
+  display: block;
+  font-size: 13px;
+  color: #2d5a47;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.habitat-value {
+  font-size: 14px;
+  color: #4a6659;
+  word-break: break-all;
+}
+
+/* 操作按钮：悬浮水墨按钮 */
+/* 操作按钮容器：调整间距 */
+.info-ops-refined {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* 编辑按钮：墨绿+印章纹理 */
+.btn-edit-refined {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #2d5a47;
+  background: linear-gradient(120deg, rgba(45, 90, 71, 0.05), rgba(45, 90, 71, 0.1));
+  color: #2d5a47;
+  font-family: 'Noto Serif SC', serif;
+}
+.btn-edit-refined i {
+  font-size: 14px;
+}
+.btn-edit-refined:hover {
+  background: linear-gradient(120deg, #2d5a47, #1a3d2e);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(45, 90, 71, 0.2);
+  transform: translateY(-1px);
+}
+
+/* 删除按钮：琥珀+宣纸纹理 */
+.btn-del-refined {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #c5a666;
+  background: linear-gradient(120deg, rgba(197, 166, 102, 0.05), rgba(197, 166, 102, 0.1));
+  color: #c5a666;
+  font-family: 'Noto Serif SC', serif;
+}
+.btn-del-refined i {
+  font-size: 14px;
+}
+.btn-del-refined:hover {
+  background: linear-gradient(120deg, #c5a666, #a38450);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(197, 166, 102, 0.2);
+  transform: translateY(-1px);
 }
 </style>

@@ -1,17 +1,30 @@
 <template>
   <div class="chat-page">
-    <!-- 顶部装饰栏（新增返回首页按钮） -->
+    <!-- 顶部装饰栏 -->
     <div class="page-header">
       <div class="header-content">
-        <!-- 返回首页按钮 -->
-        <button @click="goToHome" class="back-home-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span>返回首页</span>
-        </button>
+        <div class="header-left">
+          <!-- 返回首页按钮 -->
+          <button @click="goToHome" class="back-home-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>返回首页</span>
+          </button>
 
-        <!-- 原有logo区域 -->
+          <!-- 清除历史按钮 -->
+          <button @click="clearHistory" class="clear-history-btn" v-if="history.length > 0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6H5H21" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10 11V17" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 11V17" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>清除历史</span>
+          </button>
+        </div>
+
+        <!-- logo区域 -->
         <div class="logo">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -20,6 +33,7 @@
           </svg>
           <span>AI 中医智能问诊</span>
         </div>
+
       </div>
     </div>
 
@@ -40,6 +54,89 @@
           </div>
         </div>
 
+        <!-- 新增：模型切换面板 -->
+        <transition name="slide-fade">
+          <div v-if="showSettings" class="settings-panel">
+            <div class="panel-header">
+              <h4>模型设置</h4>
+              <button @click="showSettings = false" class="close-btn">×</button>
+            </div>
+
+            <div class="model-option"
+                 :class="{ active: selectedModel === 'deepseek' }"
+                 @click="selectedModel = 'deepseek'; showSettings = false; switchModel('deepseek')">
+              <div class="model-title">DeepSeek-V3</div>
+              <div class="model-desc">更强推理能力 · 回答更专业</div>
+              <div class="tag-recommend">推荐</div>
+            </div>
+
+            <div class="model-option"
+                 :class="{ active: selectedModel === 'ollama' }"
+                 @click="selectedModel = 'ollama'; showSettings = false; switchModel('ollama')">
+              <div class="model-title">本地模型（Ollama）</div>
+              <div class="model-desc">响应更快 · 适合本地调试</div>
+            </div>
+
+            <div class="current-status">
+              当前模型：<strong>{{ selectedModel === 'deepseek' ? 'DeepSeek-V3' : '本地Ollama模型' }}</strong>
+            </div>
+          </div>
+        </transition>
+
+        <!-- ========== 在这里插入模式面板 ========== -->
+<transition name="slide-fade">
+  <div v-if="showModePanel" class="mode-panel">
+    <div class="panel-header">
+      <h4>模式切换</h4>
+      <button @click="showModePanel = false" class="close-btn">×</button>
+    </div>
+
+    <div class="mode-option"
+         :class="{ active: selectedMode === 'pure_llm' }"
+         @click="selectMode('pure_llm')">
+      <div class="mode-icon">🤖</div>
+      <div class="mode-info">
+        <div class="mode-title">纯大模型模式</div>
+        <div class="mode-desc">仅使用LLM自身知识</div>
+      </div>
+    </div>
+
+    <div class="mode-option"
+         :class="{ active: selectedMode === 'knowledge_graph' }"
+         @click="selectMode('knowledge_graph')">
+      <div class="mode-icon">📊</div>
+      <div class="mode-info">
+        <div class="mode-title">知识图谱模式</div>
+        <div class="mode-desc">实体提取+知识图谱查询</div>
+      </div>
+    </div>
+
+    <div class="mode-option"
+         :class="{ active: selectedMode === 'rag_only' }"
+         @click="selectMode('rag_only')">
+      <div class="mode-icon">📚</div>
+      <div class="mode-info">
+        <div class="mode-title">RAG检索模式</div>
+        <div class="mode-desc">古籍文献检索+LLM</div>
+      </div>
+    </div>
+
+    <div class="mode-option"
+         :class="{ active: selectedMode === 'full_function' }"
+         @click="selectMode('full_function')">
+      <div class="mode-icon">⚡</div>
+      <div class="mode-info">
+        <div class="mode-title">全功能模式</div>
+        <div class="mode-desc">知识图谱+RAG+LLM（完整）</div>
+      </div>
+    </div>
+
+    <div class="current-status">
+      当前模式：<strong>{{ modeDisplayName }}</strong>
+    </div>
+  </div>
+</transition>
+
         <!-- 聊天内容区 -->
         <div class="chat-body" ref="chatBody">
           <!-- 欢迎卡片 -->
@@ -49,6 +146,12 @@
               <p>请详细描述你的症状（如：乏力、头晕、手脚冰凉等），我将为你提供专业的中医辨证分析和调理建议。</p>
               <div class="quick-tips">
                 <span class="tip-tag">示例：最近一周失眠多梦，口干舌燥</span>
+                <span class="tip-tag">示例：持续头痛，伴有恶心症状</span>
+                <span class="tip-tag">示例：长期疲劳，食欲不振</span>
+              </div>
+              <div class="ai-note">
+                <span class="note-icon">📝</span>
+                <span>我会专注于中医辨证分析，并提供中药、食疗等调理建议</span>
               </div>
             </div>
           </div>
@@ -70,14 +173,38 @@
           </div>
         </div>
 
+<!-- ========== 在这里插入当前模式显示 ========== -->
+<div class="current-mode-display">
+  <span class="mode-tag" :class="selectedMode">{{ modeDisplayName }}</span>
+  <button @click="toggleModePanel" class="mode-toggle-btn">
+    {{ showModePanel ? '隐藏' : '切换模式' }}
+  </button>
+</div>
+
         <!-- 输入区 -->
         <div class="chat-input">
           <textarea
             v-model="input"
+            @input="adjustTextareaHeight"
             placeholder="请详细描述你的症状，例如：最近一周容易疲劳，食欲不振，手脚冰凉..."
             @keydown.enter.exact="handleEnterSend"
             rows="1"
+            ref="textareaRef"
           ></textarea>
+          <!-- 新增：右侧齿轮设置按钮 -->
+        <div class="settings-toggle" @click="showSettings = !showSettings">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.49.49 0 0 0-.49-.42h-3.84a.49.49 0 0 0-.49.42l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.74 8.87a.49.49 0 0 0 .12.61l2.03 1.58c-.05.3-.07.62-.07.94 0 .32.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.3.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.42.49.42h3.84c.25 0 .44-.18.49-.42l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" fill="#43786a"/>
+          </svg>
+        </div>
+
+        <div class="mode-toggle" @click="toggleModePanel">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 17V7C3 5.89543 3.89543 5 5 5H19C20.1046 5 21 5.89543 21 7V17C21 18.1046 20.1046 19 19 19H5C3.89543 19 3 18.1046 3 17Z" stroke="#43786a" stroke-width="2"/>
+    <path d="M8 9L12 13L16 9" stroke="#43786a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
           <button @click="send" :disabled="!input.trim() || thinking" class="send-btn">
             <svg v-if="!thinking" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M22 2L11 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -99,39 +226,151 @@
 </template>
 
 <script setup>
-import { ref, watch, nextTick } from "vue";
-// 如果使用Vue Router，取消下面注释并确保已配置路由
-// import { useRouter } from "vue-router";
-// const router = useRouter();
-
+import { ref, watch, nextTick, onMounted, computed } from "vue";
+import router from "@/router.js";
+import { tcmQaService } from '@/services/tcmQaService.js';
+const selectedModel = ref('deepseek')  // 默认使用 DeepSeek-V3
+const showSettings = ref(false)        // 控制设置面板显示
+// 响应式数据
 const input = ref("");
 const messages = ref([]);
 const thinking = ref(false);
 const history = ref([]);
 const chatBody = ref(null);
+const textareaRef = ref(null);
+// ========== 在这里添加模式相关数据 ==========
+const selectedMode = ref('pure_llm')   // 默认纯LLM模式
+const showModePanel = ref(false)       // 控制模式面板显示
 
-// 返回首页函数
-const goToHome = () => {
-  // 方式1：使用Vue Router跳转（推荐，需提前配置首页路由）
-  // router.push('/'); // 替换为你的首页路由路径，如 '/home'
+// 添加计算属性
+const modeDisplayName = computed(() => {
+  const modeMap = {
+    'pure_llm': '纯LLM',
+    'knowledge_graph': '知识图谱',
+    'rag_only': 'RAG检索',
+    'full_function': '全功能'
+  }
+  return modeMap[selectedMode.value] || selectedMode.value
+})
 
-  // 方式2：跳转到指定URL（适合无路由场景）
-  window.location.href = '/'; // 替换为你的首页实际URL，如 'index.html'
+// ========== 修正后的 buildHistory 函数 ==========
+const buildHistory = () => {
+  const historyMessages = [];
 
-  // 方式3：仅提示（测试用）
-  // alert('返回首页');
+  // 遍历消息，构建完整的 user-assistant 对话对
+  for (let i = 0; i < messages.value.length; i++) {
+    const msg = messages.value[i];
+
+    if (msg.role === "user") {
+      // 添加用户消息
+      historyMessages.push({
+        role: "user",
+        content: msg.text
+      });
+
+      // 检查下一条消息是否是AI回复
+      if (i + 1 < messages.value.length && messages.value[i + 1].role === "ai") {
+        historyMessages.push({
+          role: "assistant",  // OpenAI 格式
+          content: messages.value[i + 1].text
+        });
+        i++; // 跳过已处理的AI消息
+      } else {
+        // 如果没有对应的AI回复，也添加一个空的assistant消息（保持对话对完整）
+        historyMessages.push({
+          role: "assistant",
+          content: ""
+        });
+      }
+    }
+    // 忽略单独的AI消息（比如欢迎消息）
+  }
+
+  // 限制历史长度（保留最近3轮完整对话）
+  // 注意：每个对话轮次包含 user + assistant 两条消息
+  const maxRounds = 3;
+  const maxMessages = maxRounds * 2;
+
+  // 确保我们保留的是完整的对话对
+  if (historyMessages.length > maxMessages) {
+    // 从后往前取，确保是最近的完整对话
+    const recentMessages = historyMessages.slice(-maxMessages);
+
+    // 检查最后一条是否是assistant，如果不是则去掉最后一条
+    if (recentMessages.length > 0 && recentMessages[recentMessages.length - 1].role !== "assistant") {
+      return recentMessages.slice(0, -1);
+    }
+    return recentMessages;
+  }
+
+  return historyMessages;
 };
 
-// 初始化欢迎消息
-const initMessages = () => {
-  const now = new Date();
-  messages.value = [
-    {
-      role:"ai",
-      text:"你好，我是你的中医智能问诊助手。请详细描述你的症状，我会为你提供专业的辨证分析和调理建议。",
-      time: now
+// 从localStorage加载历史记录
+const loadHistory = () => {
+  try {
+    const saved = localStorage.getItem('tcm_chat_history');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return Array.isArray(parsed) ? parsed : [];
     }
-  ];
+  } catch (error) {
+    console.error("加载历史记录失败:", error);
+  }
+  return [];
+};
+
+// 保存历史记录到localStorage
+const saveHistory = (newHistory) => {
+  try {
+    // 限制历史记录长度，保留最近30条
+    const limitedHistory = newHistory.slice(-5);
+    localStorage.setItem('tcm_chat_history', JSON.stringify(limitedHistory));
+  } catch (error) {
+    console.error("保存历史记录失败:", error);
+  }
+};
+
+// 返回首页
+const goToHome = () => {
+  router.push('/');
+};
+
+// 清除历史记录
+const clearHistory = () => {
+  if (confirm('确定要清除所有对话历史吗？这将无法恢复。')) {
+    history.value = [];
+    saveHistory([]);
+    messages.value = [{
+      role: "ai",
+      text: "对话历史已清除。我是你的中医智能问诊助手，请详细描述你的症状，我会为你提供专业的辨证分析和调理建议。",
+      time: new Date()
+    }];
+  }
+};
+
+// 初始化消息
+const initMessages = () => {
+  const loadedHistory = loadHistory();
+  history.value = loadedHistory;
+
+  const now = new Date();
+
+  if (loadedHistory.length > 0) {
+    // 如果有历史记录，显示欢迎回来消息
+    messages.value = [{
+      role: "ai",
+      text: "欢迎回来！我仍然是你专业的中医问诊助手。基于我们之前的交流，我了解你的基本情况。请继续描述症状，我会提供更精准的辨证分析。",
+      time: now
+    }];
+  } else {
+    // 没有历史记录时显示初始欢迎消息
+    messages.value = [{
+      role: "ai",
+      text: "你好，我是你的中医智能问诊助手。请详细描述你的症状（如：乏力、头晕、手脚冰凉、食欲不振等），我会基于中医理论为你提供专业的辨证分析和中药调理建议。",
+      time: now
+    }];
+  }
 };
 
 // 格式化时间
@@ -152,43 +391,106 @@ const scrollToBottom = () => {
   });
 };
 
+// 调整输入框高度
+const adjustTextareaHeight = (e) => {
+  const textarea = e.target;
+  textarea.style.height = 'auto';
+  const newHeight = Math.min(textarea.scrollHeight, 120);
+  textarea.style.height = newHeight + 'px';
+};
+
 // 处理回车发送
 const handleEnterSend = (e) => {
+  if (e.shiftKey) {
+    // Shift+Enter 换行
+    return;
+  }
   e.preventDefault();
   send();
 };
 
-// 发送消息
+const toggleModePanel = () => {
+  showModePanel.value = !showModePanel.value
+  // 切换时隐藏设置面板
+  showSettings.value = false
+}
+
+const selectMode = (mode) => {
+  selectedMode.value = mode
+  showModePanel.value = false
+
+  // 给用户友好提示
+  const modeNames = {
+    'pure_llm': '纯大模型模式（仅使用LLM自身知识）',
+    'knowledge_graph': '知识图谱模式（实体提取+知识图谱查询）',
+    'rag_only': 'RAG检索模式（古籍文献检索）',
+    'full_function': '全功能模式（知识图谱+RAG+LLM）'
+  }
+
+  messages.value.push({
+    role: "ai",
+    text: `✅ 已切换到 ${modeNames[mode]}`,
+    time: new Date()
+  })
+  scrollToBottom()
+}
+
+const switchModel = (model) => {
+  // 给用户一个友好提示消息
+  messages.value.push({
+    role: "ai",
+    text: `✅ 已切换到 ${model === 'deepseek' ? 'DeepSeek-V3（更强推理能力）' : '本地Ollama模型（响应更快）'}`,
+    time: new Date()
+  })
+  scrollToBottom()
+}
+
+// ========== 修复后的 send 函数 ==========
 const send = async () => {
   const text = input.value.trim();
-  if(!text || thinking.value) return;
+  if (!text || thinking.value) return;
 
   const now = new Date();
-  // 添加用户消息
+
+  // ========== 关键修改：先构建历史，再添加当前消息 ==========
+  let currentHistory = [];
+  if (selectedMode.value === 'pure_llm') {
+    // 只在 pure_llm 模式下构建历史记录
+    currentHistory = buildHistory();
+  }
+
+  // 添加用户消息到显示
   messages.value.push({
-    role:"user",
+    role: "user",
     text,
     time: now
   });
+
+  // 清空输入框
   input.value = "";
   thinking.value = true;
+
+  // 重置输入框高度
+  if (textareaRef.value) {
+    textareaRef.value.style.height = '44px';
+  }
 
   scrollToBottom();
 
   try {
-    // 模拟接口请求（实际项目替换为真实接口）
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // ========== 关键修改：调用你自己的TCM系统 ==========
+    const result = await tcmQaService.askQuestion(text, selectedModel.value, 3, currentHistory, selectedMode.value);
 
-    // 模拟AI回复
-    const replyText = "根据你的症状描述，初步辨证为"+
-      (Math.random() > 0.5 ? "气虚兼痰湿" : "肝郁气滞") +
-      "体质。建议：1. 日常可食用"+
-      (Math.random() > 0.5 ? "山药、薏米、茯苓" : "玫瑰花、陈皮、佛手") +
-      "等食材调理；2. 避免熬夜，保持情绪舒畅；3. 适度进行八段锦、太极拳等温和运动。";
+    let replyText;
+    if (result.success) {
+      replyText = result.answer;
+    } else {
+      replyText = `抱歉，系统处理遇到问题：${result.error || '未知错误'}`;
+    }
 
-    // 添加AI回复
+    // 添加AI回复到显示
     messages.value.push({
-      role:"ai",
+      role: "ai",
       text: replyText,
       time: new Date()
     });
@@ -197,15 +499,29 @@ const send = async () => {
     history.value.push({
       user: text,
       ai: replyText,
-      time: now
+      time: now.toISOString()
     });
+
+    // 保存更新后的历史记录
+    saveHistory(history.value);
+
   } catch (error) {
+    console.error("请求失败：", error);
+
+    let errorMessage = "抱歉，系统暂时无法为你提供服务，请稍后再试。";
+
+    if (error.message.includes('Failed to fetch') || error.message.includes('Network Error')) {
+      errorMessage = "无法连接到中医问答服务，请检查：\n1. 后端服务是否启动（http://localhost:8001）\n2. 网络连接是否正常";
+    } else if (error.message.includes('timeout')) {
+      errorMessage = "问答系统处理超时，建议简化问题后重试。";
+    }
+
     messages.value.push({
-      role:"ai",
-      text:"抱歉，系统暂时无法为你提供服务，请稍后再试。",
+      role: "ai",
+      text: errorMessage,
       time: new Date()
     });
-    console.error("请求失败：", error);
+
   } finally {
     thinking.value = false;
     scrollToBottom();
@@ -215,8 +531,11 @@ const send = async () => {
 // 监听消息变化，自动滚动到底部
 watch(messages, scrollToBottom, { deep: true });
 
-// 初始化
-initMessages();
+// 页面加载时初始化
+onMounted(() => {
+  initMessages();
+  scrollToBottom();
+});
 </script>
 
 <style scoped>
@@ -237,7 +556,7 @@ initMessages();
   overflow-x: hidden;
 }
 
-/* 顶部装饰栏 - 新增布局调整 */
+/* 顶部装饰栏 */
 .page-header {
   background: linear-gradient(90deg, #43786a 0%, #2d5d50 100%);
   padding: 16px 24px;
@@ -247,12 +566,21 @@ initMessages();
 
 .header-content {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
-/* 返回首页按钮样式 */
-.back-home-btn {
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* 返回首页按钮 */
+.back-home-btn, .clear-history-btn {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -268,22 +596,34 @@ initMessages();
   white-space: nowrap;
 }
 
-.back-home-btn:hover {
+.back-home-btn:hover, .clear-history-btn:hover {
   background-color: rgba(255, 255, 255, 0.3);
   border-color: rgba(255, 255, 255, 0.4);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.back-home-btn:active {
+.back-home-btn:active, .clear-history-btn:active {
   transform: scale(0.98);
 }
 
+/* logo */
 .logo {
   display: flex;
   align-items: center;
   gap: 12px;
   font-size: 18px;
   font-weight: 600;
+}
+
+
+
+.history-count {
+  font-weight: 600;
+}
+
+.history-tip {
+  opacity: 0.9;
+  font-size: 12px;
 }
 
 /* 主容器 */
@@ -371,6 +711,7 @@ initMessages();
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-bottom: 12px;
 }
 
 .tip-tag {
@@ -379,6 +720,22 @@ initMessages();
   border-radius: 16px;
   font-size: 12px;
   color: #43786a;
+  border: 1px solid rgba(67, 120, 106, 0.2);
+}
+
+.ai-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  font-size: 12px;
+  color: #2d5d50;
+}
+
+.note-icon {
+  font-size: 14px;
 }
 
 /* 消息样式 */
@@ -399,12 +756,18 @@ initMessages();
   line-height: 1.5;
   font-size: 14px;
   position: relative;
+  white-space: pre-line;
 }
 
 .msg-time {
   font-size: 11px;
   margin-top: 4px;
   opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.msg:hover .msg-time {
+  opacity: 1;
 }
 
 /* 用户消息 */
@@ -492,6 +855,7 @@ initMessages();
   min-height: 44px;
   max-height: 120px;
   transition: border-color 0.2s ease;
+  overflow-y: auto;
 }
 
 .chat-input textarea:focus {
@@ -572,6 +936,11 @@ initMessages();
     gap: 12px;
   }
 
+  .header-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .chat-container {
     padding: 16px 10px;
   }
@@ -588,5 +957,266 @@ initMessages();
   .msg {
     max-width: 85%;
   }
+
+  .chat-input {
+    padding: 12px 16px;
+  }
 }
+
+/* 右侧设置按钮和面板样式 */
+.settings-toggle {
+  width: 44px;
+  height: 44px;
+  background: rgba(67, 120, 106, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 8px; /* 和发送按钮保持一点间距 */
+}
+
+.settings-toggle:hover {
+  background: rgba(67, 120, 106, 0.25);
+  transform: rotate(60deg);
+}
+
+.settings-panel {
+  position: absolute;
+  top: 70px;
+  right: 16px;
+  width: 280px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+  padding: 16px;
+  z-index: 100;
+  border: 1px solid #e8f0e8;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.panel-header h4 {
+  margin: 0;
+  color: #2d5d50;
+  font-size: 16px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #aaa;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  color: #666;
+}
+
+.model-option {
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  background: #f8fcf8;
+}
+
+.model-option:hover {
+  background: #f0f8f0;
+  border-color: #43786a;
+}
+
+.model-option.active {
+  border-color: #43786a;
+  background: #e8f5e9;
+}
+
+.model-title {
+  font-weight: 600;
+  color: #2d5d50;
+  font-size: 15px;
+}
+
+.model-desc {
+  font-size: 13px;
+  color: #6b8c82;
+  margin-top: 4px;
+}
+
+.tag-recommend {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #43786a;
+  color: white;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.current-status {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e8f0e8;
+  text-align: center;
+  color: #43786a;
+  font-size: 14px;
+}
+
+/* 面板动画 */
+.slide-fade-enter-active, .slide-fade-leave-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-enter-from, .slide-fade-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+
+.mode-panel {
+  position: absolute;
+  top: 70px;
+  right: 16px;
+  width: 300px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+  padding: 16px;
+  z-index: 101;
+  border: 1px solid #e8f0e8;
+}
+
+.mode-option {
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8fcf8;
+}
+
+.mode-option:hover {
+  background: #f0f8f0;
+  border-color: #43786a;
+}
+
+.mode-option.active {
+  border-color: #43786a;
+  background: #e8f5e9;
+}
+
+.mode-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.mode-info {
+  flex: 1;
+}
+
+.mode-title {
+  font-weight: 600;
+  color: #2d5d50;
+  font-size: 14px;
+}
+
+.mode-desc {
+  font-size: 12px;
+  color: #6b8c82;
+  margin-top: 2px;
+}
+
+/* 当前模式显示区域 */
+.current-mode-display {
+  padding: 12px 24px;
+  background: #f8fcf8;
+  border-bottom: 1px solid #e8f0e8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mode-tag {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.mode-tag.pure_llm {
+  background: #e8f5e9;
+  color: #2d5d50;
+  border: 1px solid #c8e6c9;
+}
+
+.mode-tag.knowledge_graph {
+  background: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #bbdefb;
+}
+
+.mode-tag.rag_only {
+  background: #f3e5f5;
+  color: #7b1fa2;
+  border: 1px solid #e1bee7;
+}
+
+.mode-tag.full_function {
+  background: #fff3e0;
+  color: #ef6c00;
+  border: 1px solid #ffcc80;
+}
+
+.mode-toggle-btn {
+  padding: 6px 12px;
+  background: rgba(67, 120, 106, 0.1);
+  border: 1px solid rgba(67, 120, 106, 0.2);
+  border-radius: 8px;
+  color: #43786a;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-toggle-btn:hover {
+  background: rgba(67, 120, 106, 0.2);
+}
+
+/* 模式切换按钮样式 */
+.mode-toggle {
+  width: 44px;
+  height: 44px;
+  background: rgba(67, 120, 106, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 8px;
+}
+
+.mode-toggle:hover {
+  background: rgba(67, 120, 106, 0.25);
+  transform: rotate(180deg);
+}
+
 </style>

@@ -10,7 +10,7 @@ def chat_logic(req: ChatRequest):
         response = requests.post(
             "http://localhost:11434/api/generate",
             json={
-                "model": "mistral:7b",
+                "model": "qwen2.5:7b-instruct-q5_K_M",
                 "prompt": req.message,
                 "stream": False
             },
