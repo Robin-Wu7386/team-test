@@ -31,7 +31,7 @@
             <path d="M2 17L12 22L22 17" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M2 12L12 17L22 12" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <span>AI 中医智能问诊</span>
+          <span>老中医智能AI问诊</span>
         </div>
 
       </div>
@@ -142,7 +142,7 @@
           <!-- 欢迎卡片 -->
           <div class="welcome-card">
             <div class="card-content">
-              <h4>🌿 欢迎使用 AI 中医智能问诊</h4>
+              <h4>🌿 欢迎使用 老中医 智能AI问诊</h4>
               <p>请详细描述你的症状（如：乏力、头晕、手脚冰凉等），我将为你提供专业的中医辨证分析和调理建议。</p>
               <div class="quick-tips">
                 <span class="tip-tag">示例：最近一周失眠多梦，口干舌燥</span>
@@ -220,7 +220,7 @@
 
     <!-- 底部信息 -->
     <div class="page-footer">
-      <p>© 2025 AI 中医智能问诊平台 | 本平台仅供参考，不构成医疗建议</p>
+      <p>© 2026  老中医智能AI问诊平台 | 本平台仅供参考，不构成医疗建议</p>
     </div>
   </div>
 </template>
@@ -926,41 +926,6 @@ onMounted(() => {
 
 .chat-body::-webkit-scrollbar-thumb:hover {
   background: #43786a;
-}
-
-/* 响应式适配 */
-@media (max-width: 768px) {
-  .header-content {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .header-left {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .chat-container {
-    padding: 16px 10px;
-  }
-
-  .chat-body {
-    height: 70vh;
-    padding: 16px;
-  }
-
-  .welcome-card {
-    padding: 16px;
-  }
-
-  .msg {
-    max-width: 85%;
-  }
-
-  .chat-input {
-    padding: 12px 16px;
-  }
 }
 
 /* 右侧设置按钮和面板样式 */
