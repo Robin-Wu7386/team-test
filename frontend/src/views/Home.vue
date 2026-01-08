@@ -3217,7 +3217,7 @@ onMounted(() => {
     justify-content: center;
   }
 
-  /* 移动端进一步减少背景草 */+                                                                                                                    ·
+  /* 移动端进一步减少背景草 */                                                                                                                  ·
   .background-herbs-layer .background-herb:nth-child(n+16) {
     display: none;
   }
