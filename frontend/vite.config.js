@@ -16,7 +16,7 @@ export default defineConfig({
         target: "http://localhost:3001",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/user/, "/user")
-      }
+      },
       // 管理员后端API - 端口3000
       "/api/admin": {
         target: "http://localhost:3000",
