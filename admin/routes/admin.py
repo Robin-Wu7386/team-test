@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, session, flash
+from flask import render_template, request, redirect, url_for, session, flash, jsonify
 from admin.routes import admin_bp
 from admin.extensions import get_mysql_conn
 from admin.utils.security import check_password
@@ -118,3 +118,58 @@ def logout():
     session.clear()
     flash('管理员已退出登录！', 'info')
     return redirect(url_for('main.welcome'))
+
+
+# 管理员-评论管理
+# admin/routes/admin.py
+
+# 获取所有评论
+@admin_bp.route('/comments', methods=['GET'])
+def get_comments():
+    try:
+        conn = get_mysql_conn()
+        with conn.cursor() as cursor:
+            # 联表查询：查出评论内容 + 发表人的名字
+            # 注意：表名 user (单数), 评论表 comments (复数)
+            sql = """
+                  SELECT c.id, c.content, c.created_at, u.username
+                  FROM comments c
+                           LEFT JOIN users u ON c.user_id = u.id
+                  WHERE c.is_deleted = 0
+                  ORDER BY c.created_at DESC \
+                  """
+            cursor.execute(sql)
+            comments = cursor.fetchall()
+
+            # 格式化时间
+            for c in comments:
+                if c.get('created_at'):
+                    c['created_at'] = c['created_at'].strftime('%Y-%m-%d %H:%M:%S')
+
+            return jsonify({'success': True, 'data': comments})
+    except Exception as e:
+        return jsonify({'success': False, 'msg': str(e)})
+    finally:
+        if 'conn' in locals(): conn.close()
+
+
+# 删除评论
+@admin_bp.route('/comments/delete', methods=['POST'])
+def delete_comment():
+    try:
+        data = request.get_json()
+        comment_id = data.get('id')
+
+        conn = get_mysql_conn()
+        with conn.cursor() as cursor:
+            # 逻辑删除
+            cursor.execute("UPDATE comments SET is_deleted = 1 WHERE id = %s", (comment_id,))
+            conn.commit()
+
+        return jsonify({'success': True, 'msg': '评论已删除'})
+    except Exception as e:
+        return jsonify({'success': False, 'msg': str(e)})
+    finally:
+        if 'conn' in locals(): conn.close()
+
+    return render_template('comments.html', comments=comments, users=users, username=session.get('username'))

@@ -42,7 +42,7 @@ def login():
                     session['role'] = user['role']
                     session['user_id'] = user['id']
                     flash('普通用户登录成功！', 'success')
-                    return redirect(url_for('user.index'))
+                    return redirect(url_for('user.profile', user_id=user['id']))
         except Exception as e:
             flash(f'登录失败：{str(e)}', 'danger')
         finally:
@@ -103,11 +103,62 @@ def register():
 # 普通用户主页（空白，仅占位）
 @user_bp.route('/index')
 def index():
-    # 未登录则跳登录页
+    """保持兼容：跳转到当前用户个人页"""
     if 'username' not in session or session['role'] != 'user':
         flash('请先登录普通用户账号！', 'warning')
         return redirect(url_for('user.login'))
-    return render_template('index.html', username=session['username'])
+    return redirect(url_for('user.profile', user_id=session['user_id']))
+
+
+@user_bp.route('/profile/<int:user_id>', methods=['GET', 'POST'])
+def profile(user_id: int):
+    """普通用户个人主页 + 评论提交"""
+    if 'username' not in session or session['role'] != 'user':
+        flash('请先登录普通用户账号！', 'warning')
+        return redirect(url_for('user.login'))
+    if session.get('user_id') != user_id:
+        flash('无权访问其他用户的主页！', 'danger')
+        return redirect(url_for('user.profile', user_id=session['user_id']))
+
+    conn = get_mysql_conn()
+    comments = []
+    user = None
+    try:
+        with conn.cursor() as cursor:
+            # 获取用户信息
+            cursor.execute('SELECT id, username, phonenumber, email, created_at FROM users WHERE id = %s AND del = 1',
+                           (user_id,))
+            user = cursor.fetchone()
+            if not user:
+                flash('用户不存在或已被删除！', 'danger')
+                return redirect(url_for('user.logout'))
+
+            # 新增评论
+            if request.method == 'POST':
+                content = request.form.get('content', '').strip()
+                if not content:
+                    flash('评论内容不能为空！', 'warning')
+                else:
+                    cursor.execute('INSERT INTO comments (user_id, content) VALUES (%s, %s)', (user_id, content))
+                    conn.commit()
+                    flash('评论提交成功！', 'success')
+                    return redirect(url_for('user.profile', user_id=user_id))
+
+            # 查询用户评论
+            cursor.execute('''
+                SELECT id, content, created_at, updated_at 
+                FROM comments 
+                WHERE user_id = %s 
+                ORDER BY created_at DESC
+            ''', (user_id,))
+            comments = cursor.fetchall()
+    except Exception as e:
+        flash(f'操作失败：{str(e)}', 'danger')
+        conn.rollback()
+    finally:
+        conn.close()
+
+    return render_template('index.html', user=user, comments=comments)
 
 
 # 普通用户退出登录

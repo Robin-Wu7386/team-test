@@ -18,6 +18,10 @@
           <li class="menu-icon">📜</li>
           <span class="menu-text">药方管理</span>
         </div>
+        <div class="menu-item" :class="{ active: activeMenu === 'comment' }" @click="activeMenu = 'comment'">
+          <li class="menu-icon">💬</li>
+          <span class="menu-text">评论管理</span>
+        </div>
       </nav>
       <button class="logout-btn" @click="navigate('/')">退出登录</button>
     </aside>
@@ -181,6 +185,46 @@
           </tbody>
         </table>
       </div>
+
+      <!-- 评论管理模块 -->
+      <div v-if="activeMenu === 'comment'" class="content-module">
+        <div class="module-header">
+          <h2>评论列表</h2>
+          <button class="add-btn" @click="openCommentModal('add')">新增评论</button>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>用户ID</th>
+              <th>用户名</th>
+              <th>内容</th>
+              <th>创建时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="comment in commentList" :key="comment.id">
+              <td>{{ comment.id }}</td>
+              <td>{{ comment.user_id }}</td>
+              <td>{{ comment.username }}</td>
+              <td>{{ comment.content }}</td>
+              <td>{{ formatTime(comment.created_at) }}</td>
+              <td class="operation">
+                <button class="oper-btn edit-btn" @click="openCommentModal('edit', comment)">编辑</button>
+                <button class="oper-btn delete-btn" @click="handleCommentDelete(comment.id)">删除</button>
+              </td>
+            </tr>
+            <tr v-if="commentList.length === 0 && !commentLoading">
+              <td colspan="6" class="empty-text">暂无评论数据</td>
+            </tr>
+            <tr v-if="commentLoading">
+              <td colspan="6" class="loading-text">加载中...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </main>
 
     <!-- 中药材模态框 -->
@@ -245,6 +289,32 @@
         <el-button type="primary" @click="submitPrescriptionForm">{{ prescriptionModalType === 'add' ? '新增' : '保存' }}</el-button>
       </template>
     </el-dialog>
+
+    <!-- 评论模态框 -->
+    <el-dialog
+      v-model="commentModalVisible"
+      title="">{{ commentModalType === 'add' ? '新增评论' : '编辑评论' }}
+      <el-form :model="commentForm" label-width="80px" class="modal-form">
+        <el-form-item label="用户ID" required>
+          <el-input v-model="commentForm.user_id" placeholder="填写用户ID"></el-input>
+        </el-form-item>
+        <el-form-item label="用户名" required>
+          <el-input v-model="commentForm.username" placeholder="填写用户名"></el-input>
+        </el-form-item>
+        <el-form-item label="内容" required>
+          <el-input
+            v-model="commentForm.content"
+            type="textarea"
+            placeholder="填写评论内容"
+            :autosize="{ minRows: 3, maxRows: 6 }"
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="commentModalVisible = false">取消</el-button>
+        <el-button type="primary" @click="submitCommentForm">{{ commentModalType === 'add' ? '新增' : '保存' }}</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -264,11 +334,13 @@ const userList = ref([]) // 用户列表
 const herbList = ref([]) // 中药材列表
 const prescriptionList = ref([]) // 药方列表
 const allHerbs = ref([]) // 所有中药材（用于药方选择）
+const commentList = ref([]) // 评论列表
 
 // 加载状态
 const userLoading = ref(false)
 const herbLoading = ref(false)
 const prescriptionLoading = ref(false)
+const commentLoading = ref(false)
 
 // 搜索条件
 const userSearch = ref('')
@@ -295,6 +367,15 @@ const prescriptionForm = ref({
   efficacy: ''
 })
 
+const commentModalVisible = ref(false)
+const commentModalType = ref('add')
+const commentForm = ref({
+  id: '',
+  user_id: '',
+  username: '',
+  content: ''
+})
+
 // 常量定义
 const ADMIN_TOKEN = 'admin_fixed_token_123456'
 
@@ -303,6 +384,7 @@ onMounted(() => {
   fetchUsers()
   fetchHerbs()
   fetchPrescriptions()
+  fetchComments()
 })
 
 // 退出登录
@@ -570,6 +652,111 @@ const handlePrescriptionDelete = async (prescriptionId) => {
     }
   } catch (err) {
     alert('药方删除失败：' + (err.response?.data?.msg || err.message))
+    console.error(err)
+  }
+}
+
+// ------------------------------ 评论管理（增删改查）------------------------------
+const formatTime = (val) => (val ? new Date(val).toLocaleString() : '')
+
+const fetchComments = async () => {
+  commentLoading.value = true
+  try {
+    const res = await axios.get('/api/admin/comments', {
+      headers: {
+        Authorization: `Bearer ${ADMIN_TOKEN}`
+      }
+    })
+    if (res.data.success) {
+      commentList.value = res.data.data
+    } else {
+      alert(res.data.msg)
+    }
+  } catch (err) {
+    alert('获取评论列表失败：' + (err.response?.data?.msg || err.message))
+    console.error(err)
+  } finally {
+    commentLoading.value = false
+  }
+}
+
+const openCommentModal = (type, comment = {}) => {
+  commentModalType.value = type
+  commentModalVisible.value = true
+  if (type === 'add') {
+    commentForm.value = { id: '', user_id: '', username: '', content: '' }
+  } else {
+    commentForm.value = { ...comment }
+  }
+}
+
+const submitCommentForm = async () => {
+  if (!commentForm.value.user_id || !commentForm.value.username || !commentForm.value.content) {
+    alert('请完整填写用户ID、用户名与内容')
+    return
+  }
+
+  try {
+    let res
+    if (commentModalType.value === 'add') {
+      res = await axios.post(
+        '/api/admin/comments',
+        {
+          userId: commentForm.value.user_id,
+          username: commentForm.value.username,
+          content: commentForm.value.content
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${ADMIN_TOKEN}`
+          }
+        }
+      )
+    } else {
+      res = await axios.put(
+        `/api/admin/comments/${commentForm.value.id}`,
+        {
+          userId: commentForm.value.user_id,
+          username: commentForm.value.username,
+          content: commentForm.value.content
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${ADMIN_TOKEN}`
+          }
+        }
+      )
+    }
+
+    if (res.data.success) {
+      alert(commentModalType.value === 'add' ? '评论新增成功' : '评论更新成功')
+      commentModalVisible.value = false
+      fetchComments()
+    } else {
+      alert(res.data.msg)
+    }
+  } catch (err) {
+    alert(commentModalType.value === 'add' ? '评论新增失败' : '评论更新失败')
+    console.error(err)
+  }
+}
+
+const handleCommentDelete = async (id) => {
+  if (!confirm('确定删除该评论吗？')) return
+  try {
+    const res = await axios.delete(`/api/admin/comments/${id}`, {
+      headers: {
+        Authorization: `Bearer ${ADMIN_TOKEN}`
+      }
+    })
+    if (res.data.success) {
+      alert('删除成功')
+      fetchComments()
+    } else {
+      alert(res.data.msg)
+    }
+  } catch (err) {
+    alert('删除失败：' + (err.response?.data?.msg || err.message))
     console.error(err)
   }
 }
