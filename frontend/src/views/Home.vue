@@ -187,11 +187,34 @@
           <div class="ink-stroke"></div>
           <div class="nav-glow"></div>
         </button>
+
+        <button class="nav-item" @click="navigate('/comments')">
+          <span class="nav-icon-wrapper">
+            <i class="ri-chat-smile-2-line nav-icon"></i>
+          </span>
+          <span class="nav-label">评论区</span>
+          <div class="ink-stroke"></div>
+          <div class="nav-glow"></div>
+        </button>
       </nav>
 
       <!-- 右侧：登录/注册 -->
       <div class="nav-right">
-        <button class="login-btn" @click="navigate('/login')">
+        <div v-if="isLoggedIn" class="user-entry" @click="toggleUserMenu">
+          <div class="avatar">{{ (currentUser.username || 'U').slice(0, 1).toUpperCase() }}</div>
+          <div class="user-meta">
+            <span class="user-name">{{ currentUser.username }}</span>
+            <span class="user-phone">{{ currentUser.phonenumber }}</span>
+          </div>
+          <i class="ri-arrow-down-s-line user-arrow"></i>
+
+          <div v-if="showUserMenu" class="user-menu" @click.stop>
+            <button class="menu-action" @click="goProfile">个人中心</button>
+            <button class="menu-action" @click="goMyComments">我的评论</button>
+            <button class="menu-action danger" @click="handleLogout">退出登录</button>
+          </div>
+        </div>
+        <button v-else class="login-btn" @click="navigate('/login')">
           <span class="login-icon">👤</span>
           <span>登录 / 注册</span>
           <i class="ri-arrow-right-s-line login-arrow"></i>
@@ -682,11 +705,14 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '../stores/user';
 
 const router = useRouter();
+const userStore = useUserStore();
 const mouseX = ref(0);
 const mouseY = ref(0);
 const isScrolled = ref(false);
+const showUserMenu = ref(false);
 
 // 预生成位置数组（避免每次渲染都重新计算）
 const herbPositions = (() => {
@@ -710,9 +736,31 @@ const navigate = (path) => {
   router.push(path);
 };
 
-// 登录点击
-const handleLogin = () => {
-  alert("登录模态框将在此处弹出");
+const isLoggedIn = computed(() => userStore.isLoggedIn);
+const currentUser = computed(() => userStore.userInfo || {});
+
+const toggleUserMenu = () => {
+  showUserMenu.value = !showUserMenu.value;
+};
+
+const goProfile = () => {
+  showUserMenu.value = false;
+  if (!isLoggedIn.value) {
+    router.push('/login');
+    return;
+  }
+  router.push('/profile');
+};
+
+const goMyComments = () => {
+  showUserMenu.value = false;
+  router.push({ path: '/comments', query: { tab: 'mine' } });
+};
+
+const handleLogout = () => {
+  userStore.logout();
+  showUserMenu.value = false;
+  router.push('/login');
 };
 
 // 滚动监听
@@ -1721,6 +1769,14 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   gap: 12px;
+  flex-wrap: nowrap; /* 强制不换行 */
+  min-width: 0; /* 允许 flex item 缩小 */
+  overflow-x: auto; /* 如果实在太窄，允许横向滚动而不是换行 */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.nav-center::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-item {
@@ -1739,6 +1795,8 @@ onMounted(() => {
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 10px;
   overflow: visible;
+  white-space: nowrap; /* 文字不换行 */
+  flex-shrink: 0; /* 防止被压缩 */
 }
 
 .nav-icon-wrapper {
@@ -1747,6 +1805,7 @@ onMounted(() => {
   justify-content: center;
   width: 24px;
   height: 24px;
+  flex-shrink: 0; /* 图标不压缩 */
 }
 
 .nav-icon {
@@ -1756,6 +1815,7 @@ onMounted(() => {
 
 .nav-label {
   transition: color 0.3s ease;
+  white-space: nowrap; /* 再次确保标签文字不换行 */
 }
 
 .nav-item:hover {
@@ -1804,6 +1864,103 @@ onMounted(() => {
   flex: 1;
   display: flex;
   justify-content: flex-end;
+}
+
+.user-entry {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px 14px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(111, 191, 154, 0.2);
+  cursor: pointer;
+  border: 1px solid rgba(111, 191, 154, 0.25);
+  transition: all 0.3s ease;
+}
+
+.user-entry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(111, 191, 154, 0.28);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.user-meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.user-name {
+  font-weight: 700;
+  color: var(--ink-green);
+}
+
+.user-phone {
+  font-size: 12px;
+  color: var(--sage-green);
+  opacity: 0.8;
+}
+
+.user-arrow {
+  color: var(--sage-green);
+  font-size: 18px;
+}
+
+.user-menu {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 8px;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2000;
+}
+
+.menu-action {
+  padding: 10px 12px;
+  background: #f8fdfa;
+  border: 1px solid rgba(111, 191, 154, 0.2);
+  border-radius: 10px;
+  color: var(--ink-green);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.menu-action:hover {
+  background: rgba(111, 191, 154, 0.12);
+  border-color: var(--primary);
+}
+
+.menu-action.danger {
+  color: #c03434;
+  border-color: rgba(192, 52, 52, 0.18);
+  background: #fff7f7;
+}
+
+.menu-action.danger:hover {
+  background: #ffeaea;
+  border-color: #c03434;
 }
 
 .login-btn {

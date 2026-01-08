@@ -42,7 +42,6 @@
             <option value="">请选择性别</option>
             <option value="男">男</option>
             <option value="女">女</option>
-            <option value="其他">其他</option>
           </select>
         </div>
         <div class="form-item">
@@ -86,16 +85,16 @@
       <button
         @click="submit"
         class="submit-btn"
-        :disabled="!symptom.trim()"
+        :disabled="!symptom.trim() || submitting"
       >
-        {{ submitting ? '分析中...' : '开始分析' }}
+        {{ submitting ? '正在提交...' : '开始分析' }}
       </button>
     </div>
 
     <!-- 结果展示卡片 -->
     <div class="form-card result-card" v-if="result">
       <div class="card-header">
-        <h2>分析结果</h2>
+        <h2>处理结果</h2>
       </div>
       <div class="result-content">
         <pre>{{ result }}</pre>
@@ -106,9 +105,12 @@
 
 <script setup>
 import { ref } from "vue";
-// 如果使用Vue Router，取消下面注释并确保已配置路由
-// import { useRouter } from "vue-router";
-// const router = useRouter();
+import { useRouter } from "vue-router";
+import axios from "axios";
+import { useUserStore } from "@/stores/user"; // 引入用户状态仓库
+
+const router = useRouter();
+const userStore = useUserStore();
 
 // 响应式数据
 const age = ref("");
@@ -121,46 +123,64 @@ const submitting = ref(false);
 
 // 返回首页函数
 const goToHome = () => {
-  // 方式1：使用Vue Router跳转（推荐，需提前配置首页路由）
-  // router.push('/'); // 替换为你的首页路由路径，如 '/home'
-
-  // 方式2：跳转到指定URL（适合无路由场景）
-  window.location.href = '/'; // 替换为你的首页实际URL，如 'index.html'
-
-  // 方式3：仅提示（测试用）
-  // alert('返回首页');
+  router.push('/');
 };
 
 // 提交函数
-function submit() {
-  if (!symptom.value.trim()) return;
+async function submit() {
+  // 1. 基础校验
+  if (!symptom.value.trim()) {
+    alert("请填写症状描述");
+    return;
+  }
+  if (!age.value || !gender.value) {
+    alert("请完善年龄和性别信息");
+    return;
+  }
+
+  // 2. 权限校验：必须登录
+  if (!userStore.userInfo) {
+    alert("请先登录，系统需要记录您的问诊历史");
+    router.push('/login');
+    return;
+  }
 
   submitting.value = true;
-  fetch("http://127.0.0.1:5000/ask", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      question: symptom.value,
+  result.value = ""; // 清空之前的结果
+
+  try {
+    // 3. 构造发给 Node.js 后端的数据
+    // 字段名需要对应 server.js 中接收的 req.body
+    const payload = {
+      userId: userStore.userInfo.id, // 获取当前用户ID
       age: age.value,
-      gender: gender.value,
+      sex: gender.value,             // 界面叫 gender，后端存库叫 sex
       height: height.value,
-      weight: weight.value
-    })
-  })
-  .then(r => {
-    if (!r.ok) throw new Error("请求失败，请检查后端服务是否启动");
-    return r.json();
-  })
-  .then(d => {
-    result.value = d.answer;
-  })
-  .catch(err => {
-    result.value = `请求出错：${err.message}`;
+      weight: weight.value,
+      symptoms: symptom.value        // 界面叫 symptom，后端存库叫 symptoms
+    };
+
+    // 4. 发送请求给 Node.js (端口 3001)
+    // 这里直连后端，绕过可能存在的代理问题
+    const res = await axios.post('http://localhost:3001/api/consultations', payload);
+
+    if (res.data.success) {
+      alert("提交成功！");
+      // 5. 显示反馈信息
+      result.value = `【系统消息】\n您的信息已成功录入数据库。\n\n用户ID：${userStore.userInfo.id}\n建档时间：${new Date().toLocaleString()}\n\n(注：当前模块功能为“信息采集与存储”，不执行AI分析)`;
+
+      // 可选：提交成功后清空表单
+      // symptom.value = "";
+    } else {
+      alert("提交失败：" + res.data.msg);
+    }
+
+  } catch (err) {
     console.error(err);
-  })
-  .finally(() => {
+    result.value = `请求出错：无法连接到服务器 (http://localhost:3001)\n请检查 node server.js 是否已启动。`;
+  } finally {
     submitting.value = false;
-  });
+  }
 }
 </script>
 
