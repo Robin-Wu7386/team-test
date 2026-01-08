@@ -14,7 +14,7 @@
           <RouterLink class="pill-item" to="/ai_consult_wizard">流程问诊</RouterLink>
           <RouterLink class="pill-item" to="/knowledge_graph">知识图谱</RouterLink>
           <RouterLink class="pill-item" to="/recommend">中药推荐</RouterLink>
-          <RouterLink class="pill-item" to="/comments">评论区</RouterLink>
+          <RouterLink class="pill-item" to="/comments">论坛</RouterLink>
         </div>
         <div class="divider"></div>
         <button v-if="!isLoggedIn" class="login-pill" @click="go('/login')">

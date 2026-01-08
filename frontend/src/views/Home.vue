@@ -192,7 +192,7 @@
           <span class="nav-icon-wrapper">
             <i class="ri-chat-smile-2-line nav-icon"></i>
           </span>
-          <span class="nav-label">评论区</span>
+          <span class="nav-label">论坛</span>
           <div class="ink-stroke"></div>
           <div class="nav-glow"></div>
         </button>
