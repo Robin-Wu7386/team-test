@@ -230,7 +230,7 @@ if __name__ == "__main__":
     # 请确认路径正确！！！
     EXCEL_FILE_PATH = "C:\\Users\\李旭东\\Desktop\\team-test\\frontend\\src\\data\\medicines_details_converted.xlsx"
     OUTPUT_JSON_PATH = "C:\\Users\\李旭东\\Desktop\\team-test\\frontend\\src\\data\\complete_herb_data.json"
-    MAX_HERB_COUNT = 10  # 演示用小数据量，加快执行
+    MAX_HERB_COUNT = 100  # 演示用小数据量，加快执行
     DEMO_INTERVAL_SECONDS = 30
 
     # 启动演示
