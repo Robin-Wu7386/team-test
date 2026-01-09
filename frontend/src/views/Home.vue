@@ -433,51 +433,53 @@
           <div class="orbit orbit-slow"></div>
         </div>
 
-       <!-- 悬浮的中药卡片组（随机） -->
-<div class="herb-cards-container">
-  <div
-    v-for="slot in cardSlots"
-    :key="slot.position"
-    class="herb-card"
-    :class="slot.position"
-    @click="navigate('/recommend')"
-  >
-    <transition
-      name="fade-float"
-      mode="out-in"
+  <!-- 悬浮的中药卡片组（随机） -->
+  <div class="herb-cards-container">
+    <div
+      v-for="slot in cardSlots"
+      :key="slot.position"
+      class="herb-card"
+      :class="slot.position"
+      @click="navigate('/recommend')"
     >
-      <!-- 必须加 key，触发动画 -->
-      <div v-if="slot.herb" :key="slot.herb.id">
-        <div class="card-glow"></div>
+      <transition
+        name="fade-float"
+        mode="out-in"
+      >
+        <!-- 必须加 key，触发动画 -->
+        <div v-if="slot.herb" :key="slot.herb.id">
+          <div class="card-glow"></div>
 
-        <div class="card-inner">
-          <div class="card-image-wrapper">
-            <img
-              :src="`../../static/pictures/${slot.herb.name}.png`"
-              :alt="slot.herb.name"
-            />
-            <div class="card-overlay"></div>
-          </div>
+          <div class="card-inner">
+            <div class="card-image-wrapper">
+              <!-- 注意：这里用 slot.herb.imagePath 匹配之前定义的图片路径 -->
+              <img
+                :src="slot.herb.imagePath"
+                :alt="slot.herb.name"
+                @error="handleImageError(slot)"
+              />
+              <div class="card-overlay"></div>
+            </div>
 
-          <div class="card-label">
-            <span class="card-name">{{ slot.herb.name }}</span>
-            <span class="card-tag">{{ slot.herb.category }}</span>
+            <div class="card-label">
+              <span class="card-name">{{ slot.herb.name }}</span>
+              <span class="card-tag">{{ slot.herb.category }}</span>
 
-            <div class="card-property">
-              <span v-for="tag in slot.herb.shortTags" :key="tag">
-                {{ tag }}
-              </span>
+              <div class="card-property">
+                <span v-for="tag in slot.herb.shortTags" :key="tag">
+                  {{ tag }}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card-particles">
-          <div v-for="n in 8" :key="n" class="card-particle"></div>
+          <div class="card-particles">
+            <div v-for="n in 8" :key="n" class="card-particle"></div>
+          </div>
         </div>
-      </div>
-    </transition>
+      </transition>
+    </div>
   </div>
-</div>
 
 
         <!-- 中心能量核心 -->
