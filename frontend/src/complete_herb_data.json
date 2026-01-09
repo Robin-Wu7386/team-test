@@ -1,0 +1,2767 @@
+{
+  "focusHerb": {
+    "id": 25,
+    "name": "杉寄生",
+    "herbId": "shanjisheng",
+    "image": "/pictures/shanjisheng_1.jpg",
+    "category": "其他",
+    "categoryId": "other",
+    "alias": "枫木寄生、龙眼寄生、发冷果寄生、沙梨寄生、柿树寄生、菠萝树寄生、白蜡树寄生、八角鞘花寄生、寄生包",
+    "xingwei": "甘；苦；性平",
+    "guijing": "暂无数据",
+    "brief": "祛风湿；补肝肾；活血止痛；止咳；止痢。主风湿痹痛；腰膝酸痛；头晕目眩；脱发；跌打损伤；痔疮肿痛；咳嗽...",
+    "shortTags": [
+      "其他"
+    ],
+    "tags": [
+      "其他"
+    ],
+    "benefits": [
+      "痔疮肿痛",
+      "头晕目眩",
+      "跌打损伤"
+    ],
+    "usage": "内服：煎汤，9-15g。",
+    "habitat": "暂无数据",
+    "warning": "暂无数据",
+    "updateTime": "2026-01-09 11:51:39"
+  },
+  "herbList": [
+    {
+      "id": 1,
+      "name": "鸡桑根",
+      "herbId": "jisanggen",
+      "image": "/pictures/jisanggen_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "小叶桑根",
+      "xingwei": "甘；辛；性寒",
+      "guijing": "暂无数据",
+      "brief": "清肺；凉血；利湿。主肺热咳嗽；鼻衄；水肿；腹泻；黄疸",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "主肺热咳嗽"
+      ],
+      "usage": "内服：煎汤，6-15g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 2,
+      "name": "狼麻",
+      "herbId": "langma",
+      "image": "/pictures/langma_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "鬼箭锦鸡儿、浪麻",
+      "xingwei": "辛、苦，寒。",
+      "guijing": "暂无数据",
+      "brief": "清热散肿，生肌止痛。主治痈疽，疮疖，肿痛。",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "清热散肿",
+        "生肌止痛",
+        "主治痈疽"
+      ],
+      "usage": "内服：适量熬膏外敷患处。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 3,
+      "name": "柴桂",
+      "herbId": "chaigui",
+      "image": "/pictures/chaigui_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "三条筋、桂皮、肉桂",
+      "xingwei": "辛；甘；温",
+      "guijing": "肝；脾经",
+      "brief": "温通经脉；行气止痛。主寒湿痹痛；脘腹疼痛；痛经；跌打损伤",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "跌打损伤",
+        "行气止痛",
+        "主寒湿痹痛"
+      ],
+      "usage": "内服：煎汤，3-6g；研末，0.3-0.5g。外用：适量，研粉，调敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 4,
+      "name": "漂摇豆",
+      "herbId": "piaoyaodou",
+      "image": "/pictures/piaoyaodou_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "飘摇豆。",
+      "xingwei": "性凉",
+      "guijing": "脾；胃经",
+      "brief": "活血；明目。主目赤肿痛",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "主目赤肿痛"
+      ],
+      "usage": "内服：研末，3-6g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 5,
+      "name": "布狗尾",
+      "herbId": "bugouwei",
+      "image": "/pictures/bugouwei_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "土狗尾、长穗狸尾草、兔狗尾、猫公树、防虫草、猫上树、狐狸尾。",
+      "xingwei": "味淡；性凉",
+      "guijing": "脾；大肠经",
+      "brief": "清热；止血；消积；杀虫。主感冒；咳嗽；疟疾；吐血；咯血；尿血；外伤出血；小儿疳积；丝虫病",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "外伤出血",
+        "主感冒",
+        "小儿疳积"
+      ],
+      "usage": "内服：煎汤，15-60g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 6,
+      "name": "广东金钱草",
+      "herbId": "guangdongjinqiancao",
+      "image": "/pictures/guangdongjinqiancao_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "金钱草（《中国主要植物图说·豆科》），广金钱草（《中药通报》5（1）：26，1959），假花生、马蹄草、银蹄草（《南宁市药物志》），落地金钱、铜钱草（广州部队《常用中草药手册》）。",
+      "xingwei": "甘淡，平. ①《南宁市药物志》：\"辛涩。\" ②《广西中药志》：\"味甘淡，性平，无毒。\" ③广州部队《常用中草药手册》：\"甘淡，凉。\"",
+      "guijing": "暂无数据",
+      "brief": "清热去湿，利尿通淋。治尿路感染，泌尿系结石，胆囊结石，肾炎浮肿，黄疸，疳积，痈肿。 ①《南宁市药物志...",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "\" ③《广东中药》：\"平肝火",
+        "泌尿系结石",
+        "治砂淋"
+      ],
+      "usage": "内服：煎汤，0.5～1两（鲜用1～2两）。外用：捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 7,
+      "name": "鸡大腿",
+      "herbId": "jidatui",
+      "image": "/pictures/jidatui_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "大果上叶、果上叶",
+      "xingwei": "甘；辛；寒",
+      "guijing": "肺；心经",
+      "brief": "清热止咳；活血消肿。主肺热咳嗽；肺结核咯血；咽炎；骨折；外伤瘀血",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "清热止咳",
+        "外伤瘀血",
+        "活血消肿"
+      ],
+      "usage": "内服：煎汤15-30g。外用：适量，捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 8,
+      "name": "龙江风毛菊",
+      "herbId": "longjiangfengmaoju",
+      "image": "/pictures/longjiangfengmaoju_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "东北燕尾风毛病",
+      "xingwei": "味苦；性寒",
+      "guijing": "暂无数据",
+      "brief": "清热燥湿；泻炎解毒。主湿热带下；口舌生疮；牙龈肿痛",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "口舌生疮",
+        "清热燥湿",
+        "牙龈肿痛"
+      ],
+      "usage": "内服：煎汤，6-15g。外用：适量，煎水含漱或丛浴。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 9,
+      "name": "五除叶",
+      "herbId": "wuchuye",
+      "image": "/pictures/wuchuye_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "大漆王叶。",
+      "xingwei": "辛；苦；温",
+      "guijing": "肺；胃经",
+      "brief": "祛风除湿；散寒止痛。主小儿麻痹后贵症；风湿关节痛；湿疹；荨麻疹；疮疡；风寒头痛",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "散寒止痛",
+        "风寒头痛",
+        "主小儿麻痹后贵症"
+      ],
+      "usage": "内服：煎汤，9-15g。外用：适量，捣敷，或煎水洗。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 10,
+      "name": "大叶地耳根",
+      "herbId": "dayediergen",
+      "image": "/pictures/dayediergen_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "暂无数据",
+      "xingwei": "味辛；苦；性平",
+      "guijing": "暂无数据",
+      "brief": "舒筋活络；止痛止泻。主跌打损伤；腹痛；泄泻",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "舒筋活络",
+        "主跌打损伤",
+        "止痛止泻"
+      ],
+      "usage": "内服：煎汤，15-30g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 11,
+      "name": "海狗油",
+      "herbId": "haigouyou",
+      "image": "/pictures/haigouyou_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "暂无数据",
+      "xingwei": "性热。",
+      "guijing": "暂无数据",
+      "brief": "善消利。治三焦浊逆之气，能清水脏积寒、停饮。涂皲瘃。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "治三焦浊逆之气",
+        "能清水脏积寒、停饮",
+        "善消利"
+      ],
+      "usage": "暂无用法",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 12,
+      "name": "银线草",
+      "herbId": "yinxiancao",
+      "image": "/pictures/yinxiancao_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "四叶草、四块瓦、四大天王、天王七、拐拐细辛、四代草、四叶七、白毛七、灯笼花。",
+      "xingwei": "辛；苦；温；有毒",
+      "guijing": "肺；心；肝经",
+      "brief": "活血行瘀；祛风除湿；解毒。主跌打损伤；风湿痹痛；风寒感冒；肿毒疮疡；毒蛇咬伤",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "风寒感冒",
+        "肿毒疮疡",
+        "主跌打损伤"
+      ],
+      "usage": "内服：煎汤，3-6g；或浸酒。外用：适量，捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 13,
+      "name": "凤凰木",
+      "herbId": "fenghuangmu",
+      "image": "/pictures/fenghuangmu_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "暂无数据",
+      "xingwei": "甘；淡；寒",
+      "guijing": "肝经",
+      "brief": "平肝潜阳。主肝热型高血压，眩晕，心烦不宁",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "心烦不宁",
+        "平肝潜阳",
+        "主肝热型高血压"
+      ],
+      "usage": "内服：煎汤，6-15g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 14,
+      "name": "泥鳅",
+      "herbId": "niqiu",
+      "image": "/pictures/niqiu_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "鳛、鳅、鱃、泥鳅、委蛇、鳅鱼、粉鳅、和鳅",
+      "xingwei": "味甘；性平",
+      "guijing": "脾；肝；肾经",
+      "brief": "补益脾肾；利水；解毒。主脾虚泻痢；热病口渴；消渴；小儿盗汗水肿；小便不利；阳事不举；病毒性肝炎；痔疮...",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "小便不利",
+        "主脾虚泻痢",
+        "小儿盗汗水肿"
+      ],
+      "usage": "内服：煮食，100-250g；或烧存性，入丸、散，每次6-10g。外用：适量，烧存性，研末调敷，或生品捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 15,
+      "name": "白皮柯",
+      "herbId": "baipike",
+      "image": "/pictures/baipike_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "野槟榔",
+      "xingwei": "微苦；涩；性温",
+      "guijing": "暂无数据",
+      "brief": "消食；杀虫。主食积腹胀；虫积腹痛",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "虫积腹痛",
+        "主食积腹胀"
+      ],
+      "usage": "内服：煎汤，9-15g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 16,
+      "name": "乌桕",
+      "herbId": "wujiu",
+      "image": "/pictures/wujiu_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "桊子树、桕树、木蜡树、木油树、木梓树、虹树、蜡烛树",
+      "xingwei": "苦，微温。有小毒。",
+      "guijing": "入肺、脾、肾、大肠经。",
+      "brief": "杀虫，解毒，利尿，通便。用于血吸虫病，肝硬化腹水，大小便不利，毒蛇咬伤；外用治疔疮，鸡眼，乳腺炎，跌...",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "乳腺炎",
+        "用于血吸虫病",
+        "跌打损伤"
+      ],
+      "usage": "根皮1～3钱；叶3～5钱；外用适量，鲜叶捣烂敷患处，或煎水洗。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 17,
+      "name": "山乌龟",
+      "herbId": "shanwugui",
+      "image": "/pictures/shanwugui_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "地乌龟、吊金龟、金线吊乌龟。",
+      "xingwei": "苦；寒",
+      "guijing": "胃；肝经",
+      "brief": "散瘀止痛；清热解毒。主胃痛；痢疾；咽痛；跌打损伤；疮疖痈肿；毒蛇咬伤",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "主胃痛",
+        "散瘀止痛",
+        "跌打损伤"
+      ],
+      "usage": "内服：煎汤，6-15g。外用：适量，鲜品捣敷患处。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 18,
+      "name": "铺地黍",
+      "herbId": "pudishu",
+      "image": "/pictures/pudishu_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "硬骨草、风台草、大广草、马鞭节、马铃降、苦露草",
+      "xingwei": "甘；微苦；平",
+      "guijing": "暂无数据",
+      "brief": "清热平肝；通淋利湿。主高血压；淋浊；白带",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "通淋利湿",
+        "清热平肝",
+        "主高血压"
+      ],
+      "usage": "内服：煎汤，30-90g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 19,
+      "name": "青龙藤",
+      "herbId": "qinglongteng",
+      "image": "/pictures/qinglongteng_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "青龙筋、捆仙丝",
+      "xingwei": "淡，温。",
+      "guijing": "暂无数据",
+      "brief": "活血舒筋，理气祛风。用于跌打损伤，下肢冷痛麻木，风湿手足麻木，牙痛。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "用于跌打损伤",
+        "活血舒筋",
+        "下肢冷痛麻木"
+      ],
+      "usage": "内服：0.3～1两。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 20,
+      "name": "凫羽",
+      "herbId": "fuyu",
+      "image": "/pictures/fuyu_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "水鸭毛",
+      "xingwei": "味咸；性平",
+      "guijing": "肺经",
+      "brief": "解毒敛疮。主溃疡及水火烫伤",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "解毒敛疮",
+        "主溃疡及水火烫伤"
+      ],
+      "usage": "外用：适量，煅存性研末调敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 21,
+      "name": "西藏桃叶珊瑚果",
+      "herbId": "xizangtaoyeshanhuguo",
+      "image": "/pictures/xizangtaoyeshanhuguo_1.jpg",
+      "category": "祛湿",
+      "categoryId": "qushi",
+      "alias": "暂无数据",
+      "xingwei": "味微苦；涩；性平",
+      "guijing": "暂无数据",
+      "brief": "祛湿止带。主赤白带下",
+      "shortTags": [
+        "祛湿"
+      ],
+      "tags": [
+        "祛湿"
+      ],
+      "benefits": [
+        "主赤白带下",
+        "祛湿止带"
+      ],
+      "usage": "内服：煎汤，3-9g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 22,
+      "name": "苦生叶",
+      "herbId": "kushengye",
+      "image": "/pictures/kushengye_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "暂无数据",
+      "xingwei": "微苦，凉。",
+      "guijing": "暂无数据",
+      "brief": "清热解毒，消肿止痛。 牙痛，口腔炎，小儿疳积。用量3～5钱。 外治外伤感染，毒蛇咬伤，疮疖，睾丸肿大...",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "消肿止痛",
+        "用量3～5钱",
+        "睾丸肿大"
+      ],
+      "usage": "暂无用法",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 23,
+      "name": "山樱桃核",
+      "herbId": "shanyingtaohe",
+      "image": "/pictures/shanyingtaohe_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "暂无数据",
+      "xingwei": "暂无数据",
+      "guijing": "暂无数据",
+      "brief": "《纲目拾遗》：\"发麻疹瘄痘，灭斑痕冻瘃。\"",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "《纲目拾遗》：\"发麻疹瘄痘",
+        "灭斑痕冻瘃"
+      ],
+      "usage": "内服：煎汤，1～3钱。外用：磨汁涂或煎水洗。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 24,
+      "name": "蠘",
+      "herbId": "jie",
+      "image": "/pictures/jie_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "三疣棱子蟹、海螃蟹",
+      "xingwei": "暂无数据",
+      "guijing": "暂无数据",
+      "brief": "主治小儿食积。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "主治小儿食积"
+      ],
+      "usage": "内服：蠘壳烧灰存性，研末，开水冲服，每次1钱。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 25,
+      "name": "杉寄生",
+      "herbId": "shanjisheng",
+      "image": "/pictures/shanjisheng_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "枫木寄生、龙眼寄生、发冷果寄生、沙梨寄生、柿树寄生、菠萝树寄生、白蜡树寄生、八角鞘花寄生、寄生包",
+      "xingwei": "甘；苦；性平",
+      "guijing": "暂无数据",
+      "brief": "祛风湿；补肝肾；活血止痛；止咳；止痢。主风湿痹痛；腰膝酸痛；头晕目眩；脱发；跌打损伤；痔疮肿痛；咳嗽...",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "痔疮肿痛",
+        "头晕目眩",
+        "跌打损伤"
+      ],
+      "usage": "内服：煎汤，9-15g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 26,
+      "name": "石芥菜",
+      "herbId": "shijiecai",
+      "image": "/pictures/shijiecai_1.jpg",
+      "category": "祛湿",
+      "categoryId": "qushi",
+      "alias": "龙骨七、石格菜。",
+      "xingwei": "苦；平",
+      "guijing": "暂无数据",
+      "brief": "散瘀通络；祛湿；止血。主跌打损伤；风湿痹痛；黄水疮；外伤出血",
+      "shortTags": [
+        "祛湿"
+      ],
+      "tags": [
+        "祛湿"
+      ],
+      "benefits": [
+        "散瘀通络",
+        "主跌打损伤",
+        "风湿痹痛"
+      ],
+      "usage": "内服：6-9g，泡酒服。外用：适量，捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 27,
+      "name": "亚泵礴",
+      "herbId": "yabengbo",
+      "image": "/pictures/yabengbo_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "咀签、下果藤。",
+      "xingwei": "酸；涩；凉",
+      "guijing": "暂无数据",
+      "brief": "凉血解毒；舒筋活络。主肢体麻木；烧烫伤；疮疡；外伤出血",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "凉血解毒",
+        "主肢体麻木",
+        "外伤出血"
+      ],
+      "usage": "内服：煎汤，15-30g。外用：适量，鲜品捣敷；或捣烂以冷开水浸泡，取液搽。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 28,
+      "name": "山乌珠",
+      "herbId": "shanwuzhu",
+      "image": "/pictures/shanwuzhu_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "构铃子、紫藤子、赤兰",
+      "xingwei": "辛，微温。",
+      "guijing": "暂无数据",
+      "brief": "祛风散寒，活血破瘀。主治跌打损伤，风寒感冒，风湿头痛。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "风湿头痛",
+        "祛风散寒",
+        "风寒感冒"
+      ],
+      "usage": "1两，外用叶适量，捣烂敷患处。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 29,
+      "name": "水虾草根",
+      "herbId": "shuixiacaogen",
+      "image": "/pictures/shuixiacaogen_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "地母怀胎草根",
+      "xingwei": "味辛；苦；性平",
+      "guijing": "暂无数据",
+      "brief": "祛风除湿；舒筋活血。主风湿痹痛；劳伤腰痛；跌打骨折；赤白带下",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "跌打骨折",
+        "舒筋活血",
+        "主风湿痹痛"
+      ],
+      "usage": "内服：煎汤，6-15g；或泡酒。外用：适量，捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 30,
+      "name": "狗齿",
+      "herbId": "gouchi",
+      "image": "/pictures/gouchi_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "狗",
+      "xingwei": "味甘；咸；性平",
+      "guijing": "肺；心；肝经",
+      "brief": "镇痉；祛风；解毒。主癫痫；风痱；发背；痘疹",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "主癫痫"
+      ],
+      "usage": "内服：磨汁或烧存性研末。外用：适量，烧存性研末调敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 31,
+      "name": "蓝靛",
+      "herbId": "landian",
+      "image": "/pictures/landian_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "蓝淀（《本草拾遗》），青靛（《普济方》），靛青（《邓子禹家抄方》）。",
+      "xingwei": "①《本草拾遗》：\"寒。\" ②《纲目》：\"辛苦，寒，无毒。\"",
+      "guijing": "《得配本草》：\"入手少阴经。\"",
+      "brief": "清热，解毒。治时行热毒，疔疮痈肿，丹毒，疳蚀，天疱疮。 ①《本草拾遗》：\"敷热疮，解诸毒，滓敷小儿秃...",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "滓敷小儿秃疮热肿",
+        "①《本草拾遗》：\"敷热疮",
+        "功同青黛"
+      ],
+      "usage": "外用：调敷。内服：水调或入丸剂。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 32,
+      "name": "大叶金花草",
+      "herbId": "dayejinhuacao",
+      "image": "/pictures/dayejinhuacao_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "野黄连、水黄连、牙齿芒、擎天蕨、雪仙草、扫雪花、蜢蚱参、上树细辛草、青蕨、金花草、大金花草、乌韭、石发、地柏枝、雉鸡尾、小鸡尾草、细叶狼箕、花叶凤尾草、乌竹、墙柏、细叶凤凰尾、土黄连、孔雀尾、万能解毒草、苦黄连",
+      "xingwei": "微苦；寒；无毒",
+      "guijing": "肝；肺；大肠经",
+      "brief": "清热；解毒；利湿；止血。主感冒发热；咳嗽；咽喉肿痛；肠炎；痢疾；肝炎；湿热带下；痈疮肿毒；痄腮；口疮...",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "咽喉肿痛",
+        "外伤出血",
+        "痈疮肿毒"
+      ],
+      "usage": "内服：煎汤，15-30g；或绞汁。外用：适量，捣敷；或研末外敷；或煎汤洗。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 33,
+      "name": "海蕴",
+      "herbId": "haiyun",
+      "image": "/pictures/haiyun_1.jpg",
+      "category": "祛湿",
+      "categoryId": "qushi",
+      "alias": "滑溜菜",
+      "xingwei": "咸；寒；无毒",
+      "guijing": "肝；肺经",
+      "brief": "消痰软坚；利水消肿。主瘿瘤；甲状腺肿；喉炎；支气管炎",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "祛湿"
+      ],
+      "benefits": [
+        "主瘿瘤",
+        "甲状腺肿",
+        "利水消肿"
+      ],
+      "usage": "内服：煎汤，10-15g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 34,
+      "name": "橄榄仁",
+      "herbId": "ganlanren",
+      "image": "/pictures/ganlanren_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "暂无数据",
+      "xingwei": "甘；平",
+      "guijing": "肺；脾；胃经",
+      "brief": "润燥；醒酒；解毒。主口唇燥痛；醉酒；鱼、蟹中毒",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "主口唇燥痛",
+        "鱼、蟹中毒"
+      ],
+      "usage": "内服：煎汤，3-6g。外用：适量，研敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 35,
+      "name": "澜沧扁担杆",
+      "herbId": "lancangbiandangan",
+      "image": "/pictures/lancangbiandangan_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "子金根、小白药、小火绳",
+      "xingwei": "涩微苦，凉。",
+      "guijing": "暂无数据",
+      "brief": "收敛止血，生肌，接骨。治外伤出血，骨折，刀枪伤，疮疖红肿。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "刀枪伤",
+        "疮疖红肿",
+        "收敛止血"
+      ],
+      "usage": "暂无用法",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 36,
+      "name": "绵藤",
+      "herbId": "mianteng",
+      "image": "/pictures/mianteng_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "麻妹条。",
+      "xingwei": "辛；平",
+      "guijing": "肝经",
+      "brief": "化瘀消肿。主跌打伤肿",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "主跌打伤肿",
+        "化瘀消肿"
+      ],
+      "usage": "外用：适量，煎汤洗。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 37,
+      "name": "苦瓜子",
+      "herbId": "kuguazi",
+      "image": "/pictures/kuguazi_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "暂无数据",
+      "xingwei": "味苦；甘；性温",
+      "guijing": "暂无数据",
+      "brief": "温补肾阳。主肾阳不足；小便频数；遗尿；遗精；阳痿",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "小便频数",
+        "温补肾阳",
+        "主肾阳不足"
+      ],
+      "usage": "内服：煎汤，9-15g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 38,
+      "name": "零陵香",
+      "herbId": "linglingxiang",
+      "image": "/pictures/linglingxiang_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "熏草（《山海经》），燕草（《南越志》），蕙草（《别录》），香草（《开宝本草》），铃铃香、铃子香（《梦溪笔谈》），黄零草（《庚辛玉册》），熏香（《本草求真》），陵草（《中药材手册》）。",
+      "xingwei": "辛甘，温。 ①《别录》：\"味甘，平，无毒。\" ②《药性论》：\"味苦，无毒。\" ③《海药本》：\"味辛，温，无毒。\"",
+      "guijing": "①《本草求真》：\"入肺。\" ②《得配本草》：\"入足太阴、阳明经。\"",
+      "brief": "祛风寒，辟秽浊。治伤寒、感冒头痛，胸腹胀满，下利，遗精，鼻塞，牙痛。 ①《别录》：\"主明目止泪，疗泄...",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "\" ④《日华于本草》：\"治血气腹胀",
+        "辟秽浊",
+        "祛风寒"
+      ],
+      "usage": "内服：煎汤，1.5～3钱；或入丸、散。外用：研末掺或煎水含漱。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 39,
+      "name": "青风藤",
+      "herbId": "qingfengteng",
+      "image": "/pictures/qingfengteng_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "大风藤、吹风散、黑防己、排风藤、青防己",
+      "xingwei": "苦、辛，平。",
+      "guijing": "归肝、脾经。",
+      "brief": "祛风湿，通经络，利小便。用于风湿痹痛，关节肿胀，麻痹瘙痒。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "利小便",
+        "用于风湿痹痛",
+        "祛风湿"
+      ],
+      "usage": "内服：6～12g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 40,
+      "name": "黄药子",
+      "herbId": "huangyaozi",
+      "image": "/pictures/huangyaozi_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "黄药、黄药根、苦药子、山慈姑、金线吊虾蟆、红药子、黄独根、苦卡拉、蓑衣包、黄狗子、猴姜七、毛卵砣、金线吊葫芦、金线吊蛋、黄金山药、薯瓜乳藤、铁秤砣、狗嗽、土芋",
+      "xingwei": "苦；寒；小毒",
+      "guijing": "肺；肝经",
+      "brief": "散结消瘿；清热解毒；凉血止血。主瘿瘤；喉痹；痈肿疮毒；毒蛇咬伤；肿瘤；吐血；衄血；咯血；百日咳；肺热...",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "主瘿瘤",
+        "痈肿疮毒",
+        "散结消瘿"
+      ],
+      "usage": "内服：煎汤，3-9g；或浸酒；研末1-2g。外用：适量，鲜品捣敷；或研末调数；或磨汁涂。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 41,
+      "name": "峨山草乌",
+      "herbId": "eshancaowu",
+      "image": "/pictures/eshancaowu_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "暂无数据",
+      "xingwei": "味辛、苦，性温，有毒。",
+      "guijing": "肺经",
+      "brief": "祛风除湿，通络止痛，消肿解毒。。主主治风湿筋骨疼痛，胃痛，跌打损伤肿痛，涌疮，癣癞，痔疮。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "通络止痛",
+        "跌打损伤肿痛",
+        "主主治风湿筋骨疼痛"
+      ],
+      "usage": "内服：煎场，2-6g，先煎0.5-1h；或入散剂，1-3g。外用：适量，捣敷或磨汁涂。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 42,
+      "name": "胆矾",
+      "herbId": "danfan",
+      "image": "/pictures/danfan_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "石胆、毕石、君石、黑石、铜勒、立制石、石液、基石、制石液、胆子矾、鸭嘴胆矾、翠胆矾、蓝矾",
+      "xingwei": "酸；辛；寒；有毒",
+      "guijing": "肝；胆经",
+      "brief": "涌吐；去腐；解毒。主中风；癫痫；喉痹；喉风；痰涎壅塞；牙疳；口疮；烂弦风眼；痔疮；肿毒",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "烂弦风眼",
+        "痰涎壅塞",
+        "主中风"
+      ],
+      "usage": "内服：入丸、散， 1-2分。外用：研末撒或调敷，或以水溶化洗眼。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 43,
+      "name": "滇瑞香",
+      "herbId": "dianruixiang",
+      "image": "/pictures/dianruixiang_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "桂花矮陀陀、黄山皮条、构皮岩陀、万年青矮陀陀、西南瑞香、小鼠皮、开花矮陀陀、细叶寡鸡蛋树皮、鼠皮黄、山皮条、雪花枸、月月绿、金腰带、矮陀陀、冷水跌打、银丝矮陀、黄皮杜仲、黄根枸皮、千年不落叶。",
+      "xingwei": "辛；苦；性温；小毒",
+      "guijing": "肝；膀胱经",
+      "brief": "祛风除湿；活络行气止痛。主风湿痹痛；跌打损伤；胃痛",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "跌打损伤",
+        "主风湿痹痛",
+        "祛风除湿"
+      ],
+      "usage": "内朋：煎汤，3-9g；或泡酒。外用：适量，鲜品捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 44,
+      "name": "芦子藤",
+      "herbId": "luziteng",
+      "image": "/pictures/luziteng_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "叶子兰、芦子兰、、大麻疙瘩、，思茅野萎。",
+      "xingwei": "辛；温",
+      "guijing": "肺；心；肝；脾；胃经",
+      "brief": "祛风除湿；除湿通络。主感冒风寒；风湿痹痛；胃痛；月经不调；跌打损伤；骨折",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "跌打损伤",
+        "风湿痹痛",
+        "除湿通络"
+      ],
+      "usage": "内服：煎汤，15-30g，或泡酒饮。外用：适量，鲜品捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 45,
+      "name": "女贞皮",
+      "herbId": "nvzhenpi",
+      "image": "/pictures/nvzhenpi_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "女贞树皮",
+      "xingwei": "微苦；性凉",
+      "guijing": "暂无数据",
+      "brief": "强筋健骨。主腰膝酸痛；两脚无力；水火烫伤",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "两脚无力",
+        "主腰膝酸痛",
+        "水火烫伤"
+      ],
+      "usage": "内服：煎汤，30-60g；或浸酒。外用：适量，研末调敷；或熬膏涂。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 46,
+      "name": "棕榈花",
+      "herbId": "zonglvhua",
+      "image": "/pictures/zonglvhua_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "棕榈木子、棕笋",
+      "xingwei": "味苦；涩；性平",
+      "guijing": "肝；脾经",
+      "brief": "止血；止泻；活血；散结。主血崩；带下；肠风；泻痢；瘰疬",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "主血崩"
+      ],
+      "usage": "内服：煎汤，3-10g；或研末，3-6g。外用：适量，煎水洗。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 47,
+      "name": "莱菔缨",
+      "herbId": "laifuying",
+      "image": "/pictures/laifuying_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "萝卜英、莱菔英",
+      "xingwei": "暂无数据",
+      "guijing": "暂无数据",
+      "brief": "消食止渴，祛热解毒。主治胸中满闷，两胁作胀，化积滞，解酒毒。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "化积滞",
+        "解酒毒",
+        "消食止渴"
+      ],
+      "usage": "内服：1～3钱。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 48,
+      "name": "山茴芹",
+      "herbId": "shanhuiqin",
+      "image": "/pictures/shanhuiqin_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "拉拉柏（藏名）",
+      "xingwei": "甘辛，温。",
+      "guijing": "入脾、胃、大肠经。",
+      "brief": "温中散寒，驱风下气，活血镇痛，健胃止痢。治脘腹胀满，肠炎，痢疾。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "健胃止痢",
+        "治脘腹胀满",
+        "活血镇痛"
+      ],
+      "usage": "内服：煎汤，2～3钱；或为散。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 49,
+      "name": "刺齿凤尾蕨",
+      "herbId": "cichifengweijue",
+      "image": "/pictures/cichifengweijue_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "半边双、半边旗",
+      "xingwei": "苦；涩；凉",
+      "guijing": "肝；大肠经",
+      "brief": "清热解毒；祛瘀凉血。主痢疾；泄泻；痄腮；风湿痹痛；跌打损伤；痈疮肿毒；毒蛇咬伤",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "祛瘀凉血",
+        "主痢疾",
+        "跌打损伤"
+      ],
+      "usage": "内服：煎汤，15-30g。外用：适量，捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 50,
+      "name": "刺柄南星",
+      "herbId": "cibingnanxing",
+      "image": "/pictures/cibingnanxing_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "绿南星、天南星、白南星、南星七、螃蟹七、三甫莲、蛇芋头",
+      "xingwei": "暂无数据",
+      "guijing": "暂无数据",
+      "brief": "有毒。祛痰止咳，镇痛。并治劳伤，痈疽。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "祛痰止咳",
+        "并治劳伤"
+      ],
+      "usage": "内服：外敷治痈疽。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 51,
+      "name": "厚膜藻",
+      "herbId": "houmozao",
+      "image": "/pictures/houmozao_1.jpg",
+      "category": "祛湿",
+      "categoryId": "qushi",
+      "alias": "暂无数据",
+      "xingwei": "暂无数据",
+      "guijing": "暂无数据",
+      "brief": "化痰软坚；消肿散结；利水消肿；止带。主瘿瘤；瘰疬；噎膈；睾丸肿痛；水肿；带下",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "祛湿"
+      ],
+      "benefits": [
+        "化痰软坚",
+        "主瘿瘤",
+        "利水消肿"
+      ],
+      "usage": "内服：煎汤，6-9g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 52,
+      "name": "罗汉松",
+      "herbId": "luohansong",
+      "image": "/pictures/luohansong_1.jpg",
+      "category": "补气",
+      "categoryId": "qi",
+      "alias": "土杉、罗汉杉",
+      "xingwei": "甘，微温。",
+      "guijing": "暂无数据",
+      "brief": "果：益气补中。用于心胃气痛，血虚面色萎黄。 根皮：活血止痛，杀虫。用于跌打损伤，癣。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "补气",
+        "其他"
+      ],
+      "benefits": [
+        "用于跌打损伤",
+        "果：益气补中",
+        "血虚面色萎黄"
+      ],
+      "usage": "果1～3钱；根皮外用适量，加黄酒捣烂敷患处。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 53,
+      "name": "鸡腰果",
+      "herbId": "jiyaoguo",
+      "image": "/pictures/jiyaoguo_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "腰果、槚如树",
+      "xingwei": "淡，平。有毒。",
+      "guijing": "暂无数据",
+      "brief": "截疟杀虫。主治疟疾。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "主治疟疾",
+        "截疟杀虫"
+      ],
+      "usage": "内服：树皮2～3分，水煎服，每日1剂。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 54,
+      "name": "牡鼠粪",
+      "herbId": "mushufen",
+      "image": "/pictures/mushufen_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "鼠矢（《本草经集注》），两头尖（陶弘景），雄鼠粪（《日华子本草》），豭鼠粪（《类证活人书》）。",
+      "xingwei": "苦咸，寒。 ①《别录》：\"微寒，无毒。\" ②《纲目》：\"甘，微寒，无毒。\" ③《本草经疏》：\"苦咸。\"",
+      "guijing": "入肝、肾、大肠经。 ①《纲目》：\"入足厥阴经。\" ②《本草经疏》：\"入足阳明、厥阴经。\" ③《本草新编》：\"入肺、胃、大肠三经。\" ④《本草再新》：\"入肾经。\"",
+      "brief": "导浊行滞，清热通瘀。治伤寒劳复发热，疝瘕，腹痛，淋浊，经闭，疳积，乳痈，鼠瘘，疔肿。 ①《别录》：\"...",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "导浊行滞",
+        "研末服治吹奶乳痈",
+        "\" ②《日华子本草》：\"明目"
+      ],
+      "usage": "内服：煎汤，1.5～3钱；或研末。外用：烧研调涂。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 55,
+      "name": "广东海桐皮",
+      "herbId": "guangdonghaitongpi",
+      "image": "/pictures/guangdonghaitongpi_1.jpg",
+      "category": "祛湿",
+      "categoryId": "qushi",
+      "alias": "广海桐皮、木棉树皮、英雄树皮。",
+      "xingwei": "暂无数据",
+      "guijing": "暂无数据",
+      "brief": "祛风祛湿、通经活络、利水消肿。属祛风湿药下属分类的祛风湿强筋骨药。",
+      "shortTags": [
+        "祛湿"
+      ],
+      "tags": [
+        "祛湿"
+      ],
+      "benefits": [
+        "属祛风湿药下属分类的祛风湿强筋骨药",
+        "祛风祛湿、通经活络、利水消肿"
+      ],
+      "usage": "暂无用法",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 56,
+      "name": "野柿花",
+      "herbId": "yeshihua",
+      "image": "/pictures/yeshihua_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "山柿子",
+      "xingwei": "苦、涩，凉。",
+      "guijing": "暂无数据",
+      "brief": "解毒消炎，收敛。主治食物中毒，腹泻，赤白痢疾；外用治水红烫伤。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "解毒消炎",
+        "主治食物中毒",
+        "赤白痢疾"
+      ],
+      "usage": "3～5钱；外用适量，研粉撒敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 57,
+      "name": "鸢油",
+      "herbId": "yuanyou",
+      "image": "/pictures/yuanyou_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "鹰油",
+      "xingwei": "甘；咸",
+      "guijing": "肺经",
+      "brief": "软坚收敛。主疮癣癞",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "主疮癣癞",
+        "软坚收敛"
+      ],
+      "usage": "外用：适量，涂敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 58,
+      "name": "白独活",
+      "herbId": "baiduhuo",
+      "image": "/pictures/baiduhuo_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "独活、朱噶尔、法洛海、白羌活、藏当归、香白芷、骚独活",
+      "xingwei": "味辛；苦；性温",
+      "guijing": "暂无数据",
+      "brief": "散风止咳；除湿止痛。主感冒；咳嗽；头痛；牙痛；风湿痹痛；麻风；风湿疹",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "主感冒",
+        "除湿止痛",
+        "散风止咳"
+      ],
+      "usage": "内服：煎汤，3-9g；或入丸、散；或沁酒。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 59,
+      "name": "五灵脂",
+      "herbId": "wulingzhi",
+      "image": "/pictures/wulingzhi_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "药本、寒号虫粪、寒雀粪",
+      "xingwei": "味苦；甘；性温",
+      "guijing": "肝；脾经",
+      "brief": "活血止痛；化瘀止血；消积解毒。主心腹血气诸痛；妇女闭经；产后瘀滞腹痛；崩漏下血；小儿疳积；蛇蝎蜈蚣咬...",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "主心腹血气诸痛",
+        "崩漏下血",
+        "妇女闭经"
+      ],
+      "usage": "内服：煎汤，510g；或入丸、散。外用：适量，研末撒或调敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 60,
+      "name": "野罂粟",
+      "herbId": "yeyingsu",
+      "image": "/pictures/yeyingsu_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "山大烟、山罂粟、毛罂粟、野大烟、山米壳、丽春花。",
+      "xingwei": "酸；微苦；涩；凉；有毒",
+      "guijing": "肺；肾；胃；大肠经",
+      "brief": "剑肺止咳；涩肠止泻；镇痛。主久咳喘息；泻痢；便血；脱肛；遗精；带下；头痛；胃痛；痛经",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "涩肠止泻",
+        "剑肺止咳",
+        "主久咳喘息"
+      ],
+      "usage": "内服：煎汤，3-6g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 61,
+      "name": "元宝槭",
+      "herbId": "yuanbaoqi",
+      "image": "/pictures/yuanbaoqi_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "槭、五角枫、元宝树。",
+      "xingwei": "辛；微苦；微温",
+      "guijing": "暂无数据",
+      "brief": "祛风除湿；舒筋活络。主腰背疼痛",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "舒筋活络",
+        "主腰背疼痛",
+        "祛风除湿"
+      ],
+      "usage": "内服：煎汤，15-30g；或浸酒，9-15g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 62,
+      "name": "娃娃鱼",
+      "herbId": "wawayu",
+      "image": "/pictures/wawayu_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "羌活鱼、杉木鱼、白龙、接骨丹",
+      "xingwei": "辛、咸，平。",
+      "guijing": "暂无数据",
+      "brief": "行气止痛，接骨。用于肝胃气痛，跌打损伤，骨折。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "用于肝胃气痛",
+        "行气止痛",
+        "跌打损伤"
+      ],
+      "usage": "内服：研末服5分。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 63,
+      "name": "香樟根",
+      "herbId": "xiangzhanggen",
+      "image": "/pictures/xiangzhanggen_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "香通、走马胎、土沉香、山沉香",
+      "xingwei": "辛；温",
+      "guijing": "肝；脾经",
+      "brief": "温中止痛；辟秽和中；祛风除湿。主胃脘疼痛；霍乱吐泻；风湿痹痛；皮肤瘙痒",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "辟秽和中",
+        "温中止痛",
+        "霍乱吐泻"
+      ],
+      "usage": "内服：煎汤，3-10g；或研末调服。外用：适量，煎水洗。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 64,
+      "name": "圆叶锦葵根",
+      "herbId": "yuanyejinkuigen",
+      "image": "/pictures/yuanyejinkuigen_1.jpg",
+      "category": "补气",
+      "categoryId": "qi",
+      "alias": "苏黄耆、油油饼、土黄芪、献干粮、狗干粮、白黄芪、白马棵、土芳苗、金钱根。",
+      "xingwei": "甘；温",
+      "guijing": "脾；肺经",
+      "brief": "益气止汗；利水通乳；托疮排脓。主倦怠乏力；内脏下垂；肺虚咳嗽；自汗盗汗；水肿；乳汁不足；崩漏；痈疽难...",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "补气",
+        "其他"
+      ],
+      "benefits": [
+        "乳汁不足",
+        "主倦怠乏力",
+        "肺虚咳嗽"
+      ],
+      "usage": "内服：煎汤，9-15g；炖肉，30-60g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 65,
+      "name": "小口小金发藓",
+      "herbId": "xiaokouxiaojinfaxian",
+      "image": "/pictures/xiaokouxiaojinfaxian_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "小口杉叶藓、大蒴小金发藓",
+      "xingwei": "辛；凉",
+      "guijing": "肝；胆经",
+      "brief": "舒肝利胆；排石止痛。主胆囊积石等",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "舒肝利胆",
+        "主胆囊积石等",
+        "排石止痛"
+      ],
+      "usage": "内服：煎汤，9-15g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 66,
+      "name": "藏丁香",
+      "herbId": "cangdingxiang",
+      "image": "/pictures/cangdingxiang_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "石老虎、石参、叶子花、岩五加",
+      "xingwei": "微苦；涩；平",
+      "guijing": "暂无数据",
+      "brief": "强筋壮骨；利湿消肿。主肾虚腰痛；营养不良性水肿；湿疹；跌打损伤",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "强筋壮骨",
+        "利湿消肿",
+        "主肾虚腰痛"
+      ],
+      "usage": "内服：煎汤，10-15g。外用：适量，煎水洗。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 67,
+      "name": "合萌",
+      "herbId": "hemeng",
+      "image": "/pictures/hemeng_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "水茸角、合明草、水皂角、木排豆、木稗、独木根、野皂角、梳子树、野含羞草、蜈蚣杨柳、野槐树、夜关门、禾镰草、野兰、野鸭树草、野寒豆、野豆萁、海柳、拉田草",
+      "xingwei": "甘苦；寒；无毒",
+      "guijing": "肺；胃经",
+      "brief": "清热利湿，祛风明目，通乳。主热淋，血淋，水肿，泄泻，疖肿，疮疥，目赤肿痛，眼生云翳，夜盲，关节疼痛，...",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "关节疼痛",
+        "祛风明目",
+        "产妇乳少"
+      ],
+      "usage": "内服：煎汤，15-30g。外用：适量，煎水熏洗；或捣烂敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 68,
+      "name": "鸟不宿",
+      "herbId": "niaobusu",
+      "image": "/pictures/niaobusu_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "鸟不踏、刺根白皮（汪连仕《采药书》），鸟不停（《周益生家宝方》），老虎草、昏树（《纲目拾遗》）。",
+      "xingwei": "①汪连仕《采药书》：\"性温。\" ②苏医《中草药手册》：\"辛，平，有小毒。\"",
+      "guijing": "暂无数据",
+      "brief": "追风，行血。治风湿痹痛，紫云风，胃痛。 ①汪连仕《采药书》：\"行血追风。治紫云风，大麻风，筋骨疼痛。...",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "治风湿痹痛",
+        "筋骨疼痛",
+        "\" ③苏医《中草药手册》：\"祛风湿"
+      ],
+      "usage": "内服：煎汤，3～5钱。外用：煎水洗。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 69,
+      "name": "硫化铅",
+      "herbId": "liuhuaqian",
+      "image": "/pictures/liuhuaqian_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "暂无数据",
+      "xingwei": "暂无数据",
+      "guijing": "暂无数据",
+      "brief": "辅剂。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "暂无功效"
+      ],
+      "usage": "暂无用法",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 70,
+      "name": "小叶假耧斗菜",
+      "herbId": "xiaoyejialoudoucai",
+      "image": "/pictures/xiaoyejialoudoucai_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "叶矛对钩[藏名]",
+      "xingwei": "苦、涩，寒。",
+      "guijing": "暂无数据",
+      "brief": "活血散瘀，止痛止血。主治跌打损伤，拔除异物，外伤出血，子宫出血，下死胎。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "止痛止血",
+        "活血散瘀",
+        "下死胎"
+      ],
+      "usage": "内服：1～2钱。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 71,
+      "name": "青海鸢尾子",
+      "herbId": "qinghaiyuanweizi",
+      "image": "/pictures/qinghaiyuanweizi_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "暂无数据",
+      "xingwei": "微苦；微甘；凉",
+      "guijing": "大肠经",
+      "brief": "清热解毒；驱虫。主肠痈；蛔、蛲虫病；食物中毒泻痢",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "食物中毒泻痢",
+        "蛔、蛲虫病",
+        "清热解毒"
+      ],
+      "usage": "内服：煎汤，3-9g；或研末。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 72,
+      "name": "獾骨",
+      "herbId": "huangu",
+      "image": "/pictures/huangu_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "土猪骨、沙獾骨、貒骨、土猪子骨",
+      "xingwei": "辛、酸，温。",
+      "guijing": "暂无数据",
+      "brief": "主治风湿筋骨疼痛及皮肤湿热发痒。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "主治风湿筋骨疼痛及皮肤湿热发痒"
+      ],
+      "usage": "内服：3～5钱，泡酒服。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 73,
+      "name": "大黄",
+      "herbId": "daihuang",
+      "image": "/pictures/daihuang_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "将军、黄良、火参、肤如、蜀大黄、锦纹大黄、牛舌大黄、锦纹、生军、川军",
+      "xingwei": "暂无数据",
+      "guijing": "胃；大肠；肝；脾经",
+      "brief": "暂无数据",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "暂无功效"
+      ],
+      "usage": "暂无用法",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 74,
+      "name": "鲎肉",
+      "herbId": "hourou",
+      "image": "/pictures/hourou_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "鲎鱼肉",
+      "xingwei": "味辛；咸；性平；有毒",
+      "guijing": "脾；大肠经",
+      "brief": "清热明目；解毒消肿。主目赤肿痛；翳膜遮睛，痔疮；脓疱疮",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "脓疱疮",
+        "清热明目",
+        "解毒消肿"
+      ],
+      "usage": "内服：煮食，5-10g 。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 75,
+      "name": "假酸浆子",
+      "herbId": "jiasuanjiangzi",
+      "image": "/pictures/jiasuanjiangzi_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "暂无数据",
+      "xingwei": "①《贵州草药》：\"种子：微甘，平。\" ②《云南中草药》：\"果实：酸涩，平，小毒。\"",
+      "guijing": "暂无数据",
+      "brief": "①《贵州草药》：\"种子：清热退火，利尿。\" ②《云南中草药》：\"果实：祛风，消炎。治风湿性关节炎，疮...",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "\" ②《云南中草药》：\"果实：祛风",
+        "疮痈肿痛",
+        "①《贵州草药》：\"种子：清热退火"
+      ],
+      "usage": "内服：煎汤，1～3钱。外用：研末调敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 76,
+      "name": "龙爪叶",
+      "herbId": "longzhaoye",
+      "image": "/pictures/longzhaoye_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "大七叶莲、七叶莲",
+      "xingwei": "味苦；微辛；性温",
+      "guijing": "暂无数据",
+      "brief": "祛风活络；散瘀止痛；利湿退黄。主感冒；风湿骨痛；跌打伤肿；骨折痛；神经痛；肝炎黄疸",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "骨折痛",
+        "主感冒",
+        "散瘀止痛"
+      ],
+      "usage": "内服：煎汤，9-15g，鲜品30g；或泡酒。外用：适量，捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 77,
+      "name": "水湿柳叶菜",
+      "herbId": "shuishiliuyecai",
+      "image": "/pictures/shuishiliuyecai_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "暂无数据",
+      "xingwei": "味苦；性凉",
+      "guijing": "暂无数据",
+      "brief": "疏风清热；解毒利咽；止咳；利湿。主风热感冒；音哑；咽喉肿痛；肺热咳嗽；水肿；淋痛；湿热泻痢；风湿热痹...",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "咽喉肿痛",
+        "疏风清热",
+        "毒虫咬伤"
+      ],
+      "usage": "内服：煎汤；6-20g；或捣汁。外用：适量，捣敷；或煎汤洗。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 78,
+      "name": "人指甲",
+      "herbId": "renzhijia",
+      "image": "/pictures/renzhijia_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "手爪甲、人退、筋退",
+      "xingwei": "味甘；咸；性平",
+      "guijing": "暂无数据",
+      "brief": "止血；利尿；去翳。主鼻衄；尿血；咽喉肿痛；小便不利；目生翳障；中耳炎",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "目生翳障",
+        "小便不利",
+        "咽喉肿痛"
+      ],
+      "usage": "内服：入丸、散，1-2g；外用：适量，研末，点眼、（口畜）鼻或吹耳。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 79,
+      "name": "野丁香根",
+      "herbId": "yedingxianggen",
+      "image": "/pictures/yedingxianggen_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "暂无数据",
+      "xingwei": "涩；微苦；凉",
+      "guijing": "肝；肾经",
+      "brief": "活血调经；清热解毒。主月经不调；痛经；风湿关节疼痛；偏头痛；尿路感染；毒蛇咬伤；跌打损伤；外伤感染",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "风湿关节疼痛",
+        "活血调经",
+        "主月经不调"
+      ],
+      "usage": "内服：煎汤，15-30g。外用：适量，捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 80,
+      "name": "防风草",
+      "herbId": "fangfengcao",
+      "image": "/pictures/fangfengcao_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "落马衣、假紫苏、马衣叶（《生草药性备要》），稀莶草、土防风（《岭南采药录》），四方茎、臭草（《广西中兽医药植》），臭苏头、鸭儿蔑（《陆川本草》），秽草（《南宁市药物志》），大篾草、大羊古骚（《广西中药志》），排风草（广州部队《常用中草药手册》），臭苏（《福建中草药》）。",
+      "xingwei": "辛苦，温。 ①《生草药性备要》：\"性温。\" ②《陆川本草》：\"苦辛，微温。\" ③《南宁市药物志》：\"辛，温，微苦。\"",
+      "guijing": "暂无数据",
+      "brief": "祛风，除湿，解毒。治感冒身热，呕吐，腹痛，筋骨疼痛，疮疡，湿疹，痔疾。 ①《生草药性备要》：\"止痛，...",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "关节疼痛",
+        "治感冒身热",
+        "去毒疮"
+      ],
+      "usage": "内服：熬汤，3～5钱；浸酒或入丸剂。外用：煎水洗或捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 81,
+      "name": "石蕨",
+      "herbId": "shijue",
+      "image": "/pictures/shijue_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "石豇豆、石豆角、石针、石小豆、鸭舌韦、鸭舌鱼鳖",
+      "xingwei": "苦，平。",
+      "guijing": "暂无数据",
+      "brief": "清热利湿，凉血止血。用于目赤，咽喉肿痛，小便不利，白带，风湿腰腿痛，咯血，吐血，衄血，崩漏。",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "小便不利",
+        "咽喉肿痛",
+        "用于目赤"
+      ],
+      "usage": "内服：0.5～1两。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 82,
+      "name": "鸡枞",
+      "herbId": "jicong",
+      "image": "/pictures/jicong_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "鸡堫（《通雅》），鸡枞蕈（《广菌谱》），鸡菌（《纲目》），蚁夺（《贵州通志》），蚁枞（《云南府志》），鸡枞菜（《本草求原》）。",
+      "xingwei": "《纲目》：\"甘，平，无毒。\"",
+      "guijing": "《本草撮要》：\"入手、足太阴经。\"",
+      "brief": "《纲目》：\"益胃，清神，治痔。\"",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "《纲目》：\"益胃"
+      ],
+      "usage": "内服：煎汤，2～3钱。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 83,
+      "name": "灵砂",
+      "herbId": "lingsha",
+      "image": "/pictures/lingsha_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "二气砂、神砂、平口砂、马牙砂、人造朱砂",
+      "xingwei": "甘；温；有毒",
+      "guijing": "心；胃经",
+      "brief": "祛痰；降逆；安神；定惊。主头晕吐逆；反胃；小儿惊吐噎膈；心腹冷痛；心悸；怔忡；失眠；遗精",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "小儿惊吐噎膈",
+        "主头晕吐逆",
+        "心腹冷痛"
+      ],
+      "usage": "内服：研末，0.3-1g，每日1次；或入丸、散。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 84,
+      "name": "牛骨",
+      "herbId": "niugu",
+      "image": "/pictures/niugu_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "牛、水牛",
+      "xingwei": "味甘；性温",
+      "guijing": "心；肾；大肠经",
+      "brief": "蠲痹；截疟；敛疮。主关节炎；泻痢；疟疾；疳疮",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "主关节炎"
+      ],
+      "usage": "内服：烧存性入散剂，3-5g。外用：适量，烧存性调敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 85,
+      "name": "对叶四块瓦",
+      "herbId": "duiyesikuaiwa",
+      "image": "/pictures/duiyesikuaiwa_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "四叶对、四块瓦、四叶一枝花、四大天王、金大王、四对金、四叶箭、四叶金。",
+      "xingwei": "辛；平；有毒",
+      "guijing": "心；脾；肾经",
+      "brief": "祛风活血；解毒止痒。主感冒；咳喘；风湿疼痛；跌打损伤；痈疽疮疖；月经不调",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "主感冒",
+        "痈疽疮疖",
+        "跌打损伤"
+      ],
+      "usage": "内服：煎汤，6-9g；或捣汁；或浸酒。外用：适量，捣敷；或浸汁涂擦。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 86,
+      "name": "豆瓣七",
+      "herbId": "doubanqi",
+      "image": "/pictures/doubanqi_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "鱼公草、青鱼胆、冷青草、石寒公、万年青",
+      "xingwei": "苦；性寒",
+      "guijing": "暂无数据",
+      "brief": "活血通络；消肿止痛；清热解毒。主风湿痹痛；跌打损伤；骨折；外伤出血；痈疽肿痛",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "消肿止痛",
+        "活血通络",
+        "痈疽肿痛"
+      ],
+      "usage": "内服：煎汤，6-15g。外用：适量，鲜品捣敷；或干品研末调敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 87,
+      "name": "水苦荬根",
+      "herbId": "shuikumaigen",
+      "image": "/pictures/shuikumaigen_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "暂无数据",
+      "xingwei": "微苦辛，寒。",
+      "guijing": "暂无数据",
+      "brief": "主风热上壅，喉咽肿痛及项上风疬，以酒磨服。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "喉咽肿痛及项上风疬",
+        "主风热上壅",
+        "以酒磨服"
+      ],
+      "usage": "暂无用法",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 88,
+      "name": "马尾千金草",
+      "herbId": "mayiqianjincao",
+      "image": "/pictures/mayiqianjincao_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "马尾伸筋草、马尾青青草、飞龙、捆仙绳",
+      "xingwei": "平；淡；有毒；",
+      "guijing": "肝；脾经",
+      "brief": "舒筋活血；祛风除湿。主跌打损伤；肌肉痉挛；筋骨疼痛；风湿关节痛；肥大性脊柱炎；类风湿性关节炎",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "肥大性脊柱炎",
+        "筋骨疼痛",
+        "肌肉痉挛"
+      ],
+      "usage": "内服：煎汤，3-6g，水煎，冲酒服。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 89,
+      "name": "盾叶莓",
+      "herbId": "dunyemei",
+      "image": "/pictures/dunyemei_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "天青地白扭",
+      "xingwei": "咸、酸；温",
+      "guijing": "肾经",
+      "brief": "强腰健肾，祛风止痛。主四肢关节疼痛，腰脊酸痛",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "祛风止痛",
+        "强腰健肾",
+        "腰脊酸痛"
+      ],
+      "usage": "内服：煎汤，15-30g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 90,
+      "name": "插田泡",
+      "herbId": "chatianpao",
+      "image": "/pictures/chatianpao_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "复盆子、大乌泡、乌沙莓、菜子泡、回头龙、两头草、两头忙、乌泡倒触伞、倒生根、乌龙毛、乌龙须、白龙须、过江龙[不定根]",
+      "xingwei": "果：甘、酸，温。 根、不定根：苦，凉。",
+      "guijing": "暂无数据",
+      "brief": "果：补肾固精。用于阳痿，遗精，遗尿，白带。 根、不定根：调经活血，止血止痛。用于跌打损伤，骨折，月经...",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "根、不定根：调经活血",
+        "用于跌打损伤",
+        "外用治外伤出血"
+      ],
+      "usage": "2～5钱。外用适量，鲜根捣烂敷患处。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 91,
+      "name": "卷伞菌",
+      "herbId": "juansanjun",
+      "image": "/pictures/juansanjun_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "卷缘网褶菌、落褶菌、台蘑",
+      "xingwei": "微咸、温。",
+      "guijing": "暂无数据",
+      "brief": "追风，散寒，舒筋，活络。可治腰腿疼痛，手足麻木，筋络不舒。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "手足麻木",
+        "筋络不舒",
+        "可治腰腿疼痛"
+      ],
+      "usage": "内服：入丸散剂。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 92,
+      "name": "亮叶桦",
+      "herbId": "liangyehua",
+      "image": "/pictures/liangyehua_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "光皮桦、尖叶桦、大叶榔、红桦树、桦角、花胶树、狗啃木",
+      "xingwei": "甘、辛，凉。",
+      "guijing": "暂无数据",
+      "brief": "清热利尿。 疖毒：鲜叶捣烂敷患处。 水肿：5钱，水煎服。",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "清热利尿",
+        "水煎服",
+        "水肿：5钱"
+      ],
+      "usage": "暂无用法",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 93,
+      "name": "云南鸡矢藤",
+      "herbId": "yunnanjishiteng",
+      "image": "/pictures/yunnanjishiteng_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "毛叶黄药、狗屁藤、臭屁藤",
+      "xingwei": "甘、微苦，凉。",
+      "guijing": "暂无数据",
+      "brief": "消炎，止痛，接骨。主治肝炎，急性结膜炎，拔异物，骨折。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "主治肝炎",
+        "拔异物",
+        "急性结膜炎"
+      ],
+      "usage": "0.1～1两；外用适量捣烂敷患处。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 94,
+      "name": "小山稔",
+      "herbId": "xiaoshanren",
+      "image": "/pictures/xiaoshanren_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "暂无数据",
+      "xingwei": "暂无数据",
+      "guijing": "暂无数据",
+      "brief": "涩肠止泻。主久泄；久痢",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "涩肠止泻",
+        "主久泄"
+      ],
+      "usage": "内服：煎汤，6-15g。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 95,
+      "name": "醋林子",
+      "herbId": "culinzi",
+      "image": "/pictures/culinzi_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "红檬子",
+      "xingwei": "味酸；性温",
+      "guijing": "暂无数据",
+      "brief": "杀虫；止血；涩肠；生津；解酒。主蛔虫腹痛；痔漏下血；久痢",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "痔漏下血",
+        "主蛔虫腹痛"
+      ],
+      "usage": "内服：研末，1-3g，酒调：或盐、醋淹渍，生食。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 96,
+      "name": "白草根",
+      "herbId": "baicaogen",
+      "image": "/pictures/baicaogen_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "倒生草",
+      "xingwei": "甘，寒。",
+      "guijing": "暂无数据",
+      "brief": "清热凉血，利尿。主治急性肾炎尿血，鼻衄，肺热咳嗽，胃热烦渴。",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "清热凉血",
+        "肺热咳嗽",
+        "胃热烦渴"
+      ],
+      "usage": "内服：5～8钱。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 97,
+      "name": "青羊角",
+      "herbId": "qingyangjiao",
+      "image": "/pictures/qingyangjiao_1.jpg",
+      "category": "其他",
+      "categoryId": "other",
+      "alias": "暂无数据",
+      "xingwei": "暂无数据",
+      "guijing": "暂无数据",
+      "brief": "镇静，退热，明目，止血。主治小儿惊痫，头痛，产后腹痛，痛经。",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他"
+      ],
+      "benefits": [
+        "主治小儿惊痫",
+        "产后腹痛"
+      ],
+      "usage": "内服：1～2钱。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 98,
+      "name": "琼越线蕨",
+      "herbId": "qiongyuexianjue",
+      "image": "/pictures/qiongyuexianjue_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "石韦",
+      "xingwei": "微苦；涩；凉",
+      "guijing": "入肝、肾、膀胱三经",
+      "brief": "活血化瘀；清热利尿。主跌打损伤；小例淋沥涩痛",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "活血化瘀",
+        "主跌打损伤",
+        "清热利尿"
+      ],
+      "usage": "内服：煎汤， 9-15g。外用：适量，捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 99,
+      "name": "小金狗",
+      "herbId": "xiaojingou",
+      "image": "/pictures/xiaojingou_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "金丝矮陀陀、黄鼠狼、金毛狗、活血草、青蕨、金毛狮子草、石猪鬃、小爬岩姜",
+      "xingwei": "微苦；凉；有小毒",
+      "guijing": "暂无数据",
+      "brief": "清热解毒；除湿消肿；止血生肌。主疮毒；乳痈；泄泻；痢疾；风湿痹痛；淋证；水肿；外伤出血",
+      "shortTags": [
+        "清热"
+      ],
+      "tags": [
+        "清热"
+      ],
+      "benefits": [
+        "主疮毒",
+        "风湿痹痛",
+        "外伤出血"
+      ],
+      "usage": "内服：煎汤，9-15g。外用：适量，捣敷。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    },
+    {
+      "id": 100,
+      "name": "菱蒂",
+      "herbId": "lingdi",
+      "image": "/pictures/lingdi_1.jpg",
+      "category": "清热",
+      "categoryId": "qingre",
+      "alias": "暂无数据",
+      "xingwei": "味微苦；性平",
+      "guijing": "暂无数据",
+      "brief": "解毒散溃疡。主胃溃疡；疣赘",
+      "shortTags": [
+        "其他"
+      ],
+      "tags": [
+        "其他",
+        "清热"
+      ],
+      "benefits": [
+        "解毒散溃疡",
+        "主胃溃疡"
+      ],
+      "usage": "内服：煎汤，鲜品30-45g。外用：适量，鲜品擦拭或捣汁涂。",
+      "habitat": "暂无数据",
+      "warning": "暂无数据",
+      "updateTime": "2026-01-09 11:51:39"
+    }
+  ],
+  "categories": [
+    {
+      "id": "all",
+      "name": "全部",
+      "count": 100
+    },
+    {
+      "id": "qi",
+      "name": "补气",
+      "count": 2
+    },
+    {
+      "id": "xue",
+      "name": "补血",
+      "count": 0
+    },
+    {
+      "id": "yin",
+      "name": "滋阴",
+      "count": 0
+    },
+    {
+      "id": "yang",
+      "name": "补阳",
+      "count": 0
+    },
+    {
+      "id": "qingre",
+      "name": "清热",
+      "count": 40
+    },
+    {
+      "id": "qushi",
+      "name": "祛湿",
+      "count": 5
+    },
+    {
+      "id": "other",
+      "name": "其他",
+      "count": 53
+    }
+  ],
+  "categoryStats": {
+    "all": 100,
+    "other": 53,
+    "qingre": 40,
+    "qushi": 5,
+    "qi": 2
+  },
+  "totalCount": 100,
+  "globalUpdateTime": "2026-01-09 11:51:39"
+}
