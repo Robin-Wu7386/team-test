@@ -1225,9 +1225,10 @@ onMounted(() => {
 });
 
 // ================= 非遗传承人核心数据与方法 =================
-const showModal = ref(false); // 控制详情弹窗显示/隐藏
-const currentInheritor = ref({}); // 存储当前选中的传承人信息
-// 非遗传承人列表数据（可根据实际需求扩展）
+const showModal = ref(false);
+const currentInheritor = ref({});
+
+// 关键修改：imgUrl 直接指向 public 目录下的路径（/开头）
 const inheritorList = ref([
   {
     name: "王孝涛",
@@ -1235,7 +1236,7 @@ const inheritorList = ref([
     tag: "炮制学科奠基人 | 国家级非遗第一批传承人",
     desc: "编撰《中药炮制经验集成》，规范传统饮片工艺，奠定中药炮制学科体系。",
     detailDesc: "王孝涛先生是我国著名中药炮制专家，毕生致力于中药炮制技艺的整理、研究与传承。他牵头编撰了多部中药炮制经典著作，系统梳理了全国各地区的炮制经验，推动中药炮制从传统经验向现代科学标准化发展，培养了大批中药炮制专业人才。",
-    imgUrl: "/static/pictures/王孝涛.jpg"// 可替换为真实图片地址
+    imgUrl: "/pictures/王孝涛.jpg" // public 目录下的路径，/开头
   },
   {
     name: "肖永庆",
@@ -1243,7 +1244,7 @@ const inheritorList = ref([
     tag: "炮制与药性研究专家 | 第六批国家级非遗传承人",
     desc: "提出“炮制与药性相关性”研究范式，完善饮片质量标准体系。",
     detailDesc: "肖永庆长期从事中药炮制工艺与质量标准研究，聚焦中药炮制前后药性变化规律，建立了多项中药饮片质量控制方法，推动传统中药炮制技艺与现代检测技术相结合，为中药饮片的规范化生产和临床安全用药提供了重要支撑。",
-   imgUrl: "/static/pictures/肖永庆.jpg"
+    imgUrl: "/pictures/肖永庆.jpg"
   },
   {
     name: "申屠银洪",
@@ -1251,7 +1252,7 @@ const inheritorList = ref([
     tag: "古法中药传承者 | 国家级非遗传承人",
     desc: "传承桐君阁古法炮制技艺，建立非遗馆，培育多代中药传承人。",
     detailDesc: "申屠银洪深耕桐君传统中药文化数十年，坚守古法中药炮制工艺，对桐君阁经典方剂的配伍、炮制流程进行完整传承与保护。他建立了桐君中药非遗展示馆，通过口传心授的方式培养中青年传承人，让传统中药文化得以活态传承。",
-    imgUrl: "/static/pictures/申屠银洪.jpg"
+    imgUrl: "/pictures/申屠银洪.jpg"
   },
   {
     name: "王俊良",
@@ -1259,25 +1260,22 @@ const inheritorList = ref([
     tag: "人参古法炮制专家 | 第五批国家级非遗传承人",
     desc: "专注人参传统炮制工艺，保留人参药效活性，推动道地人参产业化。",
     detailDesc: "王俊良精通人参的洗、晒、蒸、制等古法炮制工序，深谙不同炮制方法对人参药效的影响，所炮制的人参饮片药效稳定、品质上乘。他在传承古法的同时，结合现代仓储技术，解决了道地人参的保存难题，推动人参炮制技艺与产业发展深度融合。",
-    imgUrl: "/static/pictures/王俊良.jpg"
+    imgUrl: "/pictures/王俊良.jpg"
   }
 ]);
 
-// 显示传承人详情弹窗
 const showInheritorDetail = (inheritor) => {
   currentInheritor.value = inheritor;
   showModal.value = true;
-  // 禁止页面滚动（弹窗显示时）
   document.body.style.overflow = "hidden";
 };
 
-// 关闭传承人详情弹窗
 const closeModal = () => {
   showModal.value = false;
   currentInheritor.value = {};
-  // 恢复页面滚动
   document.body.style.overflow = "auto";
 };
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
 });

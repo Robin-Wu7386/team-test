@@ -546,9 +546,10 @@ const initDate = () => {
   animation: skeleton-loading 1.5s infinite;
 }
 
+/* 关键修改1：骨架屏卡片网格改为固定4列 */
 .skeleton-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr); /* 固定4列 */
   gap: 24px;
 }
 
@@ -940,9 +941,10 @@ const initDate = () => {
   font-weight: normal;
 }
 
+/* 关键修改2：卡片网格改为固定4列 */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr); /* 固定4列，核心修改 */
   gap: 24px;
   grid-auto-rows: 1fr;
 }
@@ -1320,7 +1322,22 @@ const initDate = () => {
   color: #94a3b8;
 }
 
-/* 响应式样式 */
+/* 响应式样式调整 - 适配不同屏幕尺寸下的4列布局 */
+@media (max-width: 1400px) {
+  .main-content {
+    max-width: 1200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .main-content {
+    max-width: 1000px;
+  }
+  .card-grid {
+    gap: 16px;
+  }
+}
+
 @media (max-width: 992px) {
   .focus-card {
     flex-direction: column;
@@ -1345,6 +1362,15 @@ const initDate = () => {
     text-align: center;
     margin: 0 auto;
   }
+
+  /* 中等屏幕下仍保持4列，调整间距 */
+  .card-grid {
+    gap: 12px;
+  }
+
+  .herb-card {
+    min-height: 350px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1354,8 +1380,13 @@ const initDate = () => {
     gap: 12px;
   }
 
+  /* 小屏幕下改为2列（避免卡片过窄） */
   .card-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .skeleton-card-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .main-content {
@@ -1365,6 +1396,17 @@ const initDate = () => {
 
   .focus-left h2 {
     font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* 超小屏幕下改为1列 */
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-card-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
