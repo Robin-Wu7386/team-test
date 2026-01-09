@@ -5,6 +5,7 @@ import random
 import time
 from typing import List, Dict
 from datetime import datetime, timedelta
+from pathlib import Path  # 新增：导入pathlib处理路径
 
 
 # ===================== 原有函数（仅修改generate_herb_info） =====================
@@ -225,13 +226,21 @@ def run_script_demo_mode(excel_path: str, output_path: str, interval_seconds: in
             time.sleep(interval_seconds)
 
 
-# ===================== 主函数 =====================
+# ===================== 主函数（简化为相对路径） =====================
 if __name__ == "__main__":
-    # 请确认路径正确！！！
-    EXCEL_FILE_PATH = "C:\\Users\\李旭东\\Desktop\\team-test\\frontend\\src\\data\\medicines_details_converted.xlsx"
-    OUTPUT_JSON_PATH = "C:\\Users\\李旭东\\Desktop\\team-test\\frontend\\src\\data\\complete_herb_data.json"
-    MAX_HERB_COUNT = 100  # 演示用小数据量，加快执行
-    DEMO_INTERVAL_SECONDS = 30
+    # 1. 直接使用相对路径（基准是运行脚本的目录）
+    EXCEL_FILE_PATH = "./medicines_details_converted.xlsx"  # 当前目录下的Excel文件
+    OUTPUT_JSON_PATH = "./complete_herb_data.json"         # 输出到当前目录的JSON文件
+
+    # 2. 配置参数
+    MAX_HERB_COUNT = 100          # 演示用小数据量，加快执行
+    DEMO_INTERVAL_SECONDS = 30    # 30秒执行一次
+
+    # 打印路径验证（方便调试）
+    print(f"📌 Excel路径（相对）：{EXCEL_FILE_PATH}")
+    print(f"📌 Excel路径（绝对）：{os.path.abspath(EXCEL_FILE_PATH)}")  # 显示绝对路径便于核对
+    print(f"📌 JSON路径（相对）：{OUTPUT_JSON_PATH}")
+    print(f"📌 JSON路径（绝对）：{os.path.abspath(OUTPUT_JSON_PATH)}")
 
     # 启动演示
     run_script_demo_mode(
