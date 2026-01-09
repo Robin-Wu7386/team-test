@@ -1,8 +1,33 @@
 # tcm_backend/routers/qa.py
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 import sys
 import os
+import jwt
+
+# JWT配置（与app.py保持一致）
+SECRET_KEY = "your-secret-key"
+ALGORITHM = "HS256"
+
+# 创建安全方案
+security = HTTPBearer()
+
+# JWT认证依赖
+async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    try:
+        # 验证token
+        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id: str = payload.get("user_id")
+        if user_id is None:
+            raise HTTPException(status_code=401, detail="无效的认证凭证")
+        return {"user_id": user_id}
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="登录已过期，请重新登录")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="无效的认证凭证")
+    except Exception as e:
+        raise HTTPException(status_code=401, detail=str(e))
 
 # 添加 core 目录到路径（因为 tcm_qa_system 在 core 里）
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -88,7 +113,7 @@ def get_qa_system(model: str, mode: str = "pure_llm"):
     return qa_system
 
 @router.post("/ask")
-async def ask_question(request: QuestionRequest):
+async def ask_question(request: QuestionRequest, user: dict = Depends(verify_token)):
     try:
         if not TCM_AVAILABLE:
             return QuestionResponse(

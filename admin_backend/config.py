@@ -18,7 +18,7 @@ class Config:
     MYSQL_CHARSET = os.getenv('MYSQL_CHARSET', 'utf8mb4')
 
     # Neo4j配置（完全一致）
-    NEO4J_URI = os.getenv('NEO4J_URI', 'bolt://localhost:7687')
+    NEO4J_URI = os.getenv('NEO4J_URI', 'bolt://10.128.179.130:7687')
     NEO4J_USER = os.getenv('NEO4J_USER', 'neo4j')
     NEO4J_PASSWORD = os.getenv('NEO4J_PASSWORD', '12345678')
 

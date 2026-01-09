@@ -13,6 +13,28 @@ const tcmApi = axios.create({
   headers: { 'Content-Type': 'application/json' }
 });
 
+// 请求拦截器，添加Authorization头
+tcmApi.interceptors.request.use(
+  (config) => {
+    // 从localStorage获取token
+    const userInfo = localStorage.getItem('userInfo');
+    if (userInfo) {
+      try {
+        const parsedUser = JSON.parse(userInfo);
+        if (parsedUser.token) {
+          config.headers.Authorization = `Bearer ${parsedUser.token}`;
+        }
+      } catch (e) {
+        console.error('解析用户信息失败:', e);
+      }
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 export const tcmQaService = {
   /**
    * 向中医问答系统提问（支持选择模型和模式）
