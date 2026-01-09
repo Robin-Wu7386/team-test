@@ -11,7 +11,7 @@ class Config:
     DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
     # MySQL配置（完全一致）
-    MYSQL_HOST = os.getenv('MYSQL_HOST', 'localhost')
+    MYSQL_HOST = os.getenv('MYSQL_HOST', '10.138.118.41')
     MYSQL_USER = os.getenv('MYSQL_USER', 'root')
     MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD', '123456')
     MYSQL_DATABASE = os.getenv('MYSQL_DATABASE', 'tcmdb')
