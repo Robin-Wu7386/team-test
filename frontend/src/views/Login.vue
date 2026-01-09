@@ -63,7 +63,12 @@ const handleLogin = async () => {
   try {
     const res = await axios.post('/api/user/login', form.value)
     if (res.data.success) {
-      userStore.setUser(res.data.data)
+      // 将token添加到用户信息中
+      const userData = {
+        ...res.data.data,
+        token: res.data.token
+      }
+      userStore.setUser(userData)
       router.push('/')
     } else {
       alert(res.data.msg)

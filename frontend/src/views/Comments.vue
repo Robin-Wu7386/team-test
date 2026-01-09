@@ -2,10 +2,16 @@
   <div class="comments-page">
     <!-- 头部区域 -->
     <div class="hero">
-      <div>
-        <p class="sub-title">社区留言</p>
-        <h1>与岐黄同行，分享你的想法</h1>
-        <p class="desc">登录后可发布评论，管理员负责维护内容质量。</p>
+      <div class="header-left">
+        <!-- 返回主页按钮 -->
+        <button class="back-home" @click="router.push('/')">
+          <i class="ri-arrow-left-line"></i> 返回主页
+        </button>
+        <div>
+          <p class="sub-title">社区留言</p>
+          <h1>与岐黄同行，分享你的想法</h1>
+          <p class="desc">登录后可发布评论，管理员负责维护内容质量。</p>
+        </div>
       </div>
       <!-- 登录状态 -->
       <div class="user-status" v-if="isLoggedIn">
@@ -76,6 +82,9 @@
                 <button class="action-btn" @click="initReply(comment)">
                   <i class="ri-chat-1-line"></i> 回复
                 </button>
+                <button v-if="comment.user_id === currentUser.id" class="action-btn delete-btn" @click="deleteComment(comment.id)">
+                  <i class="ri-delete-bin-line"></i> 删除
+                </button>
                 <span v-if="comment.user_id === currentUser.id" class="badge">我的</span>
               </div>
 
@@ -110,6 +119,9 @@
                       <!-- 点击这里，也是在当前根评论下回复，但标记回复了谁 -->
                       <button class="action-btn" @click="initReply(reply, comment.id)">
                         <i class="ri-chat-1-line"></i> 回复
+                      </button>
+                      <button v-if="reply.user_id === currentUser.id" class="action-btn delete-btn" @click="deleteComment(reply.id)">
+                        <i class="ri-delete-bin-line"></i> 删除
                       </button>
                     </div>
 
@@ -171,8 +183,15 @@ const rootComments = computed(() => {
     list = list.filter(c => c.user_id === currentUser.value.id)
   }
 
-  // 按时间倒序，最新的在上面
-  return list.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+  // 先按置顶状态排序（is_top=1的在前），再按时间倒序
+  return list.sort((a, b) => {
+    // is_top降序排序
+    if ((a.is_top || 0) !== (b.is_top || 0)) {
+      return (b.is_top || 0) - (a.is_top || 0)
+    }
+    // 时间降序排序
+    return new Date(b.created_at) - new Date(a.created_at)
+  })
 })
 
 // 2. 获取某个根评论下的所有“子回复”
@@ -193,8 +212,8 @@ const formatTime = (val) => {
 const fetchComments = async () => {
   loading.value = true
   try {
-    // 【关键修改】直接使用完整后端地址，绕过代理
-    const res = await axios.get('http://localhost:3001/comments')
+    // 使用相对路径，通过Vite代理处理
+    const res = await axios.get('/api/comments')
     if (res.data.success) {
       comments.value = res.data.data
     } else {
@@ -215,12 +234,15 @@ const submitComment = async () => {
 
   try {
     const payload = {
-      userId: currentUser.value.id,
       content: draft.value.trim()
     }
 
-    // 【关键修改】直接使用完整后端地址，绕过代理
-    const res = await axios.post('http://localhost:3001/comments', payload)
+    // 使用相对路径，通过Vite代理处理
+    const res = await axios.post('/api/comments', payload, {
+      headers: {
+        Authorization: `Bearer ${currentUser.value.token}`
+      }
+    })
 
     if (res.data.success) {
       draft.value = ''
@@ -262,14 +284,17 @@ const submitReply = async (finalRootId) => {
 
   try {
     const payload = {
-      userId: currentUser.value.id,
       content: replyDraft.value.trim(),
       parentId: finalRootId,  // 数据库里存的 parent_id
       replyToUsername: replyingTo.value.username // 数据库里存的“回复给谁”
     }
 
-    // 【关键修改】直接使用完整后端地址，绕过代理
-    const res = await axios.post('http://localhost:3001/comments', payload)
+    // 使用相对路径，通过Vite代理处理
+    const res = await axios.post('/api/comments', payload, {
+      headers: {
+        Authorization: `Bearer ${currentUser.value.token}`
+      }
+    })
 
     if (res.data.success) {
       // 将新回复加入到本地列表，computed 会自动将其渲染到对应的楼层里
@@ -281,6 +306,31 @@ const submitReply = async (finalRootId) => {
   } catch (err) {
     console.error(err)
     alert('回复请求失败')
+  }
+}
+
+// 删除评论
+const deleteComment = async (commentId) => {
+  if (!confirm('确定要删除这条评论吗？')) return
+  
+  try {
+    // 使用相对路径，通过Vite代理处理
+    const res = await axios.delete(`/api/comments/${commentId}`, {
+      headers: {
+        Authorization: `Bearer ${currentUser.value.token}`
+      }
+    })
+    
+    if (res.data.success) {
+      // 从本地列表中移除该评论及其所有回复
+      comments.value = comments.value.filter(c => c.id !== commentId && c.parent_id !== commentId)
+      alert('评论删除成功！')
+    } else {
+      alert('删除失败: ' + res.data.msg)
+    }
+  } catch (err) {
+    console.error('删除评论失败', err)
+    alert('删除失败，请检查网络')
   }
 }
 
@@ -315,6 +365,32 @@ onMounted(fetchComments)
   gap: 20px;
   box-shadow: 0 10px 40px rgba(111, 191, 154, 0.15);
   margin-bottom: 24px;
+}
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.back-home {
+  background: #fff;
+  border: 1px solid rgba(111, 191, 154, 0.3);
+  color: #2c5c4d;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s;
+  width: fit-content;
+}
+.back-home:hover {
+  background: #f0fff5;
+  border-color: #6fbf9a;
+  box-shadow: 0 4px 12px rgba(111, 191, 154, 0.2);
 }
 .sub-title { color: #5a8a75; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
 .hero h1 { margin: 0 0 6px; }
@@ -425,6 +501,11 @@ onMounted(fetchComments)
   background: none; border: none; padding: 0 0 8px; margin-right: 20px;
   font-weight: 600; color: #999; cursor: pointer; border-bottom: 2px solid transparent;
 }
-.tabs button.active { color: #42b983; border-bottom-color: #42b983; }
+.tabs button.active { color: #42b983; }
+
+/* 删除按钮样式 */
+.delete-btn { color: #ff4d4f; }
+.delete-btn:hover { color: #ff7875; }
+
 .badge { background: #e8f5ef; color: #42b983; font-size: 10px; padding: 2px 6px; border-radius: 4px; }
 </style>

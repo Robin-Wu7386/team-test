@@ -229,6 +229,12 @@
 import { ref, watch, nextTick, onMounted, computed } from "vue";
 import router from "@/router.js";
 import { tcmQaService } from '@/services/tcmQaService.js';
+import { useUserStore } from '@/stores/user';
+
+// 用户状态
+const userStore = useUserStore();
+const isLoggedIn = computed(() => userStore.isLoggedIn);
+
 const selectedModel = ref('deepseek')  // 默认使用 DeepSeek-V3
 const showSettings = ref(false)        // 控制设置面板显示
 // 响应式数据
@@ -449,6 +455,20 @@ const switchModel = (model) => {
 const send = async () => {
   const text = input.value.trim();
   if (!text || thinking.value) return;
+
+  // 检查是否登录
+  if (!isLoggedIn.value) {
+    messages.value.push({
+      role: "ai",
+      text: "请先登录后再使用智能问诊功能。",
+      time: new Date()
+    });
+    // 3秒后跳转登录页
+    setTimeout(() => {
+      router.push('/login');
+    }, 3000);
+    return;
+  }
 
   const now = new Date();
 

@@ -66,8 +66,31 @@ export default defineConfig(({ command }) => {
     server: {
       proxy: {
         "/api/daily-recommend": { target: "http://localhost:8000", changeOrigin: true, rewrite: (p) => p },
-        "/api/user": { target: "http://localhost:3001", changeOrigin: true, rewrite: (p) => p.replace(/^\/api\/user/, "/user") },
-        "/api/admin": { target: "http://localhost:3000", changeOrigin: true, rewrite: (p) => p },
+          // 用户后端API（登录/注册等）- 端口8000
+      "/api/user": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/user/, "/user")
+      },
+      // 个人信息API - 端口8000
+      "/api/profile": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+        rewrite: (path) => path // 路径不重写
+      },
+      // 评论API - 端口8000
+      "/api/comments": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+        rewrite: (path) => path // 路径不重写
+      },
+      // 管理员后端API - 端口8002
+      "/api/admin": {
+        target: "http://localhost:8002",
+        changeOrigin: true,
+        rewrite: (path) => path // 保持原路径不修改
+      },
+
         "/chat": "http://127.0.0.1:8000",
         "/static": "http://127.0.0.1:8000"
       },
