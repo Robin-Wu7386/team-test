@@ -1,9 +1,8 @@
 <template>
   <div class="herb-recommend-page" v-cloak>
-    <!-- 顶部导航栏（含返回首页按钮） -->
+    <!-- 顶部导航栏 -->
     <div class="page-header">
       <div class="header-content">
-        <!-- 返回首页按钮 -->
         <button @click="goToHome" class="back-home-btn">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -11,13 +10,11 @@
           <span>返回首页</span>
         </button>
 
-        <!-- 页面标题 -->
         <div class="page-title">
           <h1>🌿 中药智能推荐</h1>
           <p>基于《全国中草药汇编》《中华本草》等权威资料</p>
         </div>
 
-        <!-- 日期显示 -->
         <div class="date-display">
           {{ currentDate }}
         </div>
@@ -40,8 +37,8 @@
 
     <!-- 主要内容区 -->
     <div class="main-content">
-      <!-- 加载中骨架屏 -->
-      <div class="loading-skeleton" v-if="isLoading">
+      <!-- 加载中骨架屏（刷新时不闪烁） -->
+      <div class="loading-skeleton" v-if="isLoading" style="min-height: 80vh;">
         <div class="skeleton-focus-card">
           <div class="skeleton-left">
             <div class="skeleton-badge"></div>
@@ -62,8 +59,8 @@
         </div>
       </div>
 
-      <!-- 每日推荐焦点卡片（来自表格数据） -->
-      <div class="focus-card" v-else-if="Object.keys(focusHerb).length > 0">
+      <!-- 每日推荐焦点卡片 -->
+      <div class="focus-card" v-else-if="focusHerb.name">
         <div class="focus-left">
           <div class="badge">今日推荐</div>
           <h2>{{ focusHerb.name }}</h2>
@@ -75,7 +72,6 @@
           <div class="herb-tag">
             <span v-for="tag in focusHerb.tags" :key="tag">{{ tag }}</span>
           </div>
-          <!-- 修复字段名：function → brief（JSON中是brief） -->
           <p class="desc">{{ focusHerb.brief }}</p>
           <div class="benefits">
             <h4>核心功效</h4>
@@ -90,10 +86,9 @@
           <button class="detail-btn" @click="showHerbDetail(focusHerb)">查看完整详情</button>
         </div>
         <div class="focus-right">
-          <!-- 表格数据关联的图片路径 -->
           <div class="herb-img">
-            <!-- 图片占位符，避免加载时尺寸塌陷 -->
-            <div class="img-placeholder" v-if="!imageLoaded"></div>
+            <!-- 刷新后保留占位符，避免布局偏移 -->
+            <div class="img-placeholder" v-show="!imageLoaded"></div>
             <img
               :src="focusHerb.image"
               :alt="focusHerb.name"
@@ -106,13 +101,20 @@
         </div>
       </div>
 
-      <!-- 加载失败提示 -->
+      <!-- 加载失败提示（适配src目录） -->
       <div class="loading-tip error" v-else>
         <p>❌ 中药数据加载失败</p>
-        <p class="error-tip">请检查JSON文件路径是否正确：src/data/complete_herb_data.json</p>
+        <p class="error-tip">请按以下步骤排查：</p>
+        <ul class="error-steps">
+          <li>1. 确认 <code>frontend/src/views/complete_herb_data.json</code> 文件存在且格式合法</li>
+          <li>2. 确认JSON文件编码为UTF-8，无语法错误（可通过https://json.cn/校验）</li>
+          <li>3. 重启前端项目（npm run dev）</li>
+          <li>4. 刷新页面</li>
+        </ul>
+        <button class="reload-btn" @click="reloadData">🔄 重新加载数据</button>
       </div>
 
-      <!-- 更多推荐列表（表格数据） -->
+      <!-- 更多推荐列表 -->
       <div class="recommend-list" v-if="!isLoading && herbList.length > 0">
         <h3 class="list-title">更多中药推荐 <span>({{ filteredHerbs.length }})</span></h3>
         <div class="card-grid">
@@ -123,20 +125,17 @@
             :style="{ height: '100%' }"
           >
             <div class="card-header">
-              <!-- 修复：重新布局卡片头部，图片和文字区域分离 -->
               <div class="card-header-left">
                 <div class="card-badge">{{ herb.category }}</div>
                 <h4>{{ herb.name }}</h4>
                 <p class="card-alias">{{ herb.alias }}</p>
               </div>
               <div class="card-header-right">
-                <!-- 修改卡片图片的路径逻辑 -->
                 <div class="card-img">
-                  <!-- 卡片图片占位符 -->
-                  <div class="card-img-placeholder"></div>
-                  <!-- 修复路径：确保JSON中的image字段是正确的相对路径 -->
+                  <!-- 刷新后保留图片占位符 -->
+                  <div class="card-img-placeholder" v-show="true"></div>
                   <img
-                    :src="`${herb.image}`"
+                    :src="herb.image"
                     :alt="herb.name"
                     class="card-photo"
                     @error="handleImageError($event, herb.name)"
@@ -182,7 +181,7 @@
       </div>
     </div>
 
-    <!-- 药材详情弹窗（展示表格完整信息） -->
+    <!-- 药材详情弹窗 -->
     <teleport to="body">
       <div
         v-if="showDetailModal"
@@ -201,8 +200,7 @@
           </div>
           <div class="modal-body">
             <div class="modal-left">
-              <!-- 弹窗图片占位符 -->
-              <div class="modal-img-placeholder" v-if="!modalImageLoaded"></div>
+              <div class="modal-img-placeholder" v-show="!modalImageLoaded"></div>
               <img
                 :src="currentDetailHerb?.image"
                 :alt="currentDetailHerb?.name"
@@ -221,7 +219,6 @@
             </div>
             <div class="modal-right">
               <div class="modal-section">
-                <!-- 修复字段名：function → brief（完整信息用原功能主治） -->
                 <h4>功能主治</h4>
                 <p class="modal-content">{{ currentDetailHerb?.brief || '暂无数据' }}</p>
               </div>
@@ -235,8 +232,6 @@
                 <h4>用法用量</h4>
                 <p class="modal-content">{{ currentDetailHerb?.usage }}</p>
               </div>
-
-              <!-- 修复字段名：attention → warning（JSON中是warning） -->
               <div class="modal-section" v-if="currentDetailHerb?.warning !== '暂无数据'">
                 <h4>注意事项</h4>
                 <p class="modal-content">{{ currentDetailHerb?.warning }}</p>
@@ -256,63 +251,90 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+// 核心修改：直接导入src/views目录下的JSON文件
+import herbData from '../complete_herb_data.json';
 
-// ===================== 1. 状态初始化 =====================
-// 基础状态
+// 状态初始化 - 优先从sessionStorage恢复（刷新后保持状态）
 const currentDate = ref("");
 const categories = ref([]);
-const activeCategory = ref('all');
+// 刷新后恢复选中的分类
+const activeCategory = ref(sessionStorage.getItem('herbActiveCategory') || 'all');
 const showDetailModal = ref(false);
 const currentDetailHerb = ref(null);
 const focusHerb = ref({});
 const herbList = ref([]);
-const isLoading = ref(true); // 全局加载状态
-const imageLoaded = ref(false); // 焦点图片加载状态
-const modalImageLoaded = ref(false); // 弹窗图片加载状态
+const isLoading = ref(true);
+const imageLoaded = ref(false);
+const modalImageLoaded = ref(false);
+// 刷新后恢复页码
+const currentPage = ref(Number(sessionStorage.getItem('herbCurrentPage')) || 1);
+const pageSize = ref(20);
 
-// 分页状态
-const currentPage = ref(1);
-const pageSize = ref(20); // 每页显示20条
-
-// ===================== 2. 异步加载JSON数据 =====================
-onMounted(async () => {
+// 核心：加载数据函数（适配src目录导入，优化刷新体验）
+const loadHerbData = async () => {
+  isLoading.value = true;
   try {
-    // 适配路径：优先从assets加载（Vue项目标准路径）
-    const response = await import('@/data/complete_herb_data.json');
-    const data = response.default;
+    // 验证导入的JSON数据结构是否正确
+    if (!herbData || !herbData.focusHerb || !herbData.herbList || !herbData.categories) {
+      throw new Error("JSON数据结构错误：缺少focusHerb/herbList/categories字段");
+    }
 
-    // 延迟赋值，避免瞬间渲染导致闪动
+    // 直接赋值，无需网络请求（避免刷新时重复请求）
+    focusHerb.value = herbData.focusHerb;
+    herbList.value = herbData.herbList;
+    categories.value = herbData.categories;
+    // 延迟隐藏加载状态（避免刷新时骨架屏闪烁）
     setTimeout(() => {
-      // 赋值到状态变量
-      focusHerb.value = data.focusHerb;
-      herbList.value = data.herbList;
-      categories.value = data.categories;
-      isLoading.value = false; // 关闭加载态
+      isLoading.value = false;
+    }, 300);
+    initDate();
 
-      console.log(`✅ 成功加载 ${data.totalCount || herbList.value.length} 条中药数据`);
-
-      // 初始化日期
-      initDate();
-    }, 100);
+    // 控制台日志，方便调试
+    console.log(`✅ 数据加载成功：`);
+    console.log(`  - 焦点药材：${herbData.focusHerb.name}`);
+    console.log(`  - 药材总数：${herbData.herbList.length}`);
+    console.log(`  - 分类数：${herbData.categories.length}`);
 
   } catch (error) {
-    console.error("❌ 加载JSON数据失败：", error);
-    console.error("路径提示1：请确认文件路径为 src/assets/data/complete_herb_data.json");
-    console.error("路径提示2：若文件在src/data下，请修改为 import('@/data/complete_herb_data.json')");
-    isLoading.value = false; // 关闭加载态
+    console.error("❌ 数据加载失败：", error);
+    // 清空数据，显示错误提示
+    focusHerb.value = {};
+    herbList.value = [];
+    categories.value = [];
+    isLoading.value = false;
+
+    // 打印关键排查信息（适配src目录）
+    console.error("📌 排查要点：");
+    console.error("  1. 确认 frontend/src/views/complete_herb_data.json 存在");
+    console.error("  2. 确认JSON文件格式合法（可通过https://json.cn/校验）");
+    console.error("  3. 确认JSON文件编码为UTF-8");
+    console.error("  4. 重启前端项目后刷新页面");
   }
+};
+
+// 重新加载数据方法（强制刷新但保留状态）
+const reloadData = () => {
+  imageLoaded.value = false; // 重置图片加载状态
+  loadHerbData();
+};
+
+// 页面挂载时加载数据（优化刷新体验）
+onMounted(() => {
+  initDate(); // 先初始化日期
+  // 微任务延迟加载，避免刷新时主线程阻塞导致样式闪烁
+  queueMicrotask(() => {
+    loadHerbData();
+  });
 });
 
-// 监听弹窗显示，重置图片加载状态
-watch([() => showDetailModal.value], ([visible]) => {
-  if (visible) {
-    modalImageLoaded.value = false; // 打开弹窗时重置图片加载状态
-  }
+// 页面卸载前缓存状态（刷新/跳转前保存）
+onBeforeUnmount(() => {
+  sessionStorage.setItem('herbActiveCategory', activeCategory.value);
+  sessionStorage.setItem('herbCurrentPage', currentPage.value);
 });
 
-// ===================== 3. 计算属性 =====================
-// 按分类筛选药材（添加防抖，避免频繁计算）
+// 计算属性：筛选分类药材
 const filteredHerbs = computed(() => {
   if (activeCategory.value === 'all') {
     return herbList.value;
@@ -320,66 +342,57 @@ const filteredHerbs = computed(() => {
   return herbList.value.filter(herb => herb.categoryId === activeCategory.value);
 });
 
-// 分页后的药材列表
+// 计算属性：分页处理
 const paginatedHerbs = computed(() => {
   const start = (currentPage.value - 1) * pageSize.value;
   const end = start + pageSize.value;
   return filteredHerbs.value.slice(start, end);
 });
 
-// 总页数
+// 计算属性：总页数
 const totalPages = computed(() => {
   return Math.ceil(filteredHerbs.value.length / pageSize.value);
 });
 
-// ===================== 4. 方法定义 =====================
-
+// 方法定义：返回首页
 const goToHome = () => {
-  // 方式1：Vue Router跳转
-  // router.push('/');
-
-  // 方式2：原生跳转
   window.location.href = '/';
-
-  // 方式3：测试提示
-  // alert('返回首页');
 };
 
-// 关闭详情弹窗
+// 方法定义：显示药材详情
+const showHerbDetail = (herb) => {
+  currentDetailHerb.value = herb;
+  showDetailModal.value = true; // 这里用的是响应式变量，名称保留
+  modalImageLoaded.value = false;
+};
+
+// 方法定义：关闭详情弹窗
 const closeDetailModal = () => {
-  // 先隐藏弹窗，再清空数据
   showDetailModal.value = false;
   setTimeout(() => {
     currentDetailHerb.value = null;
   }, 100);
 };
 
-// 图片加载失败处理
-// 图片加载失败处理（适配不同环境的路径）
-// Vite项目专用（静态资源放public目录）
+// 方法定义：图片加载失败处理（优化刷新后图片加载体验）
 const handleImageError = (e, herbName) => {
   console.warn(`【${herbName}】图片加载失败，使用默认图片`, e.target.src);
-  // Vite的public目录对应根路径，无需加static
-  e.target.src = '/pictures/default_herb.jpg';
-
-  e.target.onerror = function() {
-    // 兜底base64图
-    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAiIGhlaWdodD0iNzAiIHZpZXdCb3g9IjAgMCA3MCA3MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMzUiIGN5PSIzNSIgcj0iMzUiIGZpbGw9IiNmMGY4ZjAiLz4KPHBhdGggZD0iTTI1IDM1QzI1IDQxLjA3NSAyOS45MjUgNDYgMzUgNDZDQzQwLjA3NSA0NiA0NSA0MS4wNzUgNDUgMzVDNDUgMjguOTI1IDQwLjA3NSAyNCAzNSAyNEMyOS45MjUgMjQgMjUgMjguOTI1IDI1IDM1WiIgZmlsbD0iIzQzNzg2YSIvPgo8cGF0aCBkPSJNMzUgMjVWNDUiIGZpbGw9IiM0Mzc4NmEiIHN0cm9rZT0iIzQzNzg2YSIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxwYXRoIGQ9Ik0yNSA0NUw0NSAzNSIgc3Ryb2tlPSIjNDM3ODZhIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+';
-    this.alt = herbName + '（默认图片）';
-  };
+  // 刷新后直接使用base64兜底，避免二次请求失败
+  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAiIGhlaWdodD0iNzAiIHZpZXdCb3g9IjAgMCA3MCA3MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMzUiIGN5PSIzNSIgcj0iMzUiIGZpbGw9IiNmMGY4ZjAiLz4KPHBhdGggZD0iTTI1IDM1QzI1IDQxLjA3NSAyOS45MjUgNDYgMzUgNDZDQzQwLjA3NSA0NiA0NSA0MS4wNzUgNDUgMzVDNDUgMjguOTI1IDQwLjA3NSAyNCAzNSAyNEMyOS45MjUgMjQgMjUgMjguOTI1IDI1IDM1WiIgZmlsbD0iIzQzNzg2YSIvPgo8cGF0aCBkPSJNMzUgMjVWNDUiIHN0cm9rZT0iIzQzNzg2YSIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxwYXRoIGQ9Ik0yNSA0NUw0NSAzNSIgc3Ryb2tlPSIjNDM3ODZhIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+';
+  e.target.alt = herbName + '（默认图片）';
 };
 
-// 获取分类药材数量
+// 方法定义：获取分类药材数量
 const getCategoryCount = (categoryId) => {
   if (categoryId === 'all') return herbList.value.length;
   return herbList.value.filter(herb => herb.categoryId === categoryId).length;
 };
 
-// 分类切换（添加防抖）
+// 方法定义：切换分类 - 缓存状态（刷新后保留）
 const handleCategoryChange = (categoryId) => {
-  // 切换分类时重置页码
-  currentPage.value = 1;
-  // 延迟赋值，避免瞬间渲染
+  currentPage.value = 1; // 切换分类重置页码
+  // 缓存选中的分类
+  sessionStorage.setItem('herbActiveCategory', categoryId);
   setTimeout(() => {
     activeCategory.value = categoryId;
     // 滚动到列表顶部
@@ -390,18 +403,20 @@ const handleCategoryChange = (categoryId) => {
   }, 50);
 };
 
-// 分页切换函数
+// 方法定义：切换页码 - 缓存状态（刷新后保留）
 const changePage = (page) => {
   if (page < 1 || page > totalPages.value) return;
   currentPage.value = page;
-  // 切换页面后滚动到列表顶部
+  // 缓存当前页码
+  sessionStorage.setItem('herbCurrentPage', page);
+  // 滚动到列表顶部
   const listElement = document.querySelector('.recommend-list');
   if (listElement) {
     listElement.scrollIntoView({ behavior: 'smooth' });
   }
 };
 
-// 初始化日期
+// 方法定义：初始化日期
 const initDate = () => {
   const date = new Date();
   const year = date.getFullYear();
@@ -413,7 +428,7 @@ const initDate = () => {
 </script>
 
 <style scoped>
-/* 全局样式重置 */
+/* 全局样式 - 提前加载，避免刷新闪烁 */
 * {
   margin: 0;
   padding: 0;
@@ -421,11 +436,12 @@ const initDate = () => {
   font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
-/* 解决Vue初始化闪动 */
+/* 强化v-cloak，确保刷新时不显示未编译的模板 */
 [v-cloak] {
   display: none !important;
 }
 
+/* 页面根容器 - 固化最小高度，刷新后布局不塌陷 */
 .herb-recommend-page {
   width: 100vw;
   min-height: 100vh;
@@ -433,10 +449,12 @@ const initDate = () => {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  overflow-anchor: none; /* 禁止滚动锚点，避免闪动 */
+  overflow-anchor: none;
+  /* 防止刷新时背景闪烁 */
+  background-attachment: fixed;
 }
 
-/* 加载中骨架屏（核心：避免数据加载前空白） */
+/* 骨架屏样式 - 优化刷新时的视觉体验 */
 .loading-skeleton {
   padding: 24px 0;
 }
@@ -541,13 +559,14 @@ const initDate = () => {
   animation: skeleton-loading 1.5s infinite;
 }
 
+/* 优化骨架屏动画，减少刷新时的视觉跳动 */
 @keyframes skeleton-loading {
   0% { background-color: #f0f8f0; }
   50% { background-color: #e8f5e9; }
   100% { background-color: #f0f8f0; }
 }
 
-/* 加载中提示 */
+/* 加载提示样式 */
 .loading-tip {
   text-align: center;
   padding: 40px 0;
@@ -557,21 +576,61 @@ const initDate = () => {
 
 .loading-tip.error {
   color: #e53e3e;
+  padding: 60px 20px;
 }
 
 .error-tip {
-  font-size: 12px;
-  margin-top: 8px;
+  font-size: 14px;
+  margin-top: 12px;
   color: #94a3b8;
 }
 
-/* 顶部导航栏 */
+.error-steps {
+  text-align: left;
+  max-width: 600px;
+  margin: 16px auto;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.error-steps li {
+  margin-bottom: 8px;
+}
+
+.error-steps code {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.reload-btn {
+  margin-top: 24px;
+  padding: 10px 24px;
+  background: #43786a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.reload-btn:hover {
+  background: #2d5d50;
+}
+
+/* 头部样式 - 固化背景，刷新后不闪烁 */
 .page-header {
   background: linear-gradient(90deg, #43786a 0%, #2d5d50 100%);
   padding: 16px 24px;
   color: white;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  will-change: background; /* 优化渲染 */
+  will-change: background;
+  /* 防止刷新时导航栏闪烁 */
+  position: relative;
+  z-index: 10;
 }
 
 .header-content {
@@ -626,7 +685,7 @@ const initDate = () => {
   white-space: nowrap;
 }
 
-/* 分类导航 */
+/* 分类导航样式 - 固化定位，刷新后不偏移 */
 .category-nav {
   background: white;
   padding: 12px 0;
@@ -636,6 +695,8 @@ const initDate = () => {
   z-index: 100;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   will-change: transform;
+  /* 防止刷新时导航栏闪烁 */
+  border-top: 1px solid #e8f0e8;
 }
 
 .nav-wrapper {
@@ -665,7 +726,7 @@ const initDate = () => {
   display: flex;
   align-items: center;
   gap: 6px;
-  flex-shrink: 0; /* 禁止按钮收缩 */
+  flex-shrink: 0;
 }
 
 .category-btn .count {
@@ -689,15 +750,17 @@ const initDate = () => {
   opacity: 0.9;
 }
 
-/* 主要内容区 */
+/* 主要内容区样式 */
 .main-content {
   flex: 1;
   max-width: 1400px;
   margin: 0 auto;
   padding: 24px;
+  /* 防止刷新时内容区塌陷 */
+  min-height: calc(100vh - 200px);
 }
 
-/* 焦点卡片（表格数据展示） */
+/* 焦点卡片样式 */
 .focus-card {
   background: white;
   border-radius: 16px;
@@ -836,10 +899,11 @@ const initDate = () => {
   overflow: hidden;
   border: 4px solid #f0f8f0;
   box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-  position: relative; /* 相对定位，用于占位符 */
+  position: relative;
+  /* 固化尺寸，刷新后不塌陷 */
+  min-height: 220px;
 }
 
-/* 图片占位符（核心：避免加载时尺寸塌陷） */
 .img-placeholder {
   position: absolute;
   top: 0;
@@ -856,17 +920,7 @@ const initDate = () => {
   object-fit: cover;
 }
 
-.distribution-tip {
-  background: #f8fcf8;
-  border-radius: 12px;
-  padding: 12px 16px;
-  width: 100%;
-  font-size: 14px;
-  color: #43786a;
-  line-height: 1.5;
-}
-
-/* 推荐列表（表格数据） */
+/* 推荐列表样式 */
 .recommend-list {
   margin-top: 32px;
 }
@@ -890,7 +944,7 @@ const initDate = () => {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
-  grid-auto-rows: 1fr; /* 固定网格行高，避免卡片高度不一致 */
+  grid-auto-rows: 1fr;
 }
 
 .herb-card {
@@ -900,8 +954,10 @@ const initDate = () => {
   overflow: hidden;
   transition: all 0.3s ease;
   display: flex;
-  flex-direction: column; /* 弹性布局，固定卡片高度 */
+  flex-direction: column;
   will-change: transform, box-shadow;
+  /* 固化卡片高度，刷新后布局不变 */
+  min-height: 380px;
 }
 
 .herb-card:hover {
@@ -909,14 +965,13 @@ const initDate = () => {
   box-shadow: 0 8px 24px rgba(67, 120, 106, 0.12);
 }
 
-/* 修复：重构卡片头部布局，分离文字和图片区域 */
 .card-header {
   padding: 16px;
   border-bottom: 1px solid #e8f0e8;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  flex-shrink: 0; /* 禁止头部收缩 */
+  flex-shrink: 0;
 }
 
 .card-header-left {
@@ -925,7 +980,7 @@ const initDate = () => {
 }
 
 .card-header-right {
-  flex: 0 0 70px; /* 固定图片区域宽度 */
+  flex: 0 0 70px;
 }
 
 .card-img {
@@ -934,10 +989,12 @@ const initDate = () => {
   border-radius: 8px;
   overflow: hidden;
   border: 2px solid #f0f8f0;
-  position: relative; /* 相对定位 */
+  position: relative;
+  /* 固化图片容器尺寸 */
+  min-width: 70px;
+  min-height: 70px;
 }
 
-/* 修复：调整卡片图片占位符层级和显示 */
 .card-img-placeholder {
   position: absolute;
   top: 0;
@@ -945,7 +1002,9 @@ const initDate = () => {
   width: 100%;
   height: 100%;
   background: #f0f8f0;
-  z-index: 1; /* 占位符层级低于图片 */
+  z-index: 1;
+  /* 刷新后始终显示占位符，避免布局偏移 */
+  opacity: 0.5;
 }
 
 .card-photo {
@@ -953,7 +1012,7 @@ const initDate = () => {
   height: 100%;
   object-fit: cover;
   position: relative;
-  z-index: 2; /* 图片层级高于占位符 */
+  z-index: 2;
 }
 
 .card-badge {
@@ -979,8 +1038,8 @@ const initDate = () => {
 
 .card-body {
   padding: 16px;
-  flex: 1; /* 自动填充剩余空间 */
-  flex-shrink: 0; /* 禁止内容收缩 */
+  flex: 1;
+  flex-shrink: 0;
 }
 
 .card-brief {
@@ -1019,7 +1078,7 @@ const initDate = () => {
   padding: 12px 16px;
   border-top: 1px solid #e8f0e8;
   background: #f8fcf8;
-  flex-shrink: 0; /* 禁止底部收缩 */
+  flex-shrink: 0;
 }
 
 .card-btn {
@@ -1075,7 +1134,7 @@ const initDate = () => {
   color: #6b8c82;
 }
 
-/* 详情弹窗（完整表格信息） */
+/* 详情弹窗样式 */
 .detail-modal-overlay {
   position: fixed;
   top: 0;
@@ -1088,7 +1147,7 @@ const initDate = () => {
   justify-content: center;
   z-index: 9999;
   padding: 20px;
-  backdrop-filter: blur(2px); /* 模糊背景，减少闪动感知 */
+  backdrop-filter: blur(2px);
 }
 
 .detail-modal {
@@ -1099,11 +1158,10 @@ const initDate = () => {
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 8px 40px rgba(0,0,0,0.2);
-  transform: translateZ(0); /* 硬件加速，避免闪动 */
+  transform: translateZ(0);
   backface-visibility: hidden;
 }
 
-/* 弹窗图片占位符 */
 .modal-img-placeholder {
   width: 240px;
   height: 240px;
@@ -1242,7 +1300,7 @@ const initDate = () => {
   font-weight: bold;
 }
 
-/* 底部信息 */
+/* 底部样式 */
 .page-footer {
   padding: 20px 24px;
   text-align: center;
@@ -1251,6 +1309,9 @@ const initDate = () => {
   background: transparent;
   border-top: 1px solid #e8f0e8;
   margin-top: 40px;
+  /* 固化底部位置，刷新后不偏移 */
+  position: relative;
+  z-index: 5;
 }
 
 .page-footer .disclaimer {
@@ -1259,7 +1320,7 @@ const initDate = () => {
   color: #94a3b8;
 }
 
-/* 响应式适配 */
+/* 响应式样式 */
 @media (max-width: 992px) {
   .focus-card {
     flex-direction: column;
@@ -1299,6 +1360,7 @@ const initDate = () => {
 
   .main-content {
     padding: 16px;
+    min-height: calc(100vh - 250px);
   }
 
   .focus-left h2 {
